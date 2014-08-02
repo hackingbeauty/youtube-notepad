@@ -81,12 +81,23 @@
 					float:left;
 					width: 15%;
 					text-align: center;
+				}
+
+				.video-time{
 					padding-top: 17px;
+				}
+
+				.recorded-video-time {
+					padding-top: 16px;
 				}
 
 				.text {
 					height: 100%;
 					line-height: 60px;
+					position: relative;
+					bottom: 2px;
+					left: 2px;
+					display: inline-block;
 				}
 
 				input[type='text']{
