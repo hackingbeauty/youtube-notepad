@@ -66,17 +66,14 @@ app.notepad = (function () {
       configMap.new_note_item_html() 
     );
     jqueryMap.$notesList.find('.note:last input').focus();
-    console.log('last one is: ', jqueryMap.$notesList.find('.note:last input'));
   }
 
   _appendNote = function( note ){  
     jqueryMap.$container.find('.note:last').remove();
     jqueryMap.$notesList.append(
-      configMap.note_item_html({
-        note: note
-      }) 
+      configMap.note_item_html(note) 
     );
-    jqueryMap.$container.find('.note:last').attr('data-id', note.___id);
+    // jqueryMap.$container.find('.note:last').attr('data-id', note.___id);
   }
 
   //--------------------- BEGIN DOM METHODS --------------------
