@@ -1,0 +1,9 @@
+.DS_Store
+tasks.txt
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+app/scripts/config/app.config_real.js
+test/bower_components

@@ -1,0 +1,114 @@
+/*
+ * app.video_form.css
+ * Video form/notepad feature module styles
+*/
+
+#app-notepad {
+
+	button#app-notepad-save-notes {
+		font-size:18px;
+		margin-top: 19px;
+		width: 100%;
+	}
+
+	.control-label {
+		font-size: 20px;
+	}
+
+	#app-youtube-link {
+		font-size: 22px;
+	}
+
+	#app-notepad-time-head { /* hiding for now */
+		display: none; 
+	}
+	
+	#delete-note-btn {
+		margin-top: 20px;
+		float: right;
+		width: 150px
+	}
+
+	#app-notes-container {
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: 430px;
+
+		ul#notes-list {
+			min-height:439px;
+			padding: 0 0 20px 0;
+			background-color: #fff;
+			background-image: linear-gradient(#eee 2px, transparent 2px);
+			background-size: 100% 3em;
+			box-shadow: 1px 1px 1px rgba(176, 166, 139, 0.6);
+			position: relative;
+
+			&:before {
+				content: "";
+				display: block;
+				height: 100% !important;
+				width: 0;
+				z-index: 99;
+				pointer-events: none;
+				position: absolute;
+				left: 70px;
+				top: 0;
+				border-left: 4px double #FAD1D7;
+			}
+
+			.note {
+				width:100%;
+				height: 42px;
+				font-size:20px;
+				clear: both;
+				overflow: hidden;
+				position: relative;
+
+				.remove {
+					position: absolute;
+					right: 4px;
+					top: 13px;
+					&:hover {
+						color: red;
+						cursor: pointer;
+					}
+				}
+
+				.video-time,
+				.recorded-video-time {
+					height: 36px;
+					display: inline-block;
+					float:left;
+					width: 15%;
+					text-align: center;
+					padding-top: 17px;
+				}
+
+				.text {
+					height: 100%;
+					line-height: 60px;
+				}
+
+				input[type='text']{
+					border: none;
+					position: absolute;
+					top: 11px;
+					left: 75px;
+					padding-right: 5px;
+					height:36px;
+					width: 85%;
+					&:focus {
+						outline: 0;
+					}
+				}
+			}
+		}
+	}
+
+	form#app-get-video-form {
+		input#app-notepad-enter-btn[type="submit"] {
+			width: 100%;
+		}
+	}
+	
+}

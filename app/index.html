@@ -1,0 +1,265 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>YouTube Notepad</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/vendor/bootstrap.css"           type="text/css">
+        <link rel="stylesheet" href="styles/vendor/bootstrap_overrides.css" type="text/css">
+        <link rel="stylesheet" href="styles/vendor/bootstrap-checkbox.css"  type="text/css"> 
+        <link rel="stylesheet" href="styles/app.css"                        type="text/css">
+        <link rel="stylesheet" href="styles/app.header.css"                 type="text/css">
+        <link rel="stylesheet" href="styles/app.shell.css"                  type="text/css">
+        <link rel="stylesheet" href="styles/app.video_control_panel.css"    type="text/css"> 
+        <link rel="stylesheet" href="styles/app.notepad.css"                type="text/css"> 
+        <!-- endbuild -->
+
+    </head>
+    <body>
+         <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="app-container"></div>
+
+        <!-- Shell template -->
+        <script id="app-shell-template" type=“x-text/handlebars”>
+            <div id="app-shell" class="container-fluid">
+                <div class="row">
+                    <div id="app-shell-body"></div>
+                </div>
+            </div><!-- #app-shell -->
+        </script>
+        <!-- End Shell template -->
+
+        <!-- Header template -->
+        <script id="app-header-template" type=“x-text/handlebars”>
+            <div id="app-header">
+              <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">
+                        <h1>YouTube Notepad <span class="beta">(Prototype)</span></h1>
+                      </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul id="app-authentication-buttons" class="nav navbar-nav navbar-right">
+
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+            </div><!-- #app-header -->
+        </script>
+        <!-- End Header template -->
+
+        <!-- Authentication buttons template -->
+        <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
+            {{#if userSignedIn}} 
+                <li><button id="save-notes" class="btn btn-success">Save Notes</button></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img id="user-image" src={{ userPhoto }} alt="{{ displayName }}" />
+                    {{ firstName }} <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Notes</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a id="sign-out" href="#">Sign Out</a></li>
+                  </ul>
+                </li>
+            {{ else }}
+                <li>
+                    <a href="#">
+                        <button id="sign-in" class="btn btn-success">Sign In With Facebook and Save Notes</button>
+                    </a>
+                </li>
+            {{/if}}
+        </script>
+        <!-- End Authentication buttons template -->
+
+        <!-- Video control panel template-->
+        <script id="app-video-control-panel-template" type=“x-text/handlebars”>
+            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                <div id="app-video-control-panel" class="module rounded">
+                    <div id="app-video-control-panel-container" class="rounded">
+                        <div id="app-video-iframe"></div>
+                    </div>
+                    <canvas id="app-video-noise-screen" class="">blahblah</canvas>
+                    <div class="progress hide">
+                      <progress class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="50">
+                        <span class="sr-only">40% Complete (success)</span>
+                      </progress>
+                    </div>
+                    <div id="app-video-control-panel-controls" class="pull-right">
+                        <button class="btn btn-primary" id="full-screen-mode-btn">Full Screen Mode</button>
+                    </div>
+                </div><!-- #app-control-panel -->
+            </div><!-- .col-xx-xx -->
+        </script>
+        <!-- End Control panel template-->
+
+        <!-- Notepad template-->
+        <script id="app-notepad-template" type=“x-text/handlebars”>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div id="app-notepad" class="module rounded">
+                    <form id="app-get-video-form" role="form">
+                      <fieldset>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <!-- Error/Success Alert Messages -->
+                                    <div id="app-error-messages">
+                                        <div id="app-notepad-url-error" class="hide alert alert-danger">
+                                            <strong>You need to enter a valid YouTube URL</strong>
+                                        </div>
+                                        <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
+                                            <strong>You need to enter a valid YouTube URL</strong>
+                                        </div> 
+                                        <div id="app-notepad-video-found" class="hide alert alert-success">
+                                            <strong>YouTube video found!</strong>
+                                        </div>
+                                    </div><!-- #app-error-messages -->
+                                    <!-- End Error/Success Alert Messages -->
+                                    <label for="app-youtube-link" class="control-label">Enter Youtube video link:</label>
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <input id="app-youtube-link" type="url" class="form-control" placeholder="Ex: https://www.youtube.com/watch?v=kaXJbNXsqmQ" autofocus="autofocus" autocomplete="off" required>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input id="app-notepad-enter-btn" class="btn btn-primary" type="submit" value="Take Notes" />
+                                        </div>
+                                    </div><!-- .row -->
+                                </div><!-- .col-xx-xx -->
+                            </div><!-- .row -->
+                        </div>
+                      </fieldset>
+                    </form>
+                    <div id="app-notes-container">
+                        <ul id="notes-list">
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input id="delete-note-btn" class="btn btn-danger" type="button" value="Delete Notes" />
+                    </div>
+                </div>
+            </div><!-- .col-xx-xx -->
+        </script>
+        <!-- End Video form template-->
+
+        <!-- Note Item Template -->
+        <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
+            <li class="note" data-id="{{ ___id }}">
+                <span class="recorded-video-time">{{ startTime }}</span>
+                <span class="text">{{ note }}</span>
+                <input class="remove checkbox" type="checkbox" />
+            </li>
+        </script>
+        <!-- End Note Item Template -->
+
+        <!-- Notes List Template -->
+        <script id="app-notepad-notes-template" type=“x-text/handlebars”>
+            {{#each notes}}
+               {{> note }}
+            {{/each}}
+        </script>
+        <!-- End Notes List Template -->
+
+        <!-- New Note Item Template -->
+        <script id="app-notepad-new-note-item-template" type=“x-text/handlebars”>
+            <li class="note">
+                <span class="video-time"></span>
+                <input data-start-time="" type="text" autofocus="autofocus" />
+            </li>
+        </script>
+        <!-- End New Note Item Template -->
+
+        <!-- Users template-->
+        <script id="app-users-template" type=“x-text/handlebars”>
+            <div id="app-users">
+                <div class="panel panel-default">
+                    <div class="panel-heading">What are other people watching?</div>
+                    <div class="panel-body">
+                        users template
+                    </div>
+                </div>
+            </div><!-- #app-users-->
+        </script>
+        <!-- End Users template-->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- Firebase -->
+        <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'     ></script>
+        <script>
+            var firebaseRef = new Firebase('https://intense-fire-7738.firebaseio.com/');
+        </script>
+        <script 
+            src='https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js'>
+        </script>
+
+        <!-- build:js scripts/vendor.js -->
+        <script src="../bower_components/jquery/dist/jquery.js"                 ></script>
+        <script src="scripts/vendor/handlebars-v1.0.3.js"                       ></script>
+        <script src="scripts/vendor/jquery.event.gevent-0.1.9.js"               ></script>
+        <script src="scripts/vendor/taffydb.js"                                 ></script>
+        <script src="scripts/vendor/jquery.uri-anchor.js"                       ></script>
+        <script src="../bower_components/screenfull/dist/screenfull.min.js"     ></script>
+        <script src="scripts/vendor/bootstrap.js"                               ></script>
+        <script src="scripts/vendor/bootstrap-checkbox.js"                      ></script>
+        <!-- endbuild -->
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <script src="scripts/app.js"                                            ></script>
+        <script src="scripts/config/app.config_real.js"                         ></script>
+        <script src="scripts/app.data.js"                                       ></script>
+        <script src="scripts/utilities/app.sound.js"                            ></script>
+        <script src="scripts/utilities/app.util.js"                             ></script>
+        <script src="scripts/utilities/app.handlebars.helper.js"                ></script>
+        <script src="scripts/models/app.model.js"                               ></script>
+        <script src="scripts/models/app.model.user.js"                          ></script>
+        <script src="scripts/models/app.model.video.js"                         ></script>
+        <script src="scripts/models/app.model.player.js"                        ></script>
+        <script src="scripts/models/app.model.note.js"                          ></script>
+        <script src="scripts/app.shell.js"                                      ></script>
+        <script src="scripts/feature_modules/app.header.js"                     ></script>
+        <script src="scripts/feature_modules/app.users.js"                      ></script>
+        <script src="scripts/feature_modules/app.notepad.js"                    ></script>
+        <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
+        <!-- endbuild -->
+
+        <script>
+            function initializeApp (){ app.initModule( $('#app-container') ); }     
+        </script>
+
+        <script src="https://www.youtube.com/iframe_api"                        ></script>
+        <script src="https://apis.google.com/js/client.js?onload=initializeApp" ></script>
+
+</body>
+</html>

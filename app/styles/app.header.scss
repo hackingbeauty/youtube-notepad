@@ -1,0 +1,37 @@
+/*
+ * app.header.css
+ * Header feature module styles
+*/
+
+#app-header {
+
+	.navbar {
+		height: 58px;
+	}
+
+	#sign-in,
+	#save-notes {
+		font-size: 16px;
+	}
+
+	#sign-in {
+		margin-top: -9px;
+	}
+
+	#save-notes {
+		margin-top:8px;
+		margin-right: 40px;
+		opacity: 0.3;
+		pointer-events: none;
+	}
+
+	.dropdown{
+		margin-top: -3px;
+	}
+
+	#user-image {
+		width: 30px;
+		height: 30px;
+		margin-right: 10px;
+	}
+}

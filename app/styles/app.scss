@@ -1,0 +1,75 @@
+/*
+ * app.css
+ * General/universal styles
+*/
+
+html,
+body {
+  height: 100%;
+  background: #c6c6c6;
+}
+
+h1 {
+  margin:0 ;
+  font-size:23px;
+  font-weight:bold;
+  color: #3399f3;
+}
+
+li {
+  list-style-type:none;
+}
+
+.beta{
+  color: orange;
+}
+
+.video-time,
+.recorded-video-time {
+  color: blue;
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.rounded {
+	border-radius: 5px;
+}
+
+.module {
+	padding: 20px;
+	background: #e3e3e3;
+	border: 1px solid #A0A0A0;
+  margin-bottom: 20px;
+}
+
+.video-container {
+	border: 1px solid #e3e3e3;
+}
+
+.video {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  margin: 20px 0;
+  background: red;
+  border-radius: 50% / 10%;
+  color: white;
+  text-align: center;
+  text-indent: .1em;
+}
+
+.video:before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -5%;
+  left: -5%;
+  background: inherit;
+  border-radius: 5% / 50%;
+}
+
+.visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}

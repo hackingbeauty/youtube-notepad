@@ -1,0 +1,1 @@
+ Handlebars.registerPartial("note", $("#app-notepad-note-item-template").html());
