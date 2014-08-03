@@ -21,6 +21,7 @@ app.model.note = (function () {
   db,
 
   create,
+  edit,
   receive,
   get_all,
   get_all_by_video_id,
@@ -49,6 +50,10 @@ app.model.note = (function () {
 
     return note.get()[0];
   };
+
+  edit = function( id, val ){
+    db(id).update( { "note" : val } );
+  }
 
   get_all = function(){
     return db().order('videoTime').get();
@@ -102,6 +107,7 @@ app.model.note = (function () {
 
   return {
     create                : create,
+    edit                  : edit,
     receive               : receive,
     get_all               : get_all,
     get_all_by_video_id   : get_all_by_video_id,

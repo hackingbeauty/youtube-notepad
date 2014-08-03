@@ -183,9 +183,14 @@ app.notepad = (function () {
    *  Purpose: Called when user edits a note via contentEditable
   */
   onNoteEdit = function(){
+    var elementID,
+        elementVal;
     jqueryMap.$notesList.keypress(function( evt ){
       if (evt.which == 13 && evt.target.className === 'text') { 
-        alert('edit note in model now');
+        elementID = $(evt.target).parent().data('id');
+        elementVal = $(evt.target).html();
+        app.model.note.edit( elementID, elementVal );
+        jqueryMap.$notesList.find('.note:last input').focus();
       }
     });
   };
@@ -273,7 +278,6 @@ app.notepad = (function () {
       deleteNoteCount > 1 ? jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Notes') :
                             jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Note') 
     });
-
   };
 
   onDeleteBtnClick = function(){
