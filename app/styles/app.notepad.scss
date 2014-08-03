@@ -92,12 +92,21 @@
 				}
 
 				.text {
-					height: 100%;
-					line-height: 60px;
+					height: 42px;
 					position: relative;
-					bottom: 2px;
+					// bottom: 2px;
 					left: 2px;
-					display: inline-block;
+					display: block;
+					word-break: break-all;
+					overflow: hidden;
+					padding-top: 18px;
+					white-space: nowrap;
+					width: 80%
+				}
+
+				.text[contenteditable="true"]:focus{
+					outline: none;
+					background: rgba(255, 230, 0, 0.5)
 				}
 
 				input[type='text']{
