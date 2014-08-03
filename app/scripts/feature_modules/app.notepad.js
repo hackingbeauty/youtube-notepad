@@ -35,6 +35,7 @@ app.notepad = (function () {
     isURL,
     onVideoLinkBlur,
     onNoteEnter,
+    onNoteEdit,
     refreshNotePad,
     onEnterButtonClick,
     updateLinkInput,
@@ -164,7 +165,7 @@ app.notepad = (function () {
         $notePad;
 
     jqueryMap.$notesList.keypress(function( evt ){
-      if (evt.which == 13) {  // If enter key was pressed
+      if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
         $notePad = $(this);
         inputValue = $.trim($notePad.find('.note input:last').val());
         if(inputValue !== ''){
@@ -175,6 +176,17 @@ app.notepad = (function () {
           _createNoteInput();
         }
         evt.preventDefault();
+      }
+    });
+  };
+
+  /*
+   *  Purpose: Called when user edits a note via contentEditable
+  */
+  onNoteEdit = function(){
+    jqueryMap.$notesList.keypress(function( evt ){
+      if (evt.which == 13 && evt.target.className === 'text') { 
+        alert('edit note in model now');
       }
     });
   };
@@ -317,6 +329,7 @@ app.notepad = (function () {
     setJqueryMap();
     onVideoLinkBlur();
     onNoteEnter();
+    onNoteEdit();
     onRecordedTimeClick();
     onEnterButtonClick();
     onKeyPress();
