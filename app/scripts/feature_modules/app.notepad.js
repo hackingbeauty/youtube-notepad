@@ -43,7 +43,6 @@ app.notepad = (function () {
     onKeyPress,
     showVideoTime,
     onRemoveClick,
-    updateDeleteBtn,
     onDeleteBtnClick,
 
     setJqueryMap, 
@@ -270,14 +269,12 @@ app.notepad = (function () {
   */
   onRemoveClick = function( event ){
     jqueryMap.$notesList.on('click', '.remove', function(){
-      $.gevent.publish( 'app-delete-note', [ deleteNoteCount++ ] );
-    })
-  };
+      deleteNoteCount++;
+      deleteNoteCount > 1 ? jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Notes') :
+                            jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Note') 
+    });
 
-  updateDeleteBtn = function( event, count){
-    deleteNoteCount > 1 ? jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Notes') :
-                          jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Note') 
-  }
+  };
 
   onDeleteBtnClick = function(){
     var
@@ -288,6 +285,7 @@ app.notepad = (function () {
       notesList = jqueryMap.$notesList.find('input:checked').parent();
       for(var i = 0; i < notesList.length; i++){
         notesToDelete.push( $(notesList[i]).data('id') );
+        $(notesList[i]).remove();
       }
       app.model.note.delete_notes( notesToDelete );
     });
@@ -337,7 +335,6 @@ app.notepad = (function () {
     onDeleteBtnClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-time',               showVideoTime   );
-    $.gevent.subscribe( jqueryMap.$container, 'app-delete-note',              updateDeleteBtn );
     return true;
   };
   // End public method /initModule/

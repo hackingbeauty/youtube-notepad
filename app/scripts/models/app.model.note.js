@@ -90,7 +90,9 @@ app.model.note = (function () {
   };
 
   delete_notes = function( notes ){
-    alert('about to delete all notes in model!!!');
+    for(var i = 0; i < notes.length; i++){
+      db(notes[i]).remove();
+    }
   };
 
   initModule = function(){
