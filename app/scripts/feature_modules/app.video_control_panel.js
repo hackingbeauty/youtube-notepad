@@ -30,7 +30,6 @@ app.video_control_panel = (function () {
     loadVideo,
     insertVideoIframe,
     onFullScreenModeClick,
-    introScreen,
     seekInVideo,
     setJqueryMap, 
     configModule, 
@@ -82,43 +81,6 @@ app.video_control_panel = (function () {
       }
     });
   }
-
-  // UGLY CODE BELOW! 
-  introScreen = function(){
-    var canvas = document.getElementById('app-video-noise-screen'),
-        ctx = canvas.getContext('2d');
-
-    // closer to analouge appearance
-    canvas.width = canvas.height = 256;
-
-    function noise(ctx) {
-        
-        var w = ctx.canvas.width,
-            h = ctx.canvas.height,
-            idata = ctx.createImageData(w, h),
-            buffer32 = new Uint32Array(idata.data.buffer),
-            len = buffer32.length,
-            i = 0;
-
-        for(; i < len;i++)
-            if (Math.random() < 0.5) buffer32[i] = 0xff000000;
-        
-        ctx.putImageData(idata, 0, 0);
-    }
-
-    var toggle = true;
-
-    // added toggle to get 30 FPS instead of 60 FPS
-    (function loop() {
-        toggle = !toggle;
-        if (toggle) {
-            requestAnimationFrame(loop);
-            return;
-        }
-        noise(ctx);
-        requestAnimationFrame(loop);
-    })();
-  };
 
   loadVideo = function( event, videoID ){
     $('#app-video-noise-screen').hide();
@@ -174,7 +136,6 @@ app.video_control_panel = (function () {
     setJqueryMap();
     onFullScreenModeClick();
     insertVideoIframe();
-    introScreen();
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video', loadVideo);
     $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video', seekInVideo );
     return true;
