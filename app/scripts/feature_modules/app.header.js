@@ -134,11 +134,11 @@ app.header = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html() );
     setJqueryMap();
-    signInBtnClick();
-    signOutBtnClick();
-    saveNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
-    $.gevent.subscribe( jqueryMap.$container, 'app-note-count',             updateSaveNotesBtn );
+    // signInBtnClick();
+    // signOutBtnClick();
+    // saveNotesBtnClick();
+    // $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
+    // $.gevent.subscribe( jqueryMap.$container, 'app-note-count',             updateSaveNotesBtn );
     return true;
   };
   // End public method /initModule/
