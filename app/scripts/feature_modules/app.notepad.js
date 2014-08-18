@@ -168,6 +168,7 @@ app.notepad = (function () {
         $notePad = $(this);
         inputValue = $.trim($notePad.find('.note input:last').val());
         if(inputValue !== ''){
+          app.model.player.play_video();
           startTime = $notePad.find('.note input:last').data('start-time');
           note = app.model.note.create( inputValue, startTime );
           inputKeypressCount = 0; // Reset keypress count
@@ -202,6 +203,7 @@ app.notepad = (function () {
     var currentVideoTime;
     jqueryMap.$notesList.keypress(function(e){
       if(inputKeypressCount === 1){
+        app.model.player.pause_video();
         currentVideoTime = app.model.player.get_current_time();
         jqueryMap.$container.find('.video-time')
           .removeClass('video-time')
