@@ -129,11 +129,6 @@ app.shell = (function () {
     $container.html(  configMap.main_html() );
     setJqueryMap();
 
-    app.header.initModule             ( jqueryMap.$shellBody );
-    app.video_control_panel.initModule( jqueryMap.$shellBody );
-    app.notepad.initModule            ( jqueryMap.$shellBody );
-    // app.users.initModule              ( jqueryMap.$videoForm );
-
     app.model.video.load_library( function(){ //rename this function
       parseRoute();
     });
@@ -141,6 +136,11 @@ app.shell = (function () {
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
     
     app.model.player.show_time_interval(); // Show video time as it progresses
+
+    app.header.initModule             ( jqueryMap.$shellBody );
+    app.video_control_panel.initModule( jqueryMap.$shellBody );
+    app.notepad.initModule            ( jqueryMap.$shellBody );
+    // app.users.initModule              ( jqueryMap.$videoForm );
     
     $(window)
       .bind( 'hashchange', parseRoute );
