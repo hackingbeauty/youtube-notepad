@@ -315,7 +315,7 @@ app.notepad = (function () {
   onSaveNotesBtnClick = function(){
 
     jqueryMap.$saveNotesBtn.on('click', function(){
-      alert('about to save');
+      alert('Coming soon!');
     });
   };
 
