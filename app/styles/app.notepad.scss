@@ -5,12 +5,6 @@
 
 #app-notepad {
 
-	button#app-notepad-save-notes {
-		font-size:18px;
-		margin-top: 19px;
-		width: 100%;
-	}
-
 	.control-label {
 		font-size: 20px;
 	}
@@ -23,10 +17,10 @@
 		display: none; 
 	}
 	
-	#delete-note-btn {
+	#save-notes-btn,
+	#delete-notes-btn {
 		margin-top: 20px;
-		float: right;
-		width: 150px
+		width: 100%;
 	}
 
 	#app-notes-container {

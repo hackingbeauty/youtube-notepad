@@ -43,7 +43,8 @@ app.notepad = (function () {
     onKeyPress,
     showVideoTime,
     onRemoveClick,
-    onDeleteBtnClick,
+    onDeleteNotesBtnClick,
+    onSaveNotesBtnClick,
 
     setJqueryMap, 
     configModule, 
@@ -87,12 +88,12 @@ app.notepad = (function () {
       $notesList              : $container.find('ul#notes-list'),
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
-      $saveNotesBtn           : $container.find('#app-notepad-save-notes'),
       $urlErrorMsg            : $container.find('#app-notepad-url-error'),
       $videoNotFoundMsg       : $container.find('#app-notepad-video-not-found-error'),
       $videoFoundMsg          : $container.find('#app-notepad-video-found'),
       $enterBtn               : $container.find('#app-notepad-enter-btn'),
-      $deleteNoteBtn          : $container.find('#delete-note-btn')
+      $deleteNotesBtn         : $container.find('#delete-notes-btn'),
+      $saveNotesBtn           : $container.find('#save-notes-btn')
     };
   };
   // End DOM method /setJqueryMap/
@@ -277,17 +278,17 @@ app.notepad = (function () {
   onRemoveClick = function( event ){
     jqueryMap.$notesList.on('click', '.remove', function(){
       deleteNoteCount++;
-      deleteNoteCount > 1 ? jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Notes') :
-                            jqueryMap.$deleteNoteBtn.val('Delete ' + deleteNoteCount + ' Note') 
+      deleteNoteCount > 1 ? jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes') :
+                            jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note') 
     });
   };
 
-  onDeleteBtnClick = function(){
+  onDeleteNotesBtnClick = function(){
     var
       notesList, 
       notesToDelete = [];
 
-    jqueryMap.$deleteNoteBtn.on('click', function(){
+    jqueryMap.$deleteNotesBtn.on('click', function(){
       notesList = jqueryMap.$notesList.find('input:checked').parent();
       for(var i = 0; i < notesList.length; i++){
         notesToDelete.push( $(notesList[i]).data('id') );
@@ -295,7 +296,13 @@ app.notepad = (function () {
       }
       app.model.note.delete_notes( notesToDelete );
     });
-  }
+  };
+
+  onSaveNotesBtnClick = function(){
+    jqueryMap.$saveNotesBtn.on('click', function(){
+      alert('howdy save');
+    });
+  };
 
   //-------------------- END EVENT HANDLERS --------------------
 
@@ -338,7 +345,8 @@ app.notepad = (function () {
     onEnterButtonClick();
     onKeyPress();
     onRemoveClick();
-    onDeleteBtnClick();
+    onDeleteNotesBtnClick();
+    onSaveNotesBtnClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-time',               showVideoTime   );
     return true;
