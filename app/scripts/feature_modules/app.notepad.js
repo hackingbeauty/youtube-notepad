@@ -45,6 +45,7 @@ app.notepad = (function () {
     onRemoveClick,
     onDeleteNotesBtnClick,
     onSaveNotesBtnClick,
+    disableOrEnableBttns,
 
     setJqueryMap, 
     configModule, 
@@ -175,6 +176,8 @@ app.notepad = (function () {
           inputKeypressCount = 0; // Reset keypress count
           _appendNote( note );
           _createNoteInput();
+          disableOrEnableBttns();
+
         }
         evt.preventDefault();
       }
@@ -227,6 +230,9 @@ app.notepad = (function () {
 
     if(currentVideoID){
       $.gevent.publish( 'app-note-count', [ noteCount ] );
+
+      disableOrEnableBttns();
+
       jqueryMap.$notesList.empty();
       jqueryMap.$notesList.append(
         configMap.notes_list_html({
@@ -298,9 +304,18 @@ app.notepad = (function () {
     });
   };
 
+  disableOrEnableBttns = function(){
+    var notes = app.model.note.get_all_by_video_id( app.model.video.get_video_id() );
+    if( notes.length > 0 ){
+      jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
+      jqueryMap.$deleteNotesBtn.removeClass( 'disabled' ); 
+    }
+  };
+
   onSaveNotesBtnClick = function(){
+
     jqueryMap.$saveNotesBtn.on('click', function(){
-      alert('howdy save');
+      alert('about to save');
     });
   };
 
