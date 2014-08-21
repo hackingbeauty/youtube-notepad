@@ -87,7 +87,7 @@
             {{ else }}
                 <li>
                     <a href="#">
-                        <button id="sign-in" class="btn btn-success">Sign In With Facebook and Save Notes</button>
+                        <button id="sign-in" class="btn btn-success">Sign In and Save Notes</button>
                     </a>
                 </li>
             {{/if}}
@@ -209,6 +209,53 @@
         </script>
         <!-- End Users template-->
 
+        <!-- Login Modal template-->
+        <script id="app-login-modal-template" type=“x-text/handlebars”>
+            <div class="modal fade" id="app-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                        </div>
+                        <div class="modal-body">
+                            Sign in with facebook
+                            <br />
+                            sign in with twitter
+                            <br />
+                            sign in with github
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Sign In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <!-- End Login Modal template-->
+
+        <!-- Alert Modal template-->
+        <script id="app-alert-modal-template" type=“x-text/handlebars”>
+            <div class="modal fade" id="app-alert-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            ALERT MODAL HERE
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <!-- End Alert Modal template-->
+
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -256,6 +303,7 @@
         <script src="scripts/feature_modules/app.users.js"                      ></script>
         <script src="scripts/feature_modules/app.notepad.js"                    ></script>
         <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
+        <script src="scripts/feature_modules/app.modal.js"                      ></script>
         <script src="scripts/app.shell.js"                                      ></script>
         <!-- endbuild -->
 

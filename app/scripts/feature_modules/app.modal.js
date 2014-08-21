@@ -1,6 +1,6 @@
 /*
- * app.header.js
- * Header feature module
+ * app.modal.js
+ * Modal feature module
 */
 
 /*jslint         browser : true, continue : true,
@@ -12,22 +12,20 @@
 
 /*global $, app */
 
-app.header = (function () {
+app.modal = (function () {
   'use strict';
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html         : Handlebars.compile($('#app-header-template').html()),
-      auth_buttons_html : Handlebars.compile($('#app-authentication-buttons-template').html())
+      login_modal_html : Handlebars.compile($('#app-login-modal-template').html()),
+      alert_modal_html : Handlebars.compile($('#app-alert-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    signInBtnClick,
-    signOutBtnClick,
-    saveNotesBtnClick,
-    showAuthButtons,
+    showLoginModal,
+
     setJqueryMap, 
     configModule, 
     initModule;
@@ -40,10 +38,11 @@ app.header = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('#app-header');
+    var $container = stateMap.$append_target;
     jqueryMap = { 
       $container    : $container,
-      $authButtons  : $container.find('#app-authentication-buttons')
+      $loginModal   : $container.find('#app-login-modal'),
+      $alertModal   : $container.find('#app-alert-modal')
     };
   };
   // End DOM method /setJqueryMap/
@@ -52,46 +51,9 @@ app.header = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
 
-  signInBtnClick = function(){ // THIS NEEDS TO BE MOVED TO USER MODEL
-    jqueryMap.$container.on('click', '#sign-in', function(){
-      $.gevent.publish( 'app-login-modal', [ ] );
-      // app.model.user.sign_in('facebook');
-    });
-  };
-
-  signOutBtnClick = function(){
-    jqueryMap.$container.on('click', '#sign-out', function(){
-      app.model.user.sign_out();
-    });
-  };
-
-  saveNotesBtnClick = function(){
-    jqueryMap.$container.on('click', '#save-notes', function(){
-      app.model.note.save_all_notes( );
-    });
-  };
-
-  showAuthButtons = function( event, authStatus ){
-    jqueryMap.$authButtons.empty();
-    if(authStatus === 'signed-in'){
-      jqueryMap.$authButtons.append(
-        configMap.auth_buttons_html({
-          userSignedIn  : true,
-          userPhoto     : app.model.user.get_photo(),
-          displayName   : app.model.user.get_display_name(),
-          firstName     : app.model.user.get_first_name()
-        })
-      );
-    }
-    if(authStatus === 'signed-out'){
-      jqueryMap.$authButtons.append(
-        configMap.auth_buttons_html({
-          userSignedIn : false
-        })
-      );
-    }
-    setJqueryMap();
-  };
+  showLoginModal = function( evt, data ){
+    jqueryMap.$loginModal.modal()
+  }
 
   //-------------------- END EVENT HANDLERS --------------------
 
@@ -125,11 +87,10 @@ app.header = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
-    $append_target.append( configMap.main_html() );
+    $append_target.append( configMap.login_modal_html() );
+    $append_target.append( configMap.alert_modal_html() );
     setJqueryMap();
-    signInBtnClick();
-    signOutBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
+    $.gevent.subscribe( jqueryMap.$container, 'app-login-modal', showLoginModal );
     return true;
   };
   // End public method /initModule/
