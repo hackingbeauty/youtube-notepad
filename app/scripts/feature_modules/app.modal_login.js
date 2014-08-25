@@ -1,6 +1,6 @@
 /*
- * app.modal.js
- * Modal feature module
+ * app.modal_login.js
+ * Login Modal feature module
 */
 
 /*jslint         browser : true, continue : true,
@@ -12,14 +12,13 @@
 
 /*global $, app */
 
-app.modal = (function () {
+app.modal_login = (function () {
   'use strict';
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      login_modal_html : Handlebars.compile($('#app-login-modal-template').html()),
-      alert_modal_html : Handlebars.compile($('#app-alert-modal-template').html())
+      login_modal_html : Handlebars.compile($('#app-modal-login-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -41,8 +40,7 @@ app.modal = (function () {
     var $container = stateMap.$append_target;
     jqueryMap = { 
       $container    : $container,
-      $loginModal   : $container.find('#app-login-modal'),
-      $alertModal   : $container.find('#app-alert-modal')
+      $loginModal   : $container.find('#app-modal-login')
     };
   };
   // End DOM method /setJqueryMap/
@@ -88,7 +86,6 @@ app.modal = (function () {
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.login_modal_html() );
-    $append_target.append( configMap.alert_modal_html() );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-login-modal', showLoginModal );
     return true;

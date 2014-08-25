@@ -140,7 +140,7 @@ app.shell = (function () {
     app.header.initModule             ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
-    app.modal.initModule              ( jqueryMap.$shellBody );
+    app.modal_login.initModule        ( jqueryMap.$shellBody );
     
     $(window)
       .bind( 'hashchange', parseRoute );
