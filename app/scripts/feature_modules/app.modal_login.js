@@ -24,6 +24,7 @@ app.modal_login = (function () {
     jqueryMap = {},
 
     showLoginModal,
+    providerClick,
 
     setJqueryMap, 
     configModule, 
@@ -51,6 +52,14 @@ app.modal_login = (function () {
 
   showLoginModal = function( evt, data ){
     jqueryMap.$loginModal.modal()
+  }
+
+  providerClick = function( ){
+    var provider;
+    jqueryMap.$loginModal.on('click','li', function( evt ){
+      provider = $(evt.currentTarget).find('.btn-social').data('provider')
+      app.model.user.sign_in( provider );
+    });
   }
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -88,6 +97,7 @@ app.modal_login = (function () {
     $append_target.append( configMap.login_modal_html() );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-login-modal', showLoginModal );
+    providerClick();
     return true;
   };
   // End public method /initModule/
