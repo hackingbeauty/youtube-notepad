@@ -50,7 +50,8 @@ app.model.user = (function () {
         uid       = userObj.uid,
         id        = userObj.id,
         name      = userObj.name,
-        provider  = userObj.provider;
+        provider  = userObj.provider,
+        photo     = userObj.photo;
 
     if ( uid === undefined || ! name ) {
       throw 'client id and name required';
@@ -60,13 +61,14 @@ app.model.user = (function () {
     user.uid      = uid;
     user.name     = name;
     user.provider = provider;
+    user.photo    = photo;
 
     if ( id ) { user.id = id; }
-
     return user;
   };
 
   _set_authentication_listener = function(){
+    var photo;
     firebaseAuth =  new FirebaseSimpleLogin(firebaseRef, function(error, user) {
       if (error) {
         console.log(error);
@@ -74,10 +76,24 @@ app.model.user = (function () {
         stateMap.user.uid = user.id; //The uid is the id value that Firebase returns
         stateMap.user.provider = user.provider;
         stateMap.user.name = user.displayName;
-        stateMap.user.photo = user.thirdPartyUserData.picture.data.url;
+        
         stateMap.user.first_name = user.thirdPartyUserData.first_name;
-        console.log('user obj is: ', user);
+
+        if( user.provider === 'facebook'){
+          photo = user.thirdPartyUserData.picture.data.url;
+        } else if (user.provider === 'twitter'){
+          photo = user.thirdPartyUserData.profile_image_url;
+        }
+
+        stateMap.user = _make_user({
+          uid       : user.id,
+          name      : user.displayName,
+          provider  : user.provider,
+          photo     : photo
+        });
+
         $.gevent.publish( 'app-authentication-status', [ 'signed-in' ] );
+
       } else {
         stateMap.user.uid = configMap.anon_id;
         stateMap.user.provider = null;
@@ -115,14 +131,15 @@ app.model.user = (function () {
     stateMap.anon_user = _make_user({
       uid       : configMap.anon_id,
       name      : 'anonymous',
-      provider  : null
+      provider  : null,
+      photo     : null
     });
     stateMap.user = stateMap.anon_user;
     _set_authentication_listener(); // Listen for authentication events
   }
 
   return {
-    sign_in            : sign_in,
+    sign_in           : sign_in,
     sign_out          : sign_out,
     get_user          : get_user,
     get_display_name  : get_display_name,

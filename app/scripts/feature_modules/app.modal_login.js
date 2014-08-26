@@ -24,6 +24,7 @@ app.modal_login = (function () {
     jqueryMap = {},
 
     showLoginModal,
+    closeLoginModal,
     providerClick,
 
     setJqueryMap, 
@@ -52,6 +53,12 @@ app.modal_login = (function () {
 
   showLoginModal = function( evt, data ){
     jqueryMap.$loginModal.modal()
+  }
+
+  closeLoginModal = function( evt, authStatus ){
+    if( authStatus === 'signed-in' ){
+      // alert('yummers ya signed in');
+    }
   }
 
   providerClick = function( ){
@@ -96,7 +103,8 @@ app.modal_login = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.login_modal_html() );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-login-modal', showLoginModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-login-modal',            showLoginModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  closeLoginModal );
     providerClick();
     return true;
   };
