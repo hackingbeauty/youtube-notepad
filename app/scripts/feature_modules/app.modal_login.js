@@ -52,12 +52,12 @@ app.modal_login = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
 
   showLoginModal = function( evt, data ){
-    jqueryMap.$loginModal.modal()
+    jqueryMap.$loginModal.modal();
   }
 
   closeLoginModal = function( evt, authStatus ){
     if( authStatus === 'signed-in' ){
-      // alert('yummers ya signed in');
+      jqueryMap.$loginModal.modal('hide');
     }
   }
 
