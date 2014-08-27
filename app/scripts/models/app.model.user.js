@@ -20,6 +20,7 @@ app.model.user = (function () {
       user                  : null,
     },
     firebaseAuth = null,
+    authStatus = false,
 
     sign_in,
     get_user,
@@ -27,6 +28,8 @@ app.model.user = (function () {
     get_first_name,
     get_photo,
     sign_out,
+    is_authenticated,
+
     initModule,
     _userProto,
     _make_user,
@@ -94,6 +97,8 @@ app.model.user = (function () {
 
         $.gevent.publish( 'app-authentication-status', [ 'signed-in' ] );
 
+        authStatus = true;
+
       } else {
         stateMap.user.uid = configMap.anon_id;
         stateMap.user.provider = null;
@@ -109,6 +114,10 @@ app.model.user = (function () {
 
   sign_out = function(){
     firebaseAuth.logout();
+  };
+
+  is_authenticated = function(){
+    return authStatus;
   };
 
   get_user = function(){
@@ -145,6 +154,7 @@ app.model.user = (function () {
     get_display_name  : get_display_name,
     get_first_name    : get_first_name,
     get_photo         : get_photo,
+    is_authenticated  : is_authenticated,
     initModule        : initModule
   };
 

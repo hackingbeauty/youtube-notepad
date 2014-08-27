@@ -313,9 +313,12 @@ app.notepad = (function () {
   };
 
   onSaveNotesBtnClick = function(){
-
     jqueryMap.$saveNotesBtn.on('click', function(){
-      alert('Coming soon!');
+      if(app.model.user.is_authenticated()){
+        app.model.note.save_all_notes();
+      } else {
+        $.gevent.publish( 'app-login-modal', [ ] );
+      }
     });
   };
 

@@ -85,7 +85,7 @@ app.model.note = (function () {
         notes   = get_all_by_video_id( app.model.video.get_video_id() ),
         userUID = app.model.user.get_user().uid;
 
-    //check if currently signed in here
+    alert('testing123 testing - about to save all notes');
 
     for(var i = 0; i < notes.length; i++){
       noteID = get_id( notes[i] );
