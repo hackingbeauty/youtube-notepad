@@ -26,7 +26,6 @@ app.header = (function () {
 
     signInBtnClick,
     signOutBtnClick,
-    saveNotesBtnClick,
     showAuthButtons,
     setJqueryMap, 
     configModule, 
@@ -62,12 +61,6 @@ app.header = (function () {
   signOutBtnClick = function(){
     jqueryMap.$container.on('click', '#sign-out', function(){
       app.model.user.sign_out();
-    });
-  };
-
-  saveNotesBtnClick = function(){
-    jqueryMap.$container.on('click', '#save-notes', function(){
-      app.model.note.save_all_notes( );
     });
   };
 
