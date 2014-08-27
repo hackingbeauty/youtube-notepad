@@ -33,9 +33,7 @@ app.model.video = (function () {
 
 	load_library = function ( callback ){
 		gapi.client.setApiKey(app.config.get_api_key());
-		window.setTimeout(function(){
-			_authorize( callback );
-		}, 1);
+		_authorize( callback );
 	};
 
 	check_video = function ( videoID, successCallback, errorCallback ){
@@ -83,8 +81,8 @@ app.model.video = (function () {
 			scope 		: 'https://www.googleapis.com/auth/youtube',
 			immediate 	: true      
 		}, function( resp ){
-			console.log('authResult is: ', resp);
 			gapi.client.load('youtube', 'v3', initAppCallback); //Load Youtube client library
+			$.gevent.publish( 'app-youtube-authorized', [ ] );
 		});
 	};
 

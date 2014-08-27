@@ -135,9 +135,9 @@ app.video_control_panel = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     onFullScreenModeClick();
-    // insertVideoIframe();
-    $.gevent.subscribe( jqueryMap.$container, 'app-load-video', loadVideo);
-    $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video', seekInVideo );
+    $.gevent.subscribe( jqueryMap.$container, 'app-youtube-authorized', insertVideoIframe);
+    $.gevent.subscribe( jqueryMap.$container, 'app-load-video',         loadVideo);
+    $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video',      seekInVideo );
     return true;
   };
   // End public method /initModule/
