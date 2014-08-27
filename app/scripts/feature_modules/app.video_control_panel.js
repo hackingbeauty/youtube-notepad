@@ -135,7 +135,7 @@ app.video_control_panel = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     onFullScreenModeClick();
-    insertVideoIframe();
+    // insertVideoIframe();
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video', loadVideo);
     $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video', seekInVideo );
     return true;
