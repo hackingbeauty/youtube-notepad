@@ -90,7 +90,10 @@ app.model.note = (function () {
     for(var i = 0; i < notes.length; i++){
       noteID = get_id( notes[i] );
       userRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-      userRef.push( notes[i] ); // need to check if data already exists..if it does...don't add
+      userRef.set( notes[i] ); // need to check if data already exists..if it does...don't add
+      //push is used in creation of lists of items....it creates a unique id
+      //set just saves the data at whatever u specify
+      // use video id as key instead
     }
   };
 
