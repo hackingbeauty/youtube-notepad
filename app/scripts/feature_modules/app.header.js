@@ -27,6 +27,8 @@ app.header = (function () {
     signInBtnClick,
     signOutBtnClick,
     showAuthButtons,
+    onNotesLinkClick,
+
     setJqueryMap, 
     configModule, 
     initModule;
@@ -54,7 +56,6 @@ app.header = (function () {
   signInBtnClick = function(){ // THIS NEEDS TO BE MOVED TO USER MODEL
     jqueryMap.$container.on('click', '#sign-in', function(){
       $.gevent.publish( 'app-login-modal', [ ] );
-      // app.model.user.sign_in('facebook');
     });
   };
 
@@ -84,6 +85,15 @@ app.header = (function () {
       );
     }
     setJqueryMap();
+  };
+
+  onNotesLinkClick = function(){
+    jqueryMap.$container.on('click', '#notes-link', function( evt ){
+      $.uriAnchor.setAnchor({
+        notes : 'opened',
+      });
+      evt.preventDefault();
+    });
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -122,6 +132,7 @@ app.header = (function () {
     setJqueryMap();
     signInBtnClick();
     signOutBtnClick();
+    onNotesLinkClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
     return true;
   };

@@ -66,11 +66,14 @@ app.shell = (function () {
     var hash     = window.location.hash.substr(2),
         route    = hash.split('='),
         routeKey = route[0],
-        videoID  = route[1],
-        url      = 'http://www.youtube.com/watch?v=' + videoID;
-
+        routeVal = route[1],
+        videoID,
+        url;
+        
     switch( routeKey ){
       case 'video_id':
+        videoID = routeVal;
+        url     = 'http://www.youtube.com/watch?v=' + videoID;
         app.model.video.check_video(
           videoID,
           function(){
@@ -86,6 +89,9 @@ app.shell = (function () {
         break;
       case 'user_id':
         alert('yay user_id in hash');
+        break;
+      case 'notes':
+        alert('yummy shaza notes!!');
         break;
     }
   };
