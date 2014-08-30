@@ -1,5 +1,5 @@
 /*
- * app.modal_login.js
+ * app.login_modal.js
  * Login Modal feature module
 */
 
@@ -12,7 +12,7 @@
 
 /*global $, app */
 
-app.modal_login = (function () {
+app.login_modal = (function () {
   'use strict';
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
@@ -53,13 +53,13 @@ app.modal_login = (function () {
 
   showLoginModal = function( evt, data ){
     jqueryMap.$loginModal.modal();
-  }
+  };
 
   closeLoginModal = function( evt, authStatus ){
     if( authStatus === 'signed-in' ){
       jqueryMap.$loginModal.modal('hide');
     }
-  }
+  };
 
   providerClick = function( ){
     var provider;
@@ -67,7 +67,7 @@ app.modal_login = (function () {
       provider = $(evt.currentTarget).find('.btn-social').data('provider')
       app.model.user.sign_in( provider );
     });
-  }
+  };
 
   //-------------------- END EVENT HANDLERS --------------------
 

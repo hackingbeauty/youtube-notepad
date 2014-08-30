@@ -69,7 +69,7 @@ app.shell = (function () {
         routeVal = route[1],
         videoID,
         url;
-        
+
     switch( routeKey ){
       case 'video_id':
         videoID = routeVal;
@@ -91,7 +91,7 @@ app.shell = (function () {
         alert('yay user_id in hash');
         break;
       case 'notes':
-        alert('yummy shaza notes!!');
+        app.notes_list.showNotes();
         break;
     }
   };
@@ -146,7 +146,9 @@ app.shell = (function () {
     app.header.initModule             ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
-    app.modal_login.initModule        ( jqueryMap.$shellBody );
+    app.login_modal.initModule        ( jqueryMap.$shellBody );
+    app.notes_list.initModule         ( jqueryMap.$shellBody );
+
     
     $(window)
       .bind( 'hashchange', parseRoute );
