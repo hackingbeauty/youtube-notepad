@@ -36,7 +36,9 @@ app.notes_list_modal = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-notes-list-modal');
 
-    jqueryMap = { $container : $container };
+    jqueryMap = { 
+      $container    : $container 
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
@@ -44,12 +46,10 @@ app.notes_list_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   
   showNotes = function () {
-    alert('show notes');
+    jqueryMap.$container.modal();
   };
 
   //-------------------- END EVENT HANDLERS --------------------
-
-
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/

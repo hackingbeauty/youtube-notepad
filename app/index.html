@@ -74,16 +74,16 @@
         <!-- Authentication buttons template -->
         <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
             {{#if userSignedIn}} 
+                <li><button id="notes-link" class="btn btn-primary" href="#">Your Notes</button></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img id="user-image" src="{{ userPhoto }}" alt="{{ displayName }}" />
                     {{ firstName }} <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a id="notes-link" href="#">Notes</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li class="divider"></li>
+                    <!-- <li><a href="#">Profile</a></li>-->
+                    <!-- <li><a href="#">Settings</a></li>-->
+                    <!--<li class="divider"></li>-->
                     <li><a id="sign-out" href="#">Sign Out</a></li>
                   </ul>
                 </li>
@@ -301,7 +301,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

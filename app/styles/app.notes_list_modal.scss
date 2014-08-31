@@ -3,6 +3,8 @@
  * Notes List Modal feature module styles
 */
 
-#app-notes-list_modal {
-	
+#app-notes-list-modal {
+	.modal-dialog {
+		width: 95%;
+	}
 }

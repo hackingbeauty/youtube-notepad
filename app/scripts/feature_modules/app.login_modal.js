@@ -39,10 +39,9 @@ app.login_modal = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target;
+    var $container = stateMap.$append_target.find('#app-login-modal');
     jqueryMap = { 
-      $container    : $container,
-      $loginModal   : $container.find('#app-login-modal')
+      $container    : $container
     };
   };
   // End DOM method /setJqueryMap/
@@ -52,18 +51,18 @@ app.login_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
 
   showLoginModal = function( evt, data ){
-    jqueryMap.$loginModal.modal();
+    jqueryMap.$container.modal();
   };
 
   closeLoginModal = function( evt, authStatus ){
     if( authStatus === 'signed-in' ){
-      jqueryMap.$loginModal.modal('hide');
+      jqueryMap.$container.modal('hide');
     }
   };
 
   providerClick = function( ){
     var provider;
-    jqueryMap.$loginModal.on('click','li', function( evt ){
+    jqueryMap.$container.on('click','li', function( evt ){
       provider = $(evt.currentTarget).find('.btn-social').data('provider')
       app.model.user.sign_in( provider );
     });
