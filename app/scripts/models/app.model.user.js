@@ -26,6 +26,7 @@ app.model.user = (function () {
     get_user,
     get_display_name,
     get_first_name,
+    get_full_name,
     get_photo,
     sign_out,
     is_authenticated,
@@ -81,6 +82,7 @@ app.model.user = (function () {
         stateMap.user.name = user.displayName;
         
         stateMap.user.first_name = user.thirdPartyUserData.first_name;
+        stateMap.user.last_name = user.thirdPartyUserData.last_name;
 
         if( user.provider === 'facebook'){
           photo = user.thirdPartyUserData.picture.data.url;
@@ -128,6 +130,10 @@ app.model.user = (function () {
     return stateMap.user.name;
   };
 
+  get_full_name = function(){
+    return stateMap.user.first_name + " " + stateMap.user.last_name;
+  };
+
   get_first_name = function(){
     return stateMap.user.first_name;
   };
@@ -153,6 +159,7 @@ app.model.user = (function () {
     get_user          : get_user,
     get_display_name  : get_display_name,
     get_first_name    : get_first_name,
+    get_full_name     : get_full_name,
     get_photo         : get_photo,
     is_authenticated  : is_authenticated,
     initModule        : initModule

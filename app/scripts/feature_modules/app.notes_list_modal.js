@@ -22,7 +22,8 @@ app.notes_list_modal = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    showNotes,
+    openModal,
+    closeModal,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -37,7 +38,8 @@ app.notes_list_modal = (function () {
     var $container = stateMap.$append_target.find('#app-notes-list-modal');
 
     jqueryMap = { 
-      $container    : $container 
+      $container     : $container,
+      $closeNotesBtn : $container.find('#close-notes-modal-btn') 
     };
   };
   // End DOM method /setJqueryMap/
@@ -45,8 +47,16 @@ app.notes_list_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   
-  showNotes = function () {
+  openModal = function () {
     jqueryMap.$container.modal();
+  };
+
+  closeModal = function(){
+    jqueryMap.$closeNotesBtn.on('click', function(){
+      $.uriAnchor.setAnchor({
+        notepad : 'enabled',
+      });      
+    });
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -83,7 +93,8 @@ app.notes_list_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', showNotes );
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', openModal );
+    closeModal();
     return true;
   };
   // End public method /initModule/
@@ -91,8 +102,7 @@ app.notes_list_modal = (function () {
   // return public methods
   return {
     configModule : configModule,
-    initModule   : initModule,
-    showNotes    : showNotes
+    initModule   : initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());
