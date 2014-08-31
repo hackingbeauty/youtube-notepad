@@ -18,7 +18,7 @@ app.login_modal = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      login_modal_html : Handlebars.compile($('#app-modal-login-template').html())
+      login_modal_html : Handlebars.compile($('#app-login-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -42,7 +42,7 @@ app.login_modal = (function () {
     var $container = stateMap.$append_target;
     jqueryMap = { 
       $container    : $container,
-      $loginModal   : $container.find('#app-modal-login')
+      $loginModal   : $container.find('#app-login-modal')
     };
   };
   // End DOM method /setJqueryMap/

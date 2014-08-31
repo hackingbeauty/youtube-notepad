@@ -1,6 +1,6 @@
 /*
- * app.notes_list.js
- * Notes list feature module
+ * app.notes_list_modal.js
+ * Notes list Modal feature module
 */
 
 /*jslint         browser : true, continue : true,
@@ -11,13 +11,13 @@
 */
 /*global $, app */
 
-app.notes_list = (function () {
+app.notes_list_modal = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-        main_html: Handlebars.compile($('#app-notes-list-template').html())
+        main_html: Handlebars.compile($('#app-notes-list-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -34,7 +34,7 @@ app.notes_list = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('#app-notes-list');
+    var $container = stateMap.$append_target.find('#app-notes-list-modal');
 
     jqueryMap = { $container : $container };
   };
@@ -42,7 +42,11 @@ app.notes_list = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
+  
+  showNotes = function () {
+    alert('show notes');
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -67,9 +71,6 @@ app.notes_list = (function () {
   };
   // End public method /configModule/
 
-  showNotes = function ( ) {
-    jqueryMap.$container.show();
-  }
 
   // Begin public method /initModule/
   // Purpose    : Initializes module
@@ -82,6 +83,7 @@ app.notes_list = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', showNotes );
     return true;
   };
   // End public method /initModule/

@@ -91,7 +91,7 @@ app.shell = (function () {
         alert('yay user_id in hash');
         break;
       case 'notes':
-        app.notes_list.showNotes();
+        $.gevent.publish( 'app-show-notes', [  ] );
         break;
     }
   };
@@ -147,9 +147,8 @@ app.shell = (function () {
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.login_modal.initModule        ( jqueryMap.$shellBody );
-    app.notes_list.initModule         ( jqueryMap.$shellBody );
+    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
 
-    
     $(window)
       .bind( 'hashchange', parseRoute );
 
