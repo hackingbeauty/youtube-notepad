@@ -29,6 +29,7 @@ app.model.note = (function () {
   get_start_time,
   get_id,
   save_all_notes,
+  get_saved_notes,
   delete_notes,
   initModule;
 
@@ -81,20 +82,31 @@ app.model.note = (function () {
 
   save_all_notes = function(){
     var noteID,
-        userRef,
-        notes   = get_all_by_video_id( app.model.video.get_video_id() ),
+        notesRef,
+        videosRef,
+        videoID = app.model.video.get_video_id(),
+        notes   = get_all_by_video_id( videoID ),
         userUID = app.model.user.get_user().uid;
-
-    alert('testing123 testing - about to save all notes');
 
     for(var i = 0; i < notes.length; i++){
       noteID = get_id( notes[i] );
-      userRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-      userRef.set( notes[i] ); // need to check if data already exists..if it does...don't add
-      //push is used in creation of lists of items....it creates a unique id
-      //set just saves the data at whatever u specify
-      // use video id as key instead
+      notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
+      notesRef.set( notes[i] ); 
+
+      videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+      videosRef.set( notes[i] );
     }
+  };
+
+  get_saved_notes = function(){
+    var 
+      userNotesRef,
+      userUID = app.model.user.get_user().uid;
+
+    userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/');
+    userNotesRef.once('value', function(data) {
+      $.gevent.publish( 'app-show-notes', [ data.val() ] );
+    });
   };
 
   delete_notes = function( notes ){
@@ -117,6 +129,7 @@ app.model.note = (function () {
     set_start_time        : set_start_time,
     get_start_time        : get_start_time,
     save_all_notes        : save_all_notes,
+    get_saved_notes       : get_saved_notes,
     delete_notes          : delete_notes,
     get_id                : get_id,
     initModule            : initModule

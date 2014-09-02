@@ -91,7 +91,7 @@ app.shell = (function () {
         alert('yay user_id in hash');
         break;
       case 'notes':
-        $.gevent.publish( 'app-show-notes', [  ] );
+        $.gevent.publish( 'app-show-notes-modal', [  ] );
         break;
     }
   };

@@ -17,15 +17,19 @@ app.notes_list_modal = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-        main_html: Handlebars.compile($('#app-notes-list-modal-template').html())
+      main_html    : Handlebars.compile($('#app-notes-list-modal-template').html()),
+      content_html : Handlebars.compile($('#app-notes-list-content-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
 
     openModal,
     closeModal,
+    showModal,
 
-    setJqueryMap, configModule, initModule;
+    setJqueryMap, 
+    configModule, 
+    initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -39,7 +43,8 @@ app.notes_list_modal = (function () {
 
     jqueryMap = { 
       $container     : $container,
-      $closeNotesBtn : $container.find('#close-notes-modal-btn') 
+      $closeNotesBtn : $container.find('#close-notes-modal-btn'),
+      $modalBody     : $container.find('.modal-body') 
     };
   };
   // End DOM method /setJqueryMap/
@@ -48,15 +53,28 @@ app.notes_list_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   
   openModal = function () {
-    jqueryMap.$container.modal();
+    var savedNotes;
+    if(app.model.user.is_authenticated()){
+      jqueryMap.$container.modal();
+      app.model.note.get_saved_notes();
+    }
   };
 
   closeModal = function(){
     jqueryMap.$closeNotesBtn.on('click', function(){
       $.uriAnchor.setAnchor({
         notepad : 'enabled',
-      });      
+      }); 
+      jqueryMap.$modalBody.empty();     
     });
+  };
+
+  showModal = function( evt, data ){
+    jqueryMap.$modalBody.append(
+      configMap.content_html({
+        notes : data
+      })
+    );
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -93,7 +111,8 @@ app.notes_list_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', openModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes-modal', openModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes',       showModal );
     closeModal();
     return true;
   };
