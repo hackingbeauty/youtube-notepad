@@ -53,7 +53,7 @@ app.notes_list_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   
   openModal = function () {
-    var savedNotes;
+    var savedNotes, videoID;
     if(app.model.user.is_authenticated()){
       jqueryMap.$container.modal();
       app.model.note.get_saved_notes();

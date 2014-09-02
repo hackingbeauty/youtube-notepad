@@ -98,12 +98,12 @@ app.model.note = (function () {
     }
   };
 
-  get_saved_notes = function(){
+  get_saved_notes = function( ){
     var 
       userNotesRef,
       userUID = app.model.user.get_user().uid;
 
-    userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/');
+    userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/');
     userNotesRef.once('value', function(data) {
       $.gevent.publish( 'app-show-notes', [ data.val() ] );
     });
