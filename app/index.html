@@ -311,14 +311,18 @@
         <!-- Notes List content template-->
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
             <ul id="notes-list">
-                {{#each notes}}
-                    <li>
+                <div class="row">
+                    {{#each notes}}
+                        <div class="col-lg-2">
+                            <li class="note-item module rounded">
+                                <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                                <br />
+                                <button class="btn btn-primary">Load Notes</button>
+                            </li>
 
-                        <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                        <br />
-                        <button class="btn btn-primary">Load Notes</button>
-                    </li>
-                {{/each}}
+                        </div>
+                    {{/each}}
+                </div>
             </ul>
         </script>
         <!-- End Notes List content template-->

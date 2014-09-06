@@ -7,4 +7,13 @@
 	.modal-dialog {
 		width: 95%;
 	}
+	ul#notes-list{
+		.note-item {
+			margin-bottom: 20px;
+			text-align:center;
+			button {
+				margin-top: 10px;
+			}
+		}
+	}
 }
