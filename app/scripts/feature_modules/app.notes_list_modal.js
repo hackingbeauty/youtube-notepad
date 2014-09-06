@@ -24,8 +24,7 @@ app.notes_list_modal = (function () {
     jqueryMap = {},
 
     openModal,
-    closeModal,
-    showModal,
+    onCloseModal,
 
     setJqueryMap, 
     configModule, 
@@ -52,29 +51,26 @@ app.notes_list_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   
-  openModal = function () {
-    var savedNotes, videoID;
+  openModal = function () {;
     if(app.model.user.is_authenticated()){
       jqueryMap.$container.modal();
-      app.model.note.get_saved_notes();
+      app.model.note.get_saved_notes(function( data ){
+        jqueryMap.$modalBody.append(
+          configMap.content_html({
+            notes : data
+          })
+        );
+      });
     }
   };
 
-  closeModal = function(){
-    jqueryMap.$closeNotesBtn.on('click', function(){
-      $.uriAnchor.setAnchor({
+  onCloseModal = function(){
+    jqueryMap.$container.on('hidden.bs.modal', function () {
+       $.uriAnchor.setAnchor({
         notepad : 'enabled',
       }); 
-      jqueryMap.$modalBody.empty();     
+      jqueryMap.$modalBody.empty();   
     });
-  };
-
-  showModal = function( evt, data ){
-    jqueryMap.$modalBody.append(
-      configMap.content_html({
-        notes : data
-      })
-    );
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -112,8 +108,7 @@ app.notes_list_modal = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes-modal', openModal );
-    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes',       showModal );
-    closeModal();
+    onCloseModal();
     return true;
   };
   // End public method /initModule/

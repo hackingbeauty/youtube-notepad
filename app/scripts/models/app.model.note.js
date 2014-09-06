@@ -33,7 +33,7 @@ app.model.note = (function () {
   delete_notes,
   initModule;
 
-  create = function( note, startTime ){
+  create = function( note, startTime, videoTitle ){
     var 
         note,
         videoID = app.model.video.get_video_id(),
@@ -41,9 +41,10 @@ app.model.note = (function () {
         endTime = app.model.player.get_current_time();
 
     note = db.insert({
-      videoID   : videoID,
-      note      : note,
-      startTime : startTime
+      videoID     : videoID,
+      note        : note,
+      startTime   : startTime,
+      videoTitle  : videoTitle
     });
 
     startTime = null;
@@ -98,14 +99,15 @@ app.model.note = (function () {
     }
   };
 
-  get_saved_notes = function( ){
+  get_saved_notes = function( callback ){
     var 
       userNotesRef,
       userUID = app.model.user.get_user().uid;
 
     userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/');
     userNotesRef.once('value', function(data) {
-      $.gevent.publish( 'app-show-notes', [ data.val() ] );
+      console.log('sending back this: ', data.val());
+      callback( data.val() );
     });
   };
 

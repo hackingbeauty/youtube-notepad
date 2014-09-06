@@ -80,7 +80,8 @@ app.shell = (function () {
             $.gevent.publish( 'app-load-video',               [ videoID ] );
             $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
             app.model.video.set_video_id( videoID );
-            app.notepad.refreshNotePad( videoID );            
+            app.notepad.refreshNotePad( videoID ); 
+            app.model.video.set_video_data( videoID );           
           },
           function(){
             alert('video not found!');

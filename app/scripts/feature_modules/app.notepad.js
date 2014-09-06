@@ -115,6 +115,7 @@ app.notepad = (function () {
           jqueryMap.$videoNotFoundMsg.hide();
           jqueryMap.$videoFoundMsg.show();
           $.gevent.publish( 'app-successfully-found-video', [ videoID ] );
+          app.model.video.set_video_data( videoID );
         },
         function(){ // Error
           jqueryMap.$videoNotFoundMsg.show();
@@ -163,6 +164,7 @@ app.notepad = (function () {
         note,
         inputValue,
         startTime,
+        videoTitle,
         $notePad;
 
     jqueryMap.$notesList.keypress(function( evt ){
@@ -172,12 +174,12 @@ app.notepad = (function () {
         if(inputValue !== ''){
           app.model.player.play_video();
           startTime = $notePad.find('.note input:last').data('start-time');
-          note = app.model.note.create( inputValue, startTime );
+          videoTitle = app.model.video.get_video_data().title;
+          note = app.model.note.create( inputValue, startTime, videoTitle );
           inputKeypressCount = 0; // Reset keypress count
           _appendNote( note );
           _createNoteInput();
           disableOrEnableBttns();
-
         }
         evt.preventDefault();
       }

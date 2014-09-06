@@ -19,6 +19,7 @@ app.model.video = (function () {
 	var
 		stateMap  = { },
 		videoID = '',
+		videoData,
 
 		load_library,
 		check_video,
@@ -27,6 +28,9 @@ app.model.video = (function () {
 		get_current_video,
 		set_current_video,
 		get_video_id_from_url,
+		get_video_data,
+		set_video_data,
+
 		initModule,
 		_authorize;
 	//----------------- END MODULE SCOPE VARIABLES ---------------
@@ -40,10 +44,11 @@ app.model.video = (function () {
 		var 
 			request,
 			resultsFound;
-
 		request = gapi.client.youtube.videos.list({ id : videoID, part : 'id' });
 		request.execute(function(response) {
 			resultsFound = response.result.pageInfo.totalResults;
+			console.log('results found: ', resultsFound);
+			console.log('response', response);
 			if(resultsFound > 0){
 				successCallback();
 			} else {
@@ -51,6 +56,19 @@ app.model.video = (function () {
 			}
 		}); 
 	}; 
+
+	set_video_data = function( videoID ){
+		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet'
+		console.log('url is:' , url);
+		console.log(' app.config.get_api_key(): ',  app.config.get_api_key());
+		$.getJSON( url, function( data ){
+			videoData = data.items[0].snippet;
+		});
+	};
+
+	get_video_data = function(){
+		return videoData;
+	};
 
 	set_video_id = function( id ){
 		videoID = id;
@@ -92,6 +110,8 @@ app.model.video = (function () {
 		initModule          	: initModule,
 		load_library         	: load_library,
 		check_video         	: check_video,
+		get_video_data 			: get_video_data,
+		set_video_data 			: set_video_data,
 		set_video_id 			: set_video_id,
 		get_video_id  			: get_video_id,
 		get_video_id_from_url 	: get_video_id_from_url
