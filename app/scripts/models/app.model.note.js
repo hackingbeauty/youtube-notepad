@@ -85,17 +85,22 @@ app.model.note = (function () {
     var noteID,
         notesRef,
         videosRef,
+        videosNotesRef,
+        videoData = app.model.video.get_video_data(),
         videoID = app.model.video.get_video_id(),
         notes   = get_all_by_video_id( videoID ),
         userUID = app.model.user.get_user().uid;
+
+    videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+    videosRef.set( videoData );
 
     for(var i = 0; i < notes.length; i++){
       noteID = get_id( notes[i] );
       notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
       notesRef.set( notes[i] ); 
 
-      videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
-      videosRef.set( notes[i] );
+      videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+      videosNotesRef.set( notes[i] );
     }
   };
 
@@ -106,7 +111,6 @@ app.model.note = (function () {
 
     userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/');
     userNotesRef.once('value', function(data) {
-      console.log('sending back this: ', data.val());
       callback( data.val() );
     });
   };

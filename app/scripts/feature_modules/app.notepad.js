@@ -180,6 +180,9 @@ app.notepad = (function () {
           _appendNote( note );
           _createNoteInput();
           disableOrEnableBttns();
+          if(app.model.user.is_authenticated()){
+            app.model.note.save_all_notes();
+          }
         }
         evt.preventDefault();
       }
