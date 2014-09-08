@@ -90,7 +90,7 @@
             {{ else }}
                 <li>
                     <a href="#">
-                        <button id="sign-in" class="btn btn-success">Sign In and Save Notes</button>
+                        <button id="sign-in" class="btn btn-success">Sign In</button>
                     </a>
                 </li>
             {{/if}}
@@ -315,6 +315,7 @@
                     {{#each notes}}
                         <div class="col-lg-2">
                             <li class="note-item module rounded">
+                                <h3>{{ title }}</h3>
                                 <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
                                 <br />
                                 <button class="btn btn-primary">Load Notes</button>

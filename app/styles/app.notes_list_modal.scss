@@ -11,6 +11,15 @@
 		.note-item {
 			margin-bottom: 20px;
 			text-align:center;
+			height: 230px;
+			h3{
+				font-size:13px;
+				height: 30px;
+				overflow: hidden;
+				// text-overflow: ellipsis; 
+				// white-space: nowrap;
+				width: 100%;
+			}
 			button {
 				margin-top: 10px;
 			}
