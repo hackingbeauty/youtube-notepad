@@ -116,8 +116,22 @@ app.model.note = (function () {
   };
 
   delete_notes = function( notes ){
+    var 
+      userUID = app.model.user.get_user().uid,
+      videoID = app.model.video.get_video_id(),
+      noteID,
+      notesRef,
+      videosNotesRef;
+
     for(var i = 0; i < notes.length; i++){
-      db(notes[i]).remove();
+      noteID = notes[i];
+      notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
+      notesRef.remove();
+
+      videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+      videosNotesRef.remove();
+
+      db(noteID).remove();
     }
   };
 

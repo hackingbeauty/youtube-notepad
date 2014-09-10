@@ -287,10 +287,22 @@ app.notepad = (function () {
    *  Purpose: Remove note when clicked
   */
   onRemoveClick = function( event ){
+    var $inputCheckBox;
     jqueryMap.$notesList.on('click', '.remove', function(){
-      deleteNoteCount++;
-      deleteNoteCount > 1 ? jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes') :
-                            jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note') 
+      console.log('$this is: ', $(this));
+      $inputCheckBox = $(this);
+      if($inputCheckBox.is(':checked')){
+        deleteNoteCount++;
+      } else {
+        deleteNoteCount--;
+      }
+      if(deleteNoteCount > 1){
+        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes') 
+      } else if(deleteNoteCount === 1){
+        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note') 
+      } else {
+         jqueryMap.$deleteNotesBtn.val('Delete Notes') 
+      }                           
     });
   };
 
