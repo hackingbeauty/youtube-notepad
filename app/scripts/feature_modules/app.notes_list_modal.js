@@ -25,6 +25,7 @@ app.notes_list_modal = (function () {
 
     openModal,
     onCloseModal,
+    onLoadNoteClick,
 
     setJqueryMap, 
     configModule, 
@@ -73,6 +74,17 @@ app.notes_list_modal = (function () {
     });
   };
 
+  onLoadNoteClick = function(){
+    var videoID;
+    jqueryMap.$container.on('click','.load-note-btn', function(){
+      videoID = $(this).data('video-id');
+      $.uriAnchor.setAnchor({
+        video_id : videoID
+      });
+      jqueryMap.$container.modal('hide');
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -109,6 +121,7 @@ app.notes_list_modal = (function () {
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes-modal', openModal );
     onCloseModal();
+    onLoadNoteClick();
     return true;
   };
   // End public method /initModule/
