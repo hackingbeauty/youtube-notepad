@@ -63,8 +63,9 @@ app.shell = (function () {
   };
 
   parseRoute = function(){
-    var hash     = window.location.hash.substr(2),
-        route    = hash.split('='),
+    var 
+        routeHash = window.location.hash.substr(2),
+        route    = routeHash.split('='),
         routeKey = route[0],
         routeVal = route[1],
         videoID,
@@ -72,7 +73,7 @@ app.shell = (function () {
 
     switch( routeKey ){
       case 'video_id':
-        videoID = routeVal;
+        videoID = app.util.parseVideoID(routeHash);
         url     = 'http://www.youtube.com/watch?v=' + videoID;
         app.model.video.check_video(
           videoID,

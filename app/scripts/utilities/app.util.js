@@ -19,7 +19,15 @@
 /*global $, app */
 
 app.util = (function () {
-  var makeError, setConfigMap;
+  var makeError, parseVideoID, setConfigMap;
+
+  parseVideoID = function(route){
+    if(route.indexOf('&') > -1){
+      return route.match(/video_id=(.*)&/)[1]
+    } else {
+      return route.match(/video_id=(.*)/)[1]
+    }
+  };
 
   // Begin Public constructor /makeError/
   // Purpose: a convenience wrapper to create an error object
@@ -75,6 +83,7 @@ app.util = (function () {
 
   return {
     makeError    : makeError,
+    parseVideoID : parseVideoID,
     setConfigMap : setConfigMap
   };
 }());

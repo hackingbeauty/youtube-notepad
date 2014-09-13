@@ -66,10 +66,10 @@ app.notes_list_modal = (function () {
   };
 
   onCloseModal = function(){
+    var anchorMap;
     jqueryMap.$container.on('hidden.bs.modal', function () {
-       $.uriAnchor.setAnchor({
-        notepad : 'enabled',
-      }); 
+      anchorMap = $.extend($.uriAnchor.makeAnchorMap(),{ notepad: 'enabled'});
+      $.uriAnchor.setAnchor( anchorMap ); 
       jqueryMap.$modalBody.empty();   
     });
   };
