@@ -54,6 +54,7 @@ app.notes_list_modal = (function () {
   
   openModal = function () {;
     if(app.model.user.is_authenticated()){
+      jqueryMap.$modalBody.empty(); 
       jqueryMap.$container.modal();
       app.model.note.get_saved_notes(function( data ){
         jqueryMap.$modalBody.append(
