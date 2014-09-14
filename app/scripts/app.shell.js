@@ -93,6 +93,8 @@ app.shell = (function () {
         alert('yay user_id in hash');
         break;
       case 'notes':
+        console.log('opened notes, routeHash is: ', routeHash);
+        console.log('routeKey is: ', routeKey);
         $.gevent.publish( 'app-show-notes-modal', [  ] );
         break;
     }
