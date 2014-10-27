@@ -59,11 +59,27 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <form class="navbar-form navbar-left" role="search">
+
+                        <!-- Error/Success Alert Messages -->
+                        <div id="app-error-messages">
+                            <div id="app-notepad-url-error" class="hide alert alert-danger">
+                                <strong>You need to enter a valid YouTube URL</strong>
+                            </div>
+                            <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
+                                <strong>You need to enter a valid YouTube URL</strong>
+                            </div> 
+                            <div id="app-notepad-video-found" class="hide alert alert-success">
+                                <strong>YouTube video found!</strong>
+                            </div>
+                        </div><!-- #app-error-messages -->
+                        <!-- End Error/Success Alert Messages -->
+
+
+                      <form class="navbar-form navbar-left" id="app-get-video-form" role="search">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Search">
+                            <input id="app-youtube-link" type="url" class="form-control" placeholder="Ex: https://www.youtube.com/watch?v=kaXJbNXsqmQ" autofocus="autofocus" autocomplete="off" required>
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <input id="app-notepad-enter-btn" class="btn btn-primary" type="submit" value="Load Video" />
                       </form>
                       <ul id="app-authentication-buttons" class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#">Link</a></li>
@@ -139,38 +155,6 @@
         <script id="app-notepad-template" type=“x-text/handlebars”>
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                 <div id="app-notepad" class="module">
-                    <form id="app-get-video-form" role="form">
-                      <fieldset>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <!-- Error/Success Alert Messages -->
-                                    <div id="app-error-messages">
-                                        <div id="app-notepad-url-error" class="hide alert alert-danger">
-                                            <strong>You need to enter a valid YouTube URL</strong>
-                                        </div>
-                                        <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
-                                            <strong>You need to enter a valid YouTube URL</strong>
-                                        </div> 
-                                        <div id="app-notepad-video-found" class="hide alert alert-success">
-                                            <strong>YouTube video found!</strong>
-                                        </div>
-                                    </div><!-- #app-error-messages -->
-                                    <!-- End Error/Success Alert Messages -->
-                                    <label for="app-youtube-link" class="control-label">Enter Youtube video link:</label>
-                                    <div class="row">
-                                        <div class="col-lg-9">
-                                            <input id="app-youtube-link" type="url" class="form-control" placeholder="Ex: https://www.youtube.com/watch?v=kaXJbNXsqmQ" autofocus="autofocus" autocomplete="off" required>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <input id="app-notepad-enter-btn" class="btn btn-primary" type="submit" value="Load Video" />
-                                        </div>
-                                    </div><!-- .row -->
-                                </div><!-- .col-xx-xx -->
-                            </div><!-- .row -->
-                        </div>
-                      </fieldset>
-                    </form>
                     <div id="app-notes-container">
                         <ul id="notes-list">
                         </ul>

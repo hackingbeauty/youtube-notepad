@@ -28,17 +28,12 @@ app.notepad = (function () {
     inputKeypressCount = 0,
     deleteNoteCount = 0,
     
-    _checkAndInsertVideo,
     _appendNote,
     _createNoteInput,
 
-    isURL,
-    onVideoLinkBlur,
     onNoteEnter,
     onNoteEdit,
     refreshNotePad,
-    onEnterButtonClick,
-    updateLinkInput,
     onRecordedTimeClick,
     onKeyPress,
     showVideoTime,
@@ -53,14 +48,7 @@ app.notepad = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  isURL = function( inputValue ){
-    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
-    if ( urlPattern.test( inputValue ) ){    // This should really test for youtube video urls
-      return true;
-    } else {
-      return false;
-    }
-  };
+
   //-------------------- END UTILITY METHODS -------------------
 
   _createNoteInput = function( ){
@@ -85,14 +73,9 @@ app.notepad = (function () {
 
     jqueryMap = { 
       $container              : $container, 
-      $youtubeLinkInput       : $container.find('#app-youtube-link'),
       $notesList              : $container.find('ul#notes-list'),
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
-      $urlErrorMsg            : $container.find('#app-notepad-url-error'),
-      $videoNotFoundMsg       : $container.find('#app-notepad-video-not-found-error'),
-      $videoFoundMsg          : $container.find('#app-notepad-video-found'),
-      $enterBtn               : $container.find('#app-notepad-enter-btn'),
       $deleteNotesBtn         : $container.find('#delete-notes-btn'),
       $saveNotesBtn           : $container.find('#save-notes-btn')
     };
@@ -100,61 +83,9 @@ app.notepad = (function () {
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
-  /*
-   *  Purpose: Check if video exists.
-   *           If it does, insert it.
-  */
-  _checkAndInsertVideo = function( inputValue ){
-    var videoID;
-    if( isURL(inputValue) ){
-      videoID = app.model.video.get_video_id_from_url( inputValue );
-      app.model.video.check_video( 
-        videoID, 
-        function(){ // Success
-          jqueryMap.$urlErrorMsg.hide();
-          jqueryMap.$videoNotFoundMsg.hide();
-          jqueryMap.$videoFoundMsg.show();
-          $.gevent.publish( 'app-successfully-found-video', [ videoID ] );
-          app.model.video.set_video_data( videoID );
-        },
-        function(){ // Error
-          jqueryMap.$videoNotFoundMsg.show();
-        }
-      );
-    } else {
-      jqueryMap.$urlErrorMsg.show();
-    }
-  }
+
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-
-  /*
-   *  Purpose: Called when user enters YouTube url and tabs out.
-   *           If video found, it is then inserted 
-  */
-  onVideoLinkBlur = function( ){
-    var inputValue,videoID;
-    jqueryMap.$youtubeLinkInput.keydown( function(e){
-      if ((e.which == 13) || (e.keyCode == 9)) { // If enter key or tab key pressed
-        inputValue = $.trim($(this).val());
-        _checkAndInsertVideo( inputValue );
-        e.preventDefault();
-      }
-    });
-  };
-
-  /*
-   *  Purpose: Called when user enters YouTube url and click 'Take Notes' button.
-   *           If video found, it is then inserted 
-  */
-  onEnterButtonClick = function(){
-    var inputValue;
-    jqueryMap.$enterBtn.on('click', function( evt ){
-      inputValue = jqueryMap.$youtubeLinkInput.val();
-      _checkAndInsertVideo( inputValue );
-      evt.preventDefault();
-    });
-  };
 
   /*
    *  Purpose: Called when user enters a note in the notepad
@@ -250,16 +181,6 @@ app.notepad = (function () {
         }
         _createNoteInput();
       },2000)
-    }
-  };
-
-  /*
-   *  Purpose: When a video is found, the YouTube link input is
-   *           updated with the found YouTube url
-  */
-  updateLinkInput = function( event, videoID ){
-    if(jqueryMap.$youtubeLinkInput.val() === ''){
-      jqueryMap.$youtubeLinkInput.val( 'http://youtube.com/watch?v=' + videoID );
     }
   };
 
@@ -373,16 +294,13 @@ app.notepad = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onVideoLinkBlur();
     onNoteEnter();
     onNoteEdit();
     onRecordedTimeClick();
-    onEnterButtonClick();
     onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
     onSaveNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-time',               showVideoTime   );
     return true;
   };

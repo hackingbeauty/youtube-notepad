@@ -28,23 +28,106 @@ app.header = (function () {
     signOutBtnClick,
     showAuthButtons,
     onNotesLinkClick,
+    onEnterButtonClick,
+    onVideoLinkBlur,
+    updateLinkInput,
+
+    _isURL,
+    _checkAndInsertVideo,
 
     setJqueryMap, 
     configModule, 
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
+  _isURL = function( inputValue ){
+    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+    if ( urlPattern.test( inputValue ) ){    // This should really test for youtube video urls
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  /*
+   *  Purpose: Check if video exists.
+   *           If it does, insert it.
+  */
+  _checkAndInsertVideo = function( inputValue ){
+    var videoID;
+    if( _isURL(inputValue) ){
+      videoID = app.model.video.get_video_id_from_url( inputValue );
+      app.model.video.check_video( 
+        videoID, 
+        function(){ // Success
+          jqueryMap.$urlErrorMsg.hide();
+          jqueryMap.$videoNotFoundMsg.hide();
+          jqueryMap.$videoFoundMsg.show();
+          $.gevent.publish( 'app-successfully-found-video', [ videoID ] );
+          app.model.video.set_video_data( videoID );
+        },
+        function(){ // Error
+          jqueryMap.$videoNotFoundMsg.show();
+        }
+      );
+    } else {
+      jqueryMap.$urlErrorMsg.show();
+    }
+  }
   //------------------- BEGIN UTILITY METHODS ------------------
 
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
+  /*
+   *  Purpose: Called when user enters YouTube url and tabs out.
+   *           If video found, it is then inserted 
+  */
+  onVideoLinkBlur = function( ){
+    var inputValue,videoID;
+    jqueryMap.$youtubeLinkInput.keydown( function(e){
+      if ((e.which == 13) || (e.keyCode == 9)) { // If enter key or tab key pressed
+        inputValue = $.trim($(this).val());
+        _checkAndInsertVideo( inputValue );
+        e.preventDefault();
+      }
+    });
+  };
+
+  /*
+   *  Purpose: Called when user enters YouTube url and click 'Take Notes' button.
+   *           If video found, it is then inserted 
+  */
+  onEnterButtonClick = function(){
+    var inputValue;
+    jqueryMap.$enterBtn.on('click', function( evt ){
+      inputValue = jqueryMap.$youtubeLinkInput.val();
+      _checkAndInsertVideo( inputValue );
+      evt.preventDefault();
+    });
+  };
+
+  /*
+   *  Purpose: When a video is found, the YouTube link input is
+   *           updated with the found YouTube url
+  */
+  updateLinkInput = function( event, videoID ){
+    if(jqueryMap.$youtubeLinkInput.val() === ''){
+      jqueryMap.$youtubeLinkInput.val( 'http://youtube.com/watch?v=' + videoID );
+    }
+  };
+
+
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-header');
     jqueryMap = { 
-      $container    : $container,
-      $authButtons  : $container.find('#app-authentication-buttons')
+      $container              : $container,
+      $authButtons            : $container.find('#app-authentication-buttons'),
+      $youtubeLinkInput       : $container.find('#app-youtube-link'),
+      $urlErrorMsg            : $container.find('#app-notepad-url-error'),
+      $videoNotFoundMsg       : $container.find('#app-notepad-video-not-found-error'),
+      $videoFoundMsg          : $container.find('#app-notepad-video-found'),
+      $enterBtn               : $container.find('#app-notepad-enter-btn')
     };
   };
   // End DOM method /setJqueryMap/
@@ -133,6 +216,9 @@ app.header = (function () {
     signInBtnClick();
     signOutBtnClick();
     onNotesLinkClick();
+    onEnterButtonClick();
+    onVideoLinkBlur();
+    $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
     return true;
   };
