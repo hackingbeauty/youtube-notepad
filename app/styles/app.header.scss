@@ -4,8 +4,16 @@
 */
 
 #app-header {
+
 	.navbar {
 		height: 58px;
+		border-radius: 0 !important;
+	}
+
+	.navbar-form {
+		input {
+			width: 500px;
+		}
 	}
 
 	#sign-in,
@@ -22,10 +30,6 @@
 		margin-right: 40px;
 		opacity: 0.3;
 		pointer-events: none;
-	}
-
-	.dropdown{
-		margin-top: -3px;
 	}
 
 	#user-image {
