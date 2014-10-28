@@ -150,6 +150,7 @@ app.header = (function () {
 
   showAuthButtons = function( event, authStatus ){
     jqueryMap.$authButtons.empty();
+    console.log('INSIDE SHOWAUTHBUTTONS');
     if(authStatus === 'signed-in'){
       jqueryMap.$authButtons.append(
         configMap.auth_buttons_html({

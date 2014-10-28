@@ -301,7 +301,7 @@ app.notepad = (function () {
     onRemoveClick();
     onDeleteNotesBtnClick();
     onSaveNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-video-time',               showVideoTime   );
+    $.gevent.subscribe( jqueryMap.$container, 'app-video-time', showVideoTime );
     return true;
   };
   // End public method /initModule/

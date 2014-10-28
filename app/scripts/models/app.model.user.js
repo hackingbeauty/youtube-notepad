@@ -96,11 +96,9 @@ app.model.user = (function () {
           provider  : user.provider,
           photo     : photo
         });
-
         $.gevent.publish( 'app-authentication-status', [ 'signed-in' ] );
 
         authStatus = true;
-
       } else {
         stateMap.user.uid = configMap.anon_id;
         stateMap.user.provider = null;

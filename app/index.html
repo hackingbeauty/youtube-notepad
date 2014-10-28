@@ -13,8 +13,10 @@
         <link rel="stylesheet" href="styles/vendor/bootstrap_overrides.css" type="text/css">
         <link rel="stylesheet" href="styles/vendor/bootstrap-checkbox.css"  type="text/css"> 
         <link rel="stylesheet" href="styles/vendor/bootstrap-social.css"    type="text/css"> 
+
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
         <link rel="stylesheet" href="styles/app.buttons.css"                type="text/css">
         <link rel="stylesheet" href="styles/app.css"                        type="text/css">
         <link rel="stylesheet" href="styles/app.header.css"                 type="text/css">
@@ -66,8 +68,8 @@
                             <input id="app-youtube-link" type="url" class="form-control" placeholder="Find a video" autofocus="autofocus" autocomplete="off" required>
                         </div>
                         <button id="app-notepad-enter-btn" class="pure-button pure-button-primary">
+                            <strong>Search</strong>
                             <i class="fa fa-search"></i>
-                            Search
                         </button>
                       </form>
 
@@ -113,7 +115,11 @@
         <!-- Authentication buttons template -->
         <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
             {{#if userSignedIn}} 
-                <li><button id="notes-link" class="pure-button pure-button-primary" href="#">Your Notes</button></li>
+                <li><button id="notes-link" class="pure-button pure-button-primary" href="#">
+                    <strong>Your Notes</strong>
+                    <i class="fa fa-file-text"></i>
+                    </button>
+                </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img id="user-image" src="{{ userPhoto }}" alt="{{ displayName }}" />
@@ -171,14 +177,14 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error">
+                                <strong>Delete Notes</strong>
                                 <i class="fa fa-remove"></i>
-                                Delete Notes
                             </button>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
+                                <strong>Save notes</strong>
                                 <i class="fa fa-save"></i>
-                                Save notes
                             </button>
                         </div>
                     </div>
@@ -344,6 +350,27 @@
         </script>
         <!-- End Notes List content template-->
 
+        <!-- Notes Carousel template-->
+        <script id="app-notes-carousel-template" type=“x-text/handlebars”>
+            <div id="app-notes-carousel-container">
+                <ul id="app-notes-carousel-list">
+                    <div class="row">
+                        {{#each notes}}
+                            <div class="col-lg-2">
+                                <li class="note-item module rounded">
+                                    <h3>{{ title }}</h3>
+                                    <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                                    <br />
+                                    <button data-video-id= "{{@key}}" class="load-note-btn btn btn-primary">Load Notes</button>
+                                </li>
+                            </div>
+                        {{/each}}
+                    </div>
+                </ul>
+            </div>
+        </script>
+        <!-- End Notes Carousel template-->
+
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
        <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -373,6 +400,7 @@
         <script src="../bower_components/screenfull/dist/screenfull.min.js"     ></script>
         <script src="scripts/vendor/bootstrap.js"                               ></script>
         <script src="scripts/vendor/bootstrap-checkbox.js"                      ></script>
+
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
@@ -394,6 +422,7 @@
         <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
         <script src="scripts/feature_modules/app.login_modal.js"                ></script>
         <script src="scripts/feature_modules/app.notes_list_modal.js"           ></script>
+        <script src="scripts/feature_modules/app.notes_carousel.js"             ></script>
         <script src="scripts/app.shell.js"                                      ></script>
         <!-- endbuild -->
 

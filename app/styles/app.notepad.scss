@@ -28,12 +28,14 @@
 		overflow-y: scroll;
 		overflow-x: hidden;
 		height: 453px;
+		background: white;
 
 		ul#notes-list {
 			min-height:470px;
 			padding: 0 0 20px 0;
 			background-color: #fff;
 			position: relative;
+			margin-top: 0px;
 
 			&:before {
 				content: "";
@@ -76,6 +78,7 @@
 					float:left;
 					width: 15%;
 					text-align: center;
+					color: #0078e7;
 				}
 
 
