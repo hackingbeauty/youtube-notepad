@@ -4,21 +4,24 @@
 */
 
 #app-header {
-
+	
 	.navbar {
+		border:none;
 		height: 58px;
 		border-radius: 0 !important;
+		background-image: -webkit-linear-gradient(top, #1c242a 0%, #171d22 100%);
+		background-image: linear-gradient(to bottom, #1c242a 0%, #171d22 100%);
+		background-repeat: repeat-x;
+	}
+
+	.navbar-brand {
+		color: #7a828b;
 	}
 
 	.navbar-form {
 		input#app-youtube-link {
 			width: 500px;
 		}
-	}
-
-	#sign-in,
-	#save-notes {
-		font-size: 16px;
 	}
 
 	#sign-in {
@@ -40,5 +43,12 @@
 
 	#notes-link{
 		margin-top:10px;
+	}
+
+	#app-error-messages {
+		.alert {
+			background: none;
+			border: none;
+		}
 	}
 }

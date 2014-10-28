@@ -6,8 +6,11 @@
 html,
 body {
   height: 100%;
-  background: #c6c6c6;
+  background: #2b313a;
 }
+
+html { overflow-y:scroll; }
+
 
 h1 {
   margin:0 ;
@@ -37,8 +40,9 @@ li {
 
 .module {
 	padding: 20px;
-	background: #e3e3e3;
-	border: 1px solid #A0A0A0;
+	// background: #e3e3e3;
+  background: #3b4450;
+	border: 1px solid #171d22;
   // margin-bottom: 20px;
 }
 

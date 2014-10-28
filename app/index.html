@@ -12,8 +12,10 @@
         <link rel="stylesheet" href="styles/vendor/bootstrap.css"           type="text/css">
         <link rel="stylesheet" href="styles/vendor/bootstrap_overrides.css" type="text/css">
         <link rel="stylesheet" href="styles/vendor/bootstrap-checkbox.css"  type="text/css"> 
-        <link rel="stylesheet" href="styles/vendor/flat-ui-pro.css"         type="text/css"> 
         <link rel="stylesheet" href="styles/vendor/bootstrap-social.css"    type="text/css"> 
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/app.buttons.css"                type="text/css">
         <link rel="stylesheet" href="styles/app.css"                        type="text/css">
         <link rel="stylesheet" href="styles/app.header.css"                 type="text/css">
         <link rel="stylesheet" href="styles/app.shell.css"                  type="text/css">
@@ -59,28 +61,31 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                        <!-- Error/Success Alert Messages -->
-                        <div id="app-error-messages">
-                            <div id="app-notepad-url-error" class="hide alert alert-danger">
-                                <strong>You need to enter a valid YouTube URL</strong>
-                            </div>
-                            <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
-                                <strong>You need to enter a valid YouTube URL</strong>
-                            </div> 
-                            <div id="app-notepad-video-found" class="hide alert alert-success">
-                                <strong>YouTube video found!</strong>
-                            </div>
-                        </div><!-- #app-error-messages -->
-                        <!-- End Error/Success Alert Messages -->
-
-
                       <form class="navbar-form navbar-left" id="app-get-video-form" role="search">
                         <div class="form-group">
-                            <input id="app-youtube-link" type="url" class="form-control" placeholder="Ex: https://www.youtube.com/watch?v=kaXJbNXsqmQ" autofocus="autofocus" autocomplete="off" required>
+                            <input id="app-youtube-link" type="url" class="form-control" placeholder="Find a video" autofocus="autofocus" autocomplete="off" required>
                         </div>
-                        <input id="app-notepad-enter-btn" class="btn btn-primary" type="submit" value="Load Video" />
+                        <button id="app-notepad-enter-btn" class="pure-button pure-button-primary">
+                            <i class="fa fa-search"></i>
+                            Search
+                        </button>
                       </form>
+
+
+                    <!-- Error/Success Alert Messages -->
+                    <div id="app-error-messages" class="nav navbar-nav navbar-left">
+                        <div id="app-notepad-url-error" class="hide alert alert-danger">
+                            <strong>You need to enter a valid YouTube URL</strong>
+                        </div>
+                        <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
+                            <strong>You need to enter a valid YouTube URL</strong>
+                        </div> 
+                        <div id="app-notepad-video-found" class="hide alert alert-success">
+                            <strong>YouTube video found!</strong>
+                        </div>
+                    </div><!-- #app-error-messages -->
+                    <!-- End Error/Success Alert Messages -->
+
                       <ul id="app-authentication-buttons" class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#">Link</a></li>
                         <li><a href="#">Link</a></li>
@@ -108,7 +113,7 @@
         <!-- Authentication buttons template -->
         <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
             {{#if userSignedIn}} 
-                <li><button id="notes-link" class="btn btn-primary" href="#">Your Notes</button></li>
+                <li><button id="notes-link" class="pure-button pure-button-primary" href="#">Your Notes</button></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img id="user-image" src="{{ userPhoto }}" alt="{{ displayName }}" />
@@ -124,7 +129,11 @@
             {{ else }}
                 <li>
                     <a href="#">
-                        <button id="sign-in" class="btn btn-success">Sign In</button>
+                        <button id="sign-in" class="pure-button pure-button-primary button-success">
+                            <i class="fa fa-sign-in"></i>
+                            Sign In
+                        </button>
+
                     </a>
                 </li>
             {{/if}}
@@ -134,7 +143,7 @@
         <!-- Video control panel template-->
         <script id="app-video-control-panel-template" type=“x-text/handlebars”>
             <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-video-control-panel" class="module">
+                <div id="app-video-control-panel" class="module rounded">
                     <div id="app-video-control-panel-container" class="">
                         <div id="app-video-iframe"></div>
                     </div>
@@ -144,7 +153,7 @@
                       </progress>
                     </div>
                     <div id="app-video-control-panel-controls" class="pull-right">
-                        <button class="btn btn-primary" id="full-screen-mode-btn">Full Screen Mode</button>
+                        <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>
                     </div>
                 </div><!-- #app-control-panel -->
             </div><!-- .col-xx-xx -->
@@ -154,17 +163,23 @@
         <!-- Notepad template-->
         <script id="app-notepad-template" type=“x-text/handlebars”>
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-notepad" class="module">
+                <div id="app-notepad" class="module rounded">
                     <div id="app-notes-container">
                         <ul id="notes-list">
                         </ul>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <input id="delete-notes-btn" class="btn btn-danger disabled" type="button" value="Delete Notes" />
+                            <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error">
+                                <i class="fa fa-remove"></i>
+                                Delete Notes
+                            </button>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <input id="save-notes-btn" class="btn btn-success disabled" type="button" value="Save Notes" />
+                            <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
+                                <i class="fa fa-save"></i>
+                                Save notes
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -195,7 +210,7 @@
             <li class="note">
                 <span class="time video-time"></span>
                 <input id="new-note-input" data-start-time="" type="text" 
-                  placeholder="Make a note..." autofocus="autofocus" />
+                  placeholder="" autofocus="autofocus" />
             </li>
         </script>
         <!-- End New Note Item Template -->
