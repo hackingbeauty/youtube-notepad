@@ -312,16 +312,17 @@
 
         <!-- Notes Carousel template-->
         <script id="app-notes-carousel-template" type=“x-text/handlebars”>
+           <div id="app-notes-carousel-scrollbar"></div>
+           <div id="app-notes-carousel-controls">
+                <div id="control-prev">go left</div>
+                <div id="control-next">go right</div>
+            </div>
             <div id="app-notes-carousel-container" class="hide">
                 <ul id="app-notes-carousel-list">
                     {{#each notes}}
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <li class="note-item" data-video-title="{{ title }}" data-video-id= "{{@key}}" class="load-note">
-                                    <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                                </li>
-                            </div>
-                        </div>
+                        <li class="note-item" data-video-title="{{ title }}" data-video-id= "{{@key}}" class="load-note">
+                            <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                        </li>
                     {{/each}}
                 </ul>
             </div>
@@ -357,7 +358,7 @@
         <script src="../bower_components/screenfull/dist/screenfull.min.js"     ></script>
         <script src="scripts/vendor/bootstrap.js"                               ></script>
         <script src="scripts/vendor/bootstrap-checkbox.js"                      ></script>
-
+        <script src="scripts/vendor/sly.js"                                     ></script>
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->

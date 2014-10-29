@@ -50,9 +50,7 @@ app.notes_carousel = (function () {
   showNotes = function(event, authStatus){
     var user = app.model.user.get_user();
 
-    // stateMap.$append_target.append(configMap.main_html());
     setJqueryMap();
-
     jqueryMap.$container.show();
 
     if(user.is_signed_in()){
@@ -64,6 +62,47 @@ app.notes_carousel = (function () {
         );
         setJqueryMap();
         jqueryMap.$container.show();
+        
+        /* put in separate funtion */
+        var $frame = $('#app-notes-carousel-container');
+        var $controls  = $('#app-notes-carousel-controls');
+        var $scrollbar = $('#app-notes-carousel-scrollbar');
+
+        console.log('control-prev is: ', $controls.find('.control-prev'));
+        console.log('$scrollbar is: ', $scrollbar);
+        console.log('controls: ', $controls);
+
+        $controls.find('#control-prev').css('border','1px solid green');
+
+
+        $frame.sly({
+          horizontal: 1,
+          itemNav: 'centered',
+          smart: 1,
+          activateMiddle: 1,
+          activateOn: 'click',
+          mouseDragging: 1,
+          touchDragging: 1,
+          releaseSwing: 1,
+          startAt: 3,
+          scrollBar: $scrollbar,
+          scrollBy: 1,
+          speed: 300,
+          elasticBounds: 1,
+          easing: 'swing',
+          dragHandle: 1,
+          dynamicHandle: 1,
+          clickBar: 1,
+
+          // Buttons
+          prev: $controls.find('#control-prev'),
+          next: $controls.find('#control-next')
+        });
+
+
+
+
+
       });
     }
   };
