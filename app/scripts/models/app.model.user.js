@@ -43,7 +43,7 @@ app.model.user = (function () {
       return this.uid === stateMap.anon_user.uid;
     },
     is_signed_in : function(){
-      return "not sure";
+      return authStatus;
     }
   };
 
@@ -113,6 +113,7 @@ app.model.user = (function () {
   };
 
   sign_out = function(){
+    authStatus = false;
     firebaseAuth.logout();
   };
 

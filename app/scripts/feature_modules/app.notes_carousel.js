@@ -37,7 +37,6 @@ app.notes_carousel = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-notes-carousel-container');
-
     jqueryMap = { 
       $container : $container,
       $notesList : $container.find('#app-notes-carousel-list')    
@@ -47,22 +46,24 @@ app.notes_carousel = (function () {
   //---------------------- END DOM METHODS ---------------------
 
 
-
   //------------------- BEGIN EVENT HANDLERS -------------------
   showNotes = function(event, authStatus){
-    console.log('calling showNotes!!!');
-    if(authStatus === 'signed-in'){
+    var user = app.model.user.get_user();
+
+    // stateMap.$append_target.append(configMap.main_html());
+    setJqueryMap();
+
+    jqueryMap.$container.show();
+
+    if(user.is_signed_in()){
       app.model.note.get_saved_notes(function( data ){
-        jqueryMap.$notesList.append(
+        stateMap.$append_target.append(
           configMap.main_html({
             notes : data
           })
         );
-        $('#app-notes-carousel-list').slick({
-          infinite: true,
-          slidesToShow: 3,
-          slidesToScroll: 3
-        });
+        setJqueryMap();
+        jqueryMap.$container.show();
       });
     }
   };
@@ -98,9 +99,9 @@ app.notes_carousel = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
-    $append_target.append( configMap.main_html );
-    setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showNotes );
+    // stateMap.$append_target.append(configMap.main_html());
+    // setJqueryMap();
+    $.gevent.subscribe( stateMap.$append_target, 'app-show-notes',  showNotes );
     return true;
   };
   // End public method /initModule/

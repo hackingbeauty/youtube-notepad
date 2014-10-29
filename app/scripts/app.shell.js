@@ -95,7 +95,7 @@ app.shell = (function () {
       case 'notes':
         console.log('opened notes, routeHash is: ', routeHash);
         console.log('routeKey is: ', routeKey);
-        $.gevent.publish( 'app-show-notes-modal', [  ] );
+        $.gevent.publish( 'app-show-notes', [  ] );
         break;
     }
   };
@@ -150,7 +150,7 @@ app.shell = (function () {
     app.header.initModule             ( jqueryMap.$shellBody );
 
     app.login_modal.initModule        ( jqueryMap.$shellBody );
-    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
+    // app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.notes_carousel.initModule     ( jqueryMap.$shellBody );
