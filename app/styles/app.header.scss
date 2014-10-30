@@ -9,8 +9,8 @@
 		border:none;
 		height: 58px;
 		border-radius: 0 !important;
-		background-image: -webkit-linear-gradient(top, #1b2228 0%, #171d22 100%);
-		background-image: linear-gradient(to bottom, #1b2228 0%, #171d22 100%);
+		background-image: -webkit-linear-gradient(top, #212b32 0%, #171d22 100%);
+		background-image: linear-gradient(to bottom, #212b32 0%, #171d22 100%);
 		background-repeat: repeat-x;
 	}
 
@@ -18,9 +18,20 @@
 		color: #7a828b;
 	}
 
+	.fa-search {
+		margin-left: -30px;
+	}
+
 	.navbar-form {
 		input#app-youtube-link {
 			width: 500px;
+			border-radius: 20px;
+			color:white;
+			background:#171b1e;
+			font-weight:bold;
+			box-shadow: inset 0 3px 8px #000;
+    		border:none;
+    		margin-top:3px;
 		}
 	}
 
@@ -39,10 +50,11 @@
 		width: 30px;
 		height: 30px;
 		margin-right: 10px;
+		margin-top: -4px;
 	}
 
 	#notes-link{
-		margin-top:10px;
+		margin-top:11px;
 	}
 
 	#app-error-messages {
