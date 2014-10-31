@@ -31,7 +31,7 @@
 		background: white;
 
 		ul#notes-list {
-			min-height:470px;
+			min-height:603px;
 			padding: 0 0 20px 0;
 			background-color: #fff;
 			position: relative;
@@ -79,8 +79,12 @@
 					width: 15%;
 					text-align: center;
 					color: #0078e7;
+					padding-top:11px;
 				}
 
+				.video-time{
+					padding-top: 25px;
+				}
 
 				.text {
 					height: 42px;
@@ -90,7 +94,8 @@
 					word-break: break-all;
 					overflow: hidden;
 					white-space: nowrap;
-					width: 80%
+					width: 80%;
+					padding-top:12px;
 				}
 
 				.text[contenteditable="true"]:focus{
@@ -102,8 +107,10 @@
 					border: none;
 					border-top: 2px solid #eee; 
 					padding-left: 2px;
-					height:36px;
+					height:30px;
 					width: 85%;
+					padding-top:17px;
+					margin-top:13px;
 					&:focus {
 						outline: 0;
 					}

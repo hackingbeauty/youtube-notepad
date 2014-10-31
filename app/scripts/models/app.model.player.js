@@ -36,7 +36,7 @@ app.model.player = (function () {
     var stringObj = 
       '<script type="text/javascript">' +
           'player = new YT.Player("'+videoContainerID+'", { '+
-            'height: "600", '+
+            'height: "510", '+
             'width: "744", '+
             'videoId: "", '+
             // 'playerVars: { "controls": 0 }, ' +

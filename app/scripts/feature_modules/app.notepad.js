@@ -145,9 +145,7 @@ app.notepad = (function () {
       if(inputKeypressCount === 1){
         app.model.player.pause_video();
         currentVideoTime = app.model.player.get_current_time();
-        jqueryMap.$container.find('.video-time')
-          .removeClass('video-time')
-          .addClass('recorded-video-time');
+
         jqueryMap.$container.find('.note input:last').data('start-time', currentVideoTime);
       }
       inputKeypressCount++;
