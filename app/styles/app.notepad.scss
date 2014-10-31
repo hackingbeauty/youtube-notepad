@@ -4,7 +4,7 @@
 */
 
 #app-notepad {
-	height: 558px;
+	height: 700px;
 
 	.control-label {
 		font-size: 20px;
@@ -27,7 +27,7 @@
 	#app-notes-container {
 		overflow-y: scroll;
 		overflow-x: hidden;
-		height: 453px;
+		height: 603px;
 		background: white;
 
 		ul#notes-list {
