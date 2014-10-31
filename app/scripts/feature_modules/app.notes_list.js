@@ -1,6 +1,6 @@
 /*
- * app.notepad.js
- * Video form feature module
+ * app.notes_list_modal.js
+ * Notes list Modal feature module
 */
 
 /*jslint         browser : true, continue : true,
@@ -9,105 +9,84 @@
   regexp : true, sloppy  : true, vars     : false,
   white  : true
 */
-
 /*global $, app */
 
-app.notes_carousel = (function () {
+app.notes_list_modal = (function () {
   'use strict';
-
+  
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-          main_html: Handlebars.compile($('#app-notes-carousel-template').html())
+      main_html    : Handlebars.compile($('#app-notes-list-modal-template').html()),
+      content_html : Handlebars.compile($('#app-notes-list-content-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    showNotes,
-  
-    setJqueryMap, configModule, initModule;
+    openModal,
+    onCloseModal,
+    onLoadNoteClick,
+
+    setJqueryMap, 
+    configModule, 
+    initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-
+  // example : getTrimmedString
   //-------------------- END UTILITY METHODS -------------------
-
 
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('#app-notes-carousel-container');
+    var $container = stateMap.$append_target.find('#app-notes-list-modal');
+
     jqueryMap = { 
-      $container : $container,
-      $notesList : $container.find('#app-notes-carousel-list')    
+      $container     : $container,
+      $closeNotesBtn : $container.find('#close-notes-modal-btn'),
+      $modalBody     : $container.find('.modal-body') 
     };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
-
   //------------------- BEGIN EVENT HANDLERS -------------------
-  showNotes = function(event, authStatus){
-    var user = app.model.user.get_user();
-
-    setJqueryMap();
-    jqueryMap.$container.show();
-
-    if(user.is_signed_in()){
+  
+  openModal = function () {;
+    if(app.model.user.is_authenticated()){
+      jqueryMap.$modalBody.empty(); 
+      jqueryMap.$container.modal();
       app.model.note.get_saved_notes(function( data ){
-        stateMap.$append_target.append(
-          configMap.main_html({
+        jqueryMap.$modalBody.append(
+          configMap.content_html({
             notes : data
           })
         );
-        setJqueryMap();
-        jqueryMap.$container.show();
-        
-        /* put in separate funtion */
-        var $frame = $('#app-notes-carousel-container');
-        var $controls  = $('#app-notes-carousel-controls');
-        var $scrollbar = $('#app-notes-carousel-scrollbar');
-
-        console.log('control-prev is: ', $controls.find('.control-prev'));
-        console.log('$scrollbar is: ', $scrollbar);
-        console.log('controls: ', $controls);
-
-        $controls.find('#control-prev').css('border','1px solid green');
-
-
-        $frame.sly({
-          horizontal: 1,
-          itemNav: 'centered',
-          smart: 1,
-          activateMiddle: 1,
-          activateOn: 'click',
-          mouseDragging: 1,
-          touchDragging: 1,
-          releaseSwing: 1,
-          startAt: 3,
-          scrollBar: $scrollbar,
-          scrollBy: 1,
-          speed: 300,
-          elasticBounds: 1,
-          easing: 'swing',
-          dragHandle: 1,
-          dynamicHandle: 1,
-          clickBar: 1,
-
-          // Buttons
-          prev: $controls.find('#control-prev'),
-          next: $controls.find('#control-next')
-        });
-
-
-
-
-
       });
     }
   };
-  //-------------------- END EVENT HANDLERS --------------------
 
+  onCloseModal = function(){
+    var anchorMap;
+    jqueryMap.$container.on('hidden.bs.modal', function () {
+      // anchorMap = $.extend($.uriAnchor.makeAnchorMap(),{ notepad: 'enabled'});
+      $.uriAnchor.setAnchor( { notepad: 'enabled'}); 
+      jqueryMap.$modalBody.empty();   
+    });
+  };
+
+  onLoadNoteClick = function(){
+    var videoID;
+    jqueryMap.$container.on('click','.load-note-btn', function(){
+      videoID = $(this).data('video-id');
+      $.uriAnchor.setAnchor({
+        video_id : videoID
+      });
+      jqueryMap.$container.modal('hide');
+    });
+  };
+
+  //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/
@@ -129,6 +108,7 @@ app.notes_carousel = (function () {
   };
   // End public method /configModule/
 
+
   // Begin public method /initModule/
   // Purpose    : Initializes module
   // Arguments  :
@@ -138,17 +118,19 @@ app.notes_carousel = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
-    // stateMap.$append_target.append(configMap.main_html());
-    // setJqueryMap();
-    $.gevent.subscribe( stateMap.$append_target, 'app-show-notes',  showNotes );
+    $append_target.append( configMap.main_html );
+    setJqueryMap();
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', openModal );
+    onCloseModal();
+    onLoadNoteClick();
     return true;
   };
   // End public method /initModule/
 
   // return public methods
   return {
-    configModule    : configModule,
-    initModule      : initModule
+    configModule : configModule,
+    initModule   : initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

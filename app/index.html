@@ -25,7 +25,6 @@
         <link rel="stylesheet" href="styles/app.notepad.css"                type="text/css"> 
         <link rel="stylesheet" href="styles/app.login_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.notes_list_modal.css"       type="text/css"> 
-        <link rel="stylesheet" href="styles/app.notes_carousel.css"   type="text/css"> 
         <!-- endbuild -->
 
     </head>
@@ -308,24 +307,46 @@
         </script>
         <!-- End Alert Modal template-->
 
-        <!-- Notes Carousel template-->
-        <script id="app-notes-carousel-template" type=“x-text/handlebars”>
-           <div id="app-notes-carousel-scrollbar"></div>
-           <div id="app-notes-carousel-controls">
-                <div id="control-prev">go left</div>
-                <div id="control-next">go right</div>
-            </div>
-            <div id="app-notes-carousel-container" class="hide">
-                <ul id="app-notes-carousel-list">
-                    {{#each notes}}
-                        <li class="note-item" data-video-title="{{ title }}" data-video-id= "{{@key}}" class="load-note">
-                            <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                        </li>
-                    {{/each}}
-                </ul>
+        <!-- Notes List template-->
+        <script id="app-notes-list-modal-template" type=“x-text/handlebars”>
+            <div class="modal fade" id="app-notes-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Your Notes</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!--  notes content template here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button id="close-notes-modal-btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </script>
-        <!-- End Notes Carousel template-->
+        <!-- End Notes List template-->
+
+        <!-- Notes List content template-->
+        <script id="app-notes-list-content-template" type=“x-text/handlebars”>
+            <ul id="notes-list">
+                <div class="row">
+                    {{#each notes}}
+                        <div class="col-lg-2">
+                            <li class="note-item module rounded">
+                                <h3>{{ title }}</h3>
+                                <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                                <br />
+                                <button data-video-id= "{{@key}}" class="load-note-btn btn btn-primary">Load Notes</button>
+                            </li>
+
+                        </div>
+                    {{/each}}
+                </div>
+            </ul>
+        </script>
+        <!-- End Notes List content template-->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
        <script>
@@ -377,7 +398,7 @@
         <script src="scripts/feature_modules/app.notepad.js"                    ></script>
         <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
         <script src="scripts/feature_modules/app.login_modal.js"                ></script>
-        <script src="scripts/feature_modules/app.notes_carousel.js"             ></script>
+        <script src="scripts/feature_modules/app.notes_list.js"             ></script>
         <script src="scripts/app.shell.js"                                      ></script>
         <!-- endbuild -->
 

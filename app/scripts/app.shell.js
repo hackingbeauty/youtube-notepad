@@ -150,10 +150,9 @@ app.shell = (function () {
     app.header.initModule             ( jqueryMap.$shellBody );
 
     app.login_modal.initModule        ( jqueryMap.$shellBody );
-    // app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
+    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
-    // app.notes_carousel.initModule     ( jqueryMap.$shellBody );
 
     $(window)
       .bind( 'hashchange', parseRoute );
