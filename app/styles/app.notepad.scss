@@ -4,7 +4,7 @@
 */
 
 #app-notepad {
-	height: 700px;
+	height: 650px;
 
 	.control-label {
 		font-size: 20px;
@@ -27,11 +27,11 @@
 	#app-notes-container {
 		overflow-y: scroll;
 		overflow-x: hidden;
-		height: 603px;
+		height: 553px;
 		background: white;
 
 		ul#notes-list {
-			min-height:603px;
+			min-height:553px;
 			padding: 0 0 20px 0;
 			background-color: #fff;
 			position: relative;
@@ -58,8 +58,7 @@
 				overflow: hidden;
 				position: relative;
 				background-image: linear-gradient(#eee 2px, transparent 2px);
-				// background-size: 100% 35px;
-				box-shadow: 1px 1px 1px rgba(176, 166, 139, 0.6);
+				box-shadow: 1px 1px 1px #eeeeee;
 
 				.remove {
 					position: absolute;
