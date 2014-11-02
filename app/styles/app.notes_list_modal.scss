@@ -4,8 +4,21 @@
 */
 
 #app-notes-list-modal {
+	
+	.modal-content{
+		background: #2b313a;
+	}
+
 	.modal-dialog {
 		width: 95%;
+	}
+
+	.modal-header {
+		border-bottom: none;
+	}
+
+	.modal-footer {
+		display:none;
 	}
 
 	#app-search-notes{
@@ -24,6 +37,7 @@
 	}
 
 	ul#notes-list{
+		margin-top: -15px !important;
 		.note-item {
 			margin-bottom: 20px;
 			text-align:center;
@@ -33,6 +47,7 @@
 				height: 30px;
 				overflow: hidden;
 				width: 100%;
+				color: white;
 			}
 			button {
 				margin-top: 10px;

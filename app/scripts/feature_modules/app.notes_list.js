@@ -42,9 +42,10 @@ app.notes_list_modal = (function () {
     var $container = stateMap.$append_target.find('#app-notes-list-modal');
 
     jqueryMap = { 
-      $container     : $container,
-      $closeNotesBtn : $container.find('#close-notes-modal-btn'),
-      $modalBody     : $container.find('.modal-body') 
+      $container        : $container,
+      $closeNotesBtn    : $container.find('#close-notes-modal-btn'),
+      $modalBody        : $container.find('.modal-body'),
+      $searchNotesInput : $container.find('#app-search-notes-input') 
     };
   };
   // End DOM method /setJqueryMap/
@@ -62,6 +63,7 @@ app.notes_list_modal = (function () {
             notes : data
           })
         );
+        jqueryMap.$searchNotesInput.focus();
       });
     }
   };
