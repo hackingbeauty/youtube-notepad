@@ -57,8 +57,9 @@
 				clear: both;
 				overflow: hidden;
 				position: relative;
-				background-image: linear-gradient(#eee 2px, transparent 2px);
-				box-shadow: 1px 1px 1px #eeeeee;
+				border-bottom: 1px solid #eee;
+				// background-image: linear-gradient(#eee 2px, transparent 2px);
+				// box-shadow: 1px 1px 1px #eeeeee;
 
 				.remove {
 					position: absolute;
