@@ -58,4 +58,14 @@
 			border: none;
 		}
 	}
+
+	#app-search-results-box {
+		display: none;
+		width: 100%;
+		position: relative;
+		z-index:1;
+		background: white;
+		margin-top:10px;
+		height: 100%;
+	}
 }

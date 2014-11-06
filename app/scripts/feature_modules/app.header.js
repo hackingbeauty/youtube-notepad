@@ -18,8 +18,9 @@ app.header = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html         : Handlebars.compile($('#app-header-template').html()),
-      auth_buttons_html : Handlebars.compile($('#app-authentication-buttons-template').html())
+      main_html           : Handlebars.compile($('#app-header-template').html()),
+      auth_buttons_html   : Handlebars.compile($('#app-authentication-buttons-template').html()),
+      search_results_html : Handlebars.compile($('#app-search-results-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -33,6 +34,7 @@ app.header = (function () {
     updateLinkInput,
     onSearchBoxKeyPress,
 
+    _populateDropDown,
     _isURL,
     _checkAndInsertVideo,
 
@@ -40,6 +42,27 @@ app.header = (function () {
     configModule, 
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
+
+  _populateDropDown = function( searchResults ){
+    var pluckedArray = [];
+
+    jqueryMap.$searchResultsBox.empty();
+    jqueryMap.$searchResultsBox.show();
+
+    for(var i=0; i<searchResults.length; i++){
+      pluckedArray.push(searchResults[i][0])
+    }
+
+    console.log('pluckedArray IS: ', pluckedArray);
+
+    jqueryMap.$searchResultsBox.append(
+      configMap.search_results_html({
+        searchResults : pluckedArray
+      })
+    );
+
+  };
+
   _isURL = function( inputValue ){
     var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
     if ( urlPattern.test( inputValue ) ){    // This should really test for youtube video urls
@@ -91,11 +114,10 @@ app.header = (function () {
           dataType  : 'jsonp',
           crossDomain : true,
           success: function(resp){
-
-            
-            
-            console.log('SUCCESSSSS');
-            console.log('----- response is: ', resp);
+            var searchResults = resp[1];
+            if(searchResults.length > 0){
+              _populateDropDown( searchResults );
+            }
           },
           error: function(){
             console.log('ERRRROORR');
@@ -155,7 +177,8 @@ app.header = (function () {
       $urlErrorMsg            : $container.find('#app-notepad-url-error'),
       $videoNotFoundMsg       : $container.find('#app-notepad-video-not-found-error'),
       $videoFoundMsg          : $container.find('#app-notepad-video-found'),
-      $enterBtn               : $container.find('#app-notepad-enter-btn')
+      $enterBtn               : $container.find('#app-notepad-enter-btn'),
+      $searchResultsBox       : $container.find('#app-search-results-box')
     };
   };
   // End DOM method /setJqueryMap/
@@ -178,7 +201,6 @@ app.header = (function () {
 
   showAuthButtons = function( event, authStatus ){
     jqueryMap.$authButtons.empty();
-    console.log('INSIDE SHOWAUTHBUTTONS');
     if(authStatus === 'signed-in'){
       jqueryMap.$authButtons.append(
         configMap.auth_buttons_html({
