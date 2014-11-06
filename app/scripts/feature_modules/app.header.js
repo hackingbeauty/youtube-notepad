@@ -31,6 +31,7 @@ app.header = (function () {
     onEnterButtonClick,
     onVideoLinkBlur,
     updateLinkInput,
+    onSearchBoxKeyPress,
 
     _isURL,
     _checkAndInsertVideo,
@@ -78,6 +79,33 @@ app.header = (function () {
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
+
+  onSearchBoxKeyPress = function(){
+    var inputValue,videoID, keyPressCount = 0, query;
+    jqueryMap.$youtubeLinkInput.keydown( function(e){
+      if(keyPressCount > 2){
+        query = $.trim($(this).val());
+        $.ajax({
+          type      : 'GET',
+          url       : 'http://google.com/complete/search?client=youtube&ds=yt&q=' + query,
+          dataType  : 'jsonp',
+          crossDomain : true,
+          success: function(resp){
+
+            
+            
+            console.log('SUCCESSSSS');
+            console.log('----- response is: ', resp);
+          },
+          error: function(){
+            console.log('ERRRROORR');
+          }
+        });
+      }
+      keyPressCount++;
+    });
+  };
+
   /*
    *  Purpose: Called when user enters YouTube url and tabs out.
    *           If video found, it is then inserted 
@@ -217,8 +245,9 @@ app.header = (function () {
     signInBtnClick();
     signOutBtnClick();
     onNotesLinkClick();
-    onEnterButtonClick();
-    onVideoLinkBlur();
+    onSearchBoxKeyPress();
+    // onEnterButtonClick();
+    // onVideoLinkBlur();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
     return true;
