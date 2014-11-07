@@ -28,6 +28,7 @@ app.shell = (function () {
 
     updateURL,
     parseRoute,
+    closeModalsOnClick,
     setJqueryMap, 
     configModule, 
     initModule;
@@ -59,6 +60,12 @@ app.shell = (function () {
     //This function gets executed 2x and I don't like that
     $.uriAnchor.setAnchor({
       video_id : videoID
+    });
+  };
+
+  closeModalsOnClick = function(){
+    $(document).on('click',function(){
+      $.gevent.publish( 'app-close-modals', [ ] );
     });
   };
 
@@ -142,6 +149,8 @@ app.shell = (function () {
     app.model.video.load_library( function(){ //rename this function
       parseRoute();
     });
+
+    closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
     

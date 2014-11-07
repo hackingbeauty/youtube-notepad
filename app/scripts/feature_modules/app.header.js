@@ -33,6 +33,7 @@ app.header = (function () {
     onVideoLinkBlur,
     updateLinkInput,
     onSearchBoxKeyPress,
+    closeModals,
 
     _populateDropDown,
     _isURL,
@@ -199,6 +200,10 @@ app.header = (function () {
     });
   };
 
+  closeModals = function(){
+    jqueryMap.$searchResultsBox.hide();
+  };
+
   showAuthButtons = function( event, authStatus ){
     jqueryMap.$authButtons.empty();
     if(authStatus === 'signed-in'){
@@ -272,6 +277,8 @@ app.header = (function () {
     // onVideoLinkBlur();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
+    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  closeModals);
+
     return true;
   };
   // End public method /initModule/
