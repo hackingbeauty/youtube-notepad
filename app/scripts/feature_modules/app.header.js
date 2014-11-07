@@ -110,7 +110,7 @@ app.header = (function () {
         query = $.trim($(this).val());
         $.ajax({
           type      : 'GET',
-          url       : 'http://google.com/complete/search?client=youtube&ds=yt&q=' + query,
+          url       : '//google.com/complete/search?client=youtube&ds=yt&q=' + query,
           dataType  : 'jsonp',
           crossDomain : true,
           success: function(resp){
