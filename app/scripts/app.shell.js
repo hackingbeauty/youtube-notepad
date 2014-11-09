@@ -146,22 +146,22 @@ app.shell = (function () {
     $container.html(  configMap.main_html() );
     setJqueryMap();
 
+    app.header.initModule( jqueryMap.$shellBody );
+
     app.model.video.load_library( function(){ //rename this function
       parseRoute();
     });
+
+    app.login_modal.initModule        ( jqueryMap.$shellBody );
+    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
+    app.video_control_panel.initModule( jqueryMap.$shellBody );
+    app.notepad.initModule            ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
     
     app.model.player.show_time_interval(); // Show video time as it progresses
-
-    app.header.initModule             ( jqueryMap.$shellBody );
-
-    app.login_modal.initModule        ( jqueryMap.$shellBody );
-    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
-    app.video_control_panel.initModule( jqueryMap.$shellBody );
-    app.notepad.initModule            ( jqueryMap.$shellBody );
 
     $(window)
       .bind( 'hashchange', parseRoute );
