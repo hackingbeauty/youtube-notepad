@@ -30,6 +30,7 @@ app.model.video = (function () {
 		get_video_id_from_url,
 		get_video_data,
 		set_video_data,
+		get_results,
 
 		initModule,
 		_authorize;
@@ -82,13 +83,20 @@ app.model.video = (function () {
 		var 
 			videoID,
 			urlMatch = url.match(/v=[\D\d\W\w]*/g);
-
 		if( urlMatch && urlMatch.length > 0 ){
 			videoID = urlMatch[0].replace('v=','').split('&')[0];
 			return videoID;
 		} else {
 			return false;
 		}
+	};
+
+	get_results = function( searchTerm ){
+		var request, resultsFound;
+		request = gapi.client.youtube.search.list({ part : 'snippet, id', q : searchTerm, maxResults: 25 });
+		request.execute(function(response) {
+			$.gevent.publish( 'app-video-search-results', [ response.result.items ] );
+		}); 
 	};
 
 	//------------------- PRIVATE FUNCTIONS ----------------------
@@ -114,7 +122,8 @@ app.model.video = (function () {
 		set_video_data 			: set_video_data,
 		set_video_id 			: set_video_id,
 		get_video_id  			: get_video_id,
-		get_video_id_from_url 	: get_video_id_from_url
+		get_video_id_from_url 	: get_video_id_from_url,
+		get_results 			: get_results
 	};
 
 }());

@@ -55,8 +55,6 @@ app.header = (function () {
       pluckedArray.push(searchResults[i][0])
     }
 
-    console.log('pluckedArray IS: ', pluckedArray);
-
     jqueryMap.$searchResultsBox.append(
       configMap.search_results_html({
         searchResults : pluckedArray
@@ -237,9 +235,10 @@ app.header = (function () {
   };
 
   onSearchItemSelect = function(){
-    var searchResult; 
+    var searchTerm; 
     jqueryMap.$searchResultsBox.on('click','li', function(){
-      searchResult = $(this).html();
+      searchTerm = $(this).html();
+      app.model.video.get_results( searchTerm );
     });
   };
 

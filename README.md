@@ -17,7 +17,6 @@ Check out: youtubenotepad.com
 
 ------------------------------------------------
 
-
 Theme used:
 
 Bootstrap template: http://bootswatch.com/spacelab/
@@ -58,6 +57,12 @@ https://code.google.com/apis/console/b/0/?noredirect#project:952912223614 (old c
 Youtube Data API Code Samples
 
 https://github.com/youtube/api-samples/
+
+------------------------------------------------
+
+Youtube Data API search queries
+
+https://developers.google.com/youtube/v3/docs/search/list
 
 ------------------------------------------------
 

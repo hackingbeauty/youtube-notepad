@@ -317,10 +317,6 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              <div id="app-search-notes">
-                                <input id="app-search-notes-input" class="form-control search-box" type="url" class="form-control" placeholder="Search your notes" autofocus="autofocus" autocomplete="off" required>
-                                <i class="fa fa-search"></i>
-                              </div>
                         </div>
                         <div class="modal-body">
                             <!--  notes content template here -->
@@ -338,19 +334,43 @@
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
             <ul id="notes-list">
                 <div class="row">
-                    {{#each notes}}
-                        <div class="col-lg-2">
-                            <li class="note-item module rounded">
-                                <h3>{{ title }}</h3>
-                                <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                                <br />
-                                <button data-video-id= "{{@key}}" class="load-note-btn pure-button pure-button-primary">
-                                    <strong>Load Notes</strong>
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </li>
+                    {{#if searchQueryResults}}
+                        {{#each results}}
+                            <div class="col-lg-2">
+                                <li class="note-item module rounded">
+                                    <h3>{{ snippet.title }}</h3>
+                                    <img src="http://img.youtube.com/vi/{{id.videoId}}/1.jpg" alt="Video id {{id.videoId}}" />
+                                    <br />
+                                    <button data-video-id= "{{id.videoId}}" class="load-note-btn pure-button pure-button-primary">
+                                        <strong>Take notes</strong>
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </li>
+                            </div>
+                        {{/each}}
+                    {{ else }}
+                        <div class="row">
+                            <div class="col-lg-4">
+                             <div id="app-search-notes">
+                                    <input id="app-search-notes-input" class="form-control search-box" type="url" class="form-control" placeholder="Search your notes" autofocus="autofocus" autocomplete="off" required>
+                                    <i class="fa fa-search"></i>
+                                  </div>
+                            </div>
                         </div>
-                    {{/each}}
+                        {{#each results}}
+                            <div class="col-lg-2">
+                                <li class="note-item module rounded">
+                                    <h3>{{ title }}</h3>
+                                    <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                                    <br />
+                                    <button data-video-id= "{{@key}}" class="load-note-btn pure-button pure-button-primary">
+                                        <strong>Load Notes</strong>
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </li>
+                            </div>
+                        {{/each}}
+                    {{/if}}
                 </div>
             </ul>
         </script>

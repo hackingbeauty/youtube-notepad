@@ -23,7 +23,8 @@ app.notes_list_modal = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    openModal,
+    getSavedNotes,
+    showSearchResults,
     onCloseModal,
     onLoadNoteClick,
 
@@ -53,19 +54,30 @@ app.notes_list_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   
-  openModal = function () {;
+  getSavedNotes = function () {;
     if(app.model.user.is_authenticated()){
       jqueryMap.$modalBody.empty(); 
       jqueryMap.$container.modal();
-      app.model.note.get_saved_notes(function( data ){
+      app.model.note.get_saved_notes(function( notes ){
         jqueryMap.$modalBody.append(
           configMap.content_html({
-            notes : data
+            results : notes
           })
         );
         jqueryMap.$searchNotesInput.focus();
       });
     }
+  };
+
+  showSearchResults = function( evt, searchResults){
+    jqueryMap.$modalBody.empty(); 
+    jqueryMap.$container.modal();
+    jqueryMap.$modalBody.append(
+      configMap.content_html({
+        searchQueryResults  : true,
+        results             : searchResults
+      })
+    );
   };
 
   onCloseModal = function(){
@@ -122,7 +134,9 @@ app.notes_list_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', openModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
+    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
+
     onCloseModal();
     onLoadNoteClick();
     return true;
