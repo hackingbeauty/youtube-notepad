@@ -29,6 +29,8 @@ app.shell = (function () {
     updateURL,
     parseRoute,
     closeModalsOnClick,
+    onCloseModal,
+
     setJqueryMap, 
     configModule, 
     initModule;
@@ -67,6 +69,10 @@ app.shell = (function () {
     $(document).on('click',function(){
       $.gevent.publish( 'app-close-modals', [ ] );
     });
+  };
+
+  onCloseModal = function(){
+
   };
 
   parseRoute = function(){
@@ -157,6 +163,7 @@ app.shell = (function () {
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
+    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  onCloseModal);
     
     app.model.player.show_time_interval(); // Show video time as it progresses
 
