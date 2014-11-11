@@ -34,6 +34,7 @@ app.header = (function () {
     updateLinkInput,
     onSearchBoxKeyPress,
     onSearchItemSelect,
+    closeModals,
 
     _populateDropDown,
     _isURL,
@@ -237,6 +238,10 @@ app.header = (function () {
     });
   };
 
+  closeModals = function(){
+    jqueryMap.$searchResultsBox.hide();
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -278,6 +283,8 @@ app.header = (function () {
     onSearchItemSelect();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
+    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  closeModals);
+
     return true;
   };
   // End public method /initModule/

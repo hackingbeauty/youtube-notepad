@@ -138,7 +138,6 @@ app.notes_list_modal = (function () {
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
-
     onCloseModal();
     onLoadNoteClick();
     return true;

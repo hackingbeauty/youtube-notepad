@@ -50,7 +50,7 @@ app.shell = (function () {
       $shell        : $container.find('#app-shell'),
       $shellBody    : $container.find('#app-shell-body'),
       $videoForm    : $container.find('#app-video-form'),
-      $saveNotesBtn : $container.find('#save-notes')
+      $saveNotesBtn : $container.find('#save-notes')    
     };
   };
   // End DOM method /setJqueryMap/
