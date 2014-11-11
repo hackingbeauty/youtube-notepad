@@ -157,29 +157,36 @@ app.notepad = (function () {
   */
   refreshNotePad = function( id ){
     var 
-        notes           = app.model.note.get_all_by_video_id( id ),
-        currentVideoID  = app.model.video.get_video_id(),
-        noteCount       = notes.length,
-        lastNote        = notes[notes.length-1];
+        notes, 
+        noteCount, 
+        lastNote,
+        currentVideoID  = app.model.video.get_video_id();
+     
+    app.model.note.get_all_by_video_id( id, function( notes ){
 
-    if(currentVideoID){
-      $.gevent.publish( 'app-note-count', [ noteCount ] );
+      noteCount = notes.length;
+      lastNote = notes[notes.length-1];
 
-      disableOrEnableBttns();
+      if(currentVideoID){
+        $.gevent.publish( 'app-note-count', [ noteCount ] );
 
-      jqueryMap.$notesList.empty();
-      jqueryMap.$notesList.append(
-        configMap.notes_list_html({
-          notes: notes
-        })
-      );
-      setTimeout(function(){
-        if( lastNote ){
-          $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
-        }
-        _createNoteInput();
-      },2000)
-    }
+        disableOrEnableBttns();
+
+        jqueryMap.$notesList.empty();
+        jqueryMap.$notesList.append(
+          configMap.notes_list_html({
+            notes: notes
+          })
+        );
+        setTimeout(function(){
+          if( lastNote ){
+            $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
+          }
+          _createNoteInput();
+        }, 2000);
+      }
+    });
+
   };
 
   /*
@@ -241,11 +248,12 @@ app.notepad = (function () {
   };
 
   disableOrEnableBttns = function(){
-    var notes = app.model.note.get_all_by_video_id( app.model.video.get_video_id() );
-    if( notes.length > 0 ){
-      jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
-      jqueryMap.$deleteNotesBtn.removeClass( 'disabled' ); 
-    }
+    var notes = app.model.note.get_all_by_video_id( app.model.video.get_video_id(), function(){
+      if( notes.length > 0 ){
+        jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
+        jqueryMap.$deleteNotesBtn.removeClass( 'disabled' ); 
+      }
+    });
   };
 
   onSaveNotesBtnClick = function(){

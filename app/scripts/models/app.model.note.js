@@ -61,8 +61,19 @@ app.model.note = (function () {
     return db().order('videoTime').get();
   };
 
-  get_all_by_video_id = function( videoID ){
-    return db({ videoID: videoID }).get();
+  get_all_by_video_id = function( videoID, callback ){
+    // console.log('the videoID is: ', videoID);
+    // console.log('db({ videoID: videoID }).get() ', db({ videoID: videoID }).get());
+    // return db({ videoID: videoID }).get();
+    var 
+      videoNotesRef,
+      userUID = app.model.user.get_user().uid;
+
+    videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/' + videoID);
+    videoNotesRef.once('value', function(data) {
+      callback( data.val() );
+    });
+
   };
 
   get_id = function( note ){
