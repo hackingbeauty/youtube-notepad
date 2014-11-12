@@ -27,7 +27,7 @@ app.model.note = (function () {
   get_all_by_video_id,
   set_start_time,
   get_start_time,
-  get_id,
+  get_by_id,
   save_all_notes,
   get_saved_notes,
   delete_notes,
@@ -35,10 +35,13 @@ app.model.note = (function () {
 
   create = function( note, startTime, videoTitle ){
     var 
-        note,
         videoID = app.model.video.get_video_id(),
         startTime = startTime,
-        endTime = app.model.player.get_current_time();
+        endTime = app.model.player.get_current_time(),
+        videoData = app.model.video.get_video_data(),
+        videoID = app.model.video.get_video_id(),
+        userUID = app.model.user.get_user().uid,
+        videosRef, notesRef, videosNotesRef, noteID, noteObj;
 
     note = db.insert({
       videoID     : videoID,
@@ -49,6 +52,18 @@ app.model.note = (function () {
 
     startTime = null;
     endTime = null;
+
+    videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+    videosRef.set( videoData );
+
+    noteID  = get_by_id( note )['___id'];
+    noteObj = get_by_id( note );
+
+    notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
+    notesRef.set( noteObj ); 
+
+    videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+    videosNotesRef.set( noteObj );
 
     return note.get()[0];
   };
@@ -62,9 +77,6 @@ app.model.note = (function () {
   };
 
   get_all_by_video_id = function( videoID, callback ){
-    // console.log('the videoID is: ', videoID);
-    // console.log('db({ videoID: videoID }).get() ', db({ videoID: videoID }).get());
-    // return db({ videoID: videoID }).get();
     var 
       videoNotesRef,
       userUID = app.model.user.get_user().uid;
@@ -73,11 +85,10 @@ app.model.note = (function () {
     videoNotesRef.once('value', function(data) {
       callback( data.val() );
     });
-
   };
 
-  get_id = function( note ){
-    return note['___id'];
+  get_by_id = function( note ){
+    return note.first();
   }
 
   receive = function(){
@@ -97,22 +108,16 @@ app.model.note = (function () {
         notesRef,
         videosRef,
         videosNotesRef,
-        videoData = app.model.video.get_video_data(),
-        videoID = app.model.video.get_video_id(),
-        notes   = get_all_by_video_id( videoID ),
-        userUID = app.model.user.get_user().uid;
+        notes = app.model.note.get_all_by_video_id( videoID );
 
-    videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
-    videosRef.set( videoData );
+    // for(var i = 0; i < notes.length; i++){
+    //   noteID = get_id( notes[i] );
+    //   notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
+    //   notesRef.set( notes[i] ); 
 
-    for(var i = 0; i < notes.length; i++){
-      noteID = get_id( notes[i] );
-      notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-      notesRef.set( notes[i] ); 
-
-      videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
-      videosNotesRef.set( notes[i] );
-    }
+    //   videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+    //   videosNotesRef.set( notes[i] );
+    // }
   };
 
   get_saved_notes = function( callback ){
@@ -162,7 +167,7 @@ app.model.note = (function () {
     save_all_notes        : save_all_notes,
     get_saved_notes       : get_saved_notes,
     delete_notes          : delete_notes,
-    get_id                : get_id,
+    get_by_id             : get_by_id,
     initModule            : initModule
   };
 

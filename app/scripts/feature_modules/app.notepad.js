@@ -99,23 +99,25 @@ app.notepad = (function () {
         $notePad;
 
     jqueryMap.$notesList.keypress(function( evt ){
-      if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
-        $notePad = $(this);
-        inputValue = $.trim($notePad.find('.note input:last').val());
-        if(inputValue !== ''){
-          app.model.player.play_video();
-          startTime = $notePad.find('.note input:last').data('start-time');
-          videoTitle = app.model.video.get_video_data().title;
-          note = app.model.note.create( inputValue, startTime, videoTitle );
-          inputKeypressCount = 0; // Reset keypress count
-          _appendNote( note );
-          _createNoteInput();
-          disableOrEnableBttns();
-          if(app.model.user.is_authenticated()){
-            app.model.note.save_all_notes();
+
+      if(app.model.user.is_authenticated()){
+        if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
+          $notePad = $(this);
+          inputValue = $.trim($notePad.find('.note input:last').val());
+          if(inputValue !== ''){
+            app.model.player.play_video();
+            startTime = $notePad.find('.note input:last').data('start-time');
+            videoTitle = app.model.video.get_video_data().title;
+            note = app.model.note.create( inputValue, startTime, videoTitle );
+            inputKeypressCount = 0; // Reset keypress count
+            _appendNote( note );
+            _createNoteInput();
+            disableOrEnableBttns();
           }
+          evt.preventDefault();
         }
-        evt.preventDefault();
+      } else {
+        $.gevent.publish( 'app-login-modal', [ ] );
       }
     });
   };
@@ -164,20 +166,22 @@ app.notepad = (function () {
      
     app.model.note.get_all_by_video_id( id, function( notes ){
 
-      noteCount = notes.length;
-      lastNote = notes[notes.length-1];
+      jqueryMap.$notesList.empty();
 
       if(currentVideoID){
-        $.gevent.publish( 'app-note-count', [ noteCount ] );
 
         disableOrEnableBttns();
 
-        jqueryMap.$notesList.empty();
-        jqueryMap.$notesList.append(
-          configMap.notes_list_html({
-            notes: notes
-          })
-        );
+        if (notes){
+          lastNote = notes[notes.length-1];
+
+          jqueryMap.$notesList.append(
+            configMap.notes_list_html({
+              notes: notes
+            })
+          );
+        }
+        
         setTimeout(function(){
           if( lastNote ){
             $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
@@ -186,7 +190,6 @@ app.notepad = (function () {
         }, 2000);
       }
     });
-
   };
 
   /*
@@ -248,8 +251,8 @@ app.notepad = (function () {
   };
 
   disableOrEnableBttns = function(){
-    var notes = app.model.note.get_all_by_video_id( app.model.video.get_video_id(), function(){
-      if( notes.length > 0 ){
+    app.model.note.get_all_by_video_id( app.model.video.get_video_id(), function( notes ){
+      if( notes && notes.length > 0 ){
         jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
         jqueryMap.$deleteNotesBtn.removeClass( 'disabled' ); 
       }
@@ -258,11 +261,12 @@ app.notepad = (function () {
 
   onSaveNotesBtnClick = function(){
     jqueryMap.$saveNotesBtn.on('click', function(){
-      if(app.model.user.is_authenticated()){
-        app.model.note.save_all_notes();
-      } else {
-        $.gevent.publish( 'app-login-modal', [ ] );
-      }
+      alert('nothing to do here!');
+      // if(app.model.user.is_authenticated()){
+      //   app.model.note.save_all_notes();
+      // } else {
+      //   $.gevent.publish( 'app-login-modal', [ ] );
+      // }
     });
   };
 

@@ -25,7 +25,7 @@ app.notes_list_modal = (function () {
 
     getSavedNotes,
     showSearchResults,
-    onCloseModal,
+    // onCloseModal,
     onLoadNoteClick,
 
     setJqueryMap, 
@@ -80,16 +80,16 @@ app.notes_list_modal = (function () {
     );
   };
 
-  onCloseModal = function(){
-    var anchorMap;
-    jqueryMap.$container.on('hidden.bs.modal', function () {
-      //TODO: create a router module
-      anchorMap = $.extend($.uriAnchor.makeAnchorMap(),{ notepad: 'enabled'});
-      delete anchorMap['notes']
-      $.uriAnchor.setAnchor( anchorMap ); 
-      jqueryMap.$modalBody.empty();   
-    });
-  };
+  // onCloseModal = function(){
+  //   var anchorMap;
+  //   jqueryMap.$container.on('hidden.bs.modal', function () {
+  //     //TODO: create a router module
+  //     anchorMap = $.extend($.uriAnchor.makeAnchorMap(),{ notepad: 'enabled'});
+  //     delete anchorMap['notes']
+  //     $.uriAnchor.setAnchor( anchorMap ); 
+  //     jqueryMap.$modalBody.empty();   
+  //   });
+  // };
 
   onLoadNoteClick = function(){
     var videoID;
@@ -138,7 +138,7 @@ app.notes_list_modal = (function () {
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
-    onCloseModal();
+    // onCloseModal();
     onLoadNoteClick();
     return true;
   };
