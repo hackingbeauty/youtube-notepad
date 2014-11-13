@@ -100,25 +100,26 @@ app.notepad = (function () {
 
     jqueryMap.$notesList.keypress(function( evt ){
 
-      if(app.model.user.is_authenticated()){
         if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
-          $notePad = $(this);
-          inputValue = $.trim($notePad.find('.note input:last').val());
-          if(inputValue !== ''){
-            app.model.player.play_video();
-            startTime = $notePad.find('.note input:last').data('start-time');
-            videoTitle = app.model.video.get_video_data().title;
-            note = app.model.note.create( inputValue, startTime, videoTitle );
-            inputKeypressCount = 0; // Reset keypress count
-            _appendNote( note );
-            _createNoteInput();
-            disableOrEnableBttns();
+          if(app.model.user.is_authenticated()){
+
+            $notePad = $(this);
+            inputValue = $.trim($notePad.find('.note input:last').val());
+            if(inputValue !== ''){
+              app.model.player.play_video();
+              startTime = $notePad.find('.note input:last').data('start-time');
+              videoTitle = app.model.video.get_video_data().title;
+              note = app.model.note.create( inputValue, startTime, videoTitle );
+              inputKeypressCount = 0; // Reset keypress count
+              _appendNote( note );
+              _createNoteInput();
+              disableOrEnableBttns();
+            }
+            evt.preventDefault();
+          } else {
+            $.gevent.publish( 'app-login-modal', [ ] );
           }
-          evt.preventDefault();
         }
-      } else {
-        $.gevent.publish( 'app-login-modal', [ ] );
-      }
     });
   };
 
