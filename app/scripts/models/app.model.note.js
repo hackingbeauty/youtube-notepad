@@ -62,7 +62,7 @@ app.model.note = (function () {
     notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
     notesRef.set( noteObj ); 
 
-    videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+    videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + '/notes/' + noteID);
     videosNotesRef.set( noteObj );
 
     return note.get()[0];
@@ -81,7 +81,7 @@ app.model.note = (function () {
       videoNotesRef,
       userUID = app.model.user.get_user().uid;
 
-    videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/' + videoID);
+    videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/' + videoID + '/notes/');
     videoNotesRef.once('value', function(data) {
       callback( data.val() );
     });

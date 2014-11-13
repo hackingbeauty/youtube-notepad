@@ -45,11 +45,11 @@ app.model.video = (function () {
 		var 
 			request,
 			resultsFound;
+
 		request = gapi.client.youtube.videos.list({ id : videoID, part : 'id' });
 		request.execute(function(response) {
 			resultsFound = response.result.pageInfo.totalResults;
-			console.log('results found: ', resultsFound);
-			console.log('response', response);
+
 			if(resultsFound > 0){
 				successCallback();
 			} else {

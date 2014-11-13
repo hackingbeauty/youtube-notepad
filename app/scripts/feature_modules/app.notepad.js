@@ -169,12 +169,10 @@ app.notepad = (function () {
       jqueryMap.$notesList.empty();
 
       if(currentVideoID){
-
         disableOrEnableBttns();
-
+        
         if (notes){
           lastNote = notes[notes.length-1];
-
           jqueryMap.$notesList.append(
             configMap.notes_list_html({
               notes: notes
@@ -261,7 +259,6 @@ app.notepad = (function () {
 
   onSaveNotesBtnClick = function(){
     jqueryMap.$saveNotesBtn.on('click', function(){
-      alert('nothing to do here!');
       // if(app.model.user.is_authenticated()){
       //   app.model.note.save_all_notes();
       // } else {
