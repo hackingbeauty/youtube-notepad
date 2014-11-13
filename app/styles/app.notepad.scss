@@ -26,13 +26,13 @@
 	}
 
 	#app-notes-container {
-		overflow-y: scroll;
+		overflow-y: auto;
 		overflow-x: hidden;
 		height: 559px;
 		background: white;
 
 		ul#notes-list {
-			min-height:553px;
+			min-height: 100%;
 			padding: 0 0 20px 0;
 			background-color: #fff;
 			position: relative;
