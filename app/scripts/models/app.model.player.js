@@ -32,12 +32,12 @@ app.model.player = (function () {
 
   //----------------- END MODEL SCOPE VARIABLES ---------------
 
-  create_video_script = function ( videoContainerID ){
+  create_video_script = function ( dimensions, videoContainerID ){
     var stringObj = 
       '<script type="text/javascript">' +
           'player = new YT.Player("'+videoContainerID+'", { '+
-            'height: "510", '+
-            'width: "780", '+
+            'height: "'+dimensions.height+'", '+
+            'width: "'+dimensions.width+'", '+
             'videoId: "", '+
             // 'playerVars: { "controls": 0 }, ' +
             'events: { '+

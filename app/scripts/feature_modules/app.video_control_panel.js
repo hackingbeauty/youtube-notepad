@@ -90,7 +90,15 @@ app.video_control_panel = (function () {
   };
 
   insertVideoIframe = function ( event, videoID ) {
-    var videoScriptTag = app.model.player.create_video_script( "app-video-iframe");
+    var 
+      videoScriptTag,
+      dimensions = {};
+
+    dimensions.width = jqueryMap.$container.width();
+    dimensions.height = jqueryMap.$container.height();
+
+    videoScriptTag = app.model.player.create_video_script( dimensions, "app-video-iframe");
+
     jqueryMap.$videoContainer.append( videoScriptTag );
   };
 
