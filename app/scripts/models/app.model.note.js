@@ -144,7 +144,7 @@ app.model.note = (function () {
       notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
       notesRef.remove();
 
-      videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
+      videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/notes/' + noteID);
       videosNotesRef.remove();
 
       db(noteID).remove();
