@@ -33,6 +33,7 @@ app.header = (function () {
     onVideoLinkBlur,
     updateLinkInput,
     onSearchBoxKeyPress,
+    onSearchBoxEnter,
     onSearchItemSelect,
     closeModals,
 
@@ -129,6 +130,17 @@ app.header = (function () {
     });
   };
 
+  onSearchBoxEnter = function(){
+    jqueryMap.$youtubeLinkInput.keydown( function(evt){
+      if (evt.which == 13){
+        evt.preventDefault();
+      } else if (evt.which == 40){ // If down arrow key clicked
+        setJqueryMap();
+        jqueryMap.$searchResultsList.children().first().css('background', 'red');
+      }
+    });
+  };
+
   /*
    *  Purpose: Called when user enters YouTube url and tabs out.
    *           If video found, it is then inserted 
@@ -179,7 +191,8 @@ app.header = (function () {
       $videoNotFoundMsg       : $container.find('#app-notepad-video-not-found-error'),
       $videoFoundMsg          : $container.find('#app-notepad-video-found'),
       $enterBtn               : $container.find('#app-notepad-enter-btn'),
-      $searchResultsBox       : $container.find('#app-search-results-box')
+      $searchResultsBox       : $container.find('#app-search-results-box'),
+      $searchResultsList      : $container.find('#app-search-results-list')
     };
   };
   // End DOM method /setJqueryMap/
@@ -282,6 +295,7 @@ app.header = (function () {
     onNotesLinkClick();
     onSearchBoxKeyPress();
     onSearchItemSelect();
+    onSearchBoxEnter();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  closeModals);
