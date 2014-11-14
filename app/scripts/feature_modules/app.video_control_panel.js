@@ -83,9 +83,9 @@ app.video_control_panel = (function () {
   }
 
   loadVideo = function( event, videoID ){
-    $('#app-video-noise-screen').hide();
     if(window.player){
       window.player.loadVideoById( videoID );
+      jqueryMap.$videoIframe.show();
     }
   };
 
@@ -100,6 +100,8 @@ app.video_control_panel = (function () {
     videoScriptTag = app.model.player.create_video_script( dimensions, "app-video-iframe");
 
     jqueryMap.$videoContainer.append( videoScriptTag );
+    setJqueryMap();
+
   };
 
   seekInVideo = function( event, time ){

@@ -10,13 +10,17 @@
 	overflow: hidden;
 
 	#app-video-control-panel-container {
-		height: 458px;
-		margin-left: -1px;
+		height: 100%;
+		background: black;
 	}
 
 	#app-video-control-panel-controls {
 
 
+	}
+
+	#app-video-iframe {
+		display:none;
 	}
 
 }
