@@ -104,9 +104,12 @@ app.header = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
 
   onSearchBoxKeyPress = function(){
-    var inputValue,videoID, keyPressCount = 0, query;
+    var 
+      inputValue,
+      videoID, 
+      query;
+
     jqueryMap.$youtubeLinkInput.keydown( function(e){
-      if(keyPressCount > 2){
         query = $.trim($(this).val());
         $.ajax({
           type      : 'GET',
@@ -123,8 +126,6 @@ app.header = (function () {
             console.log('ERRRROORR');
           }
         });
-      }
-      keyPressCount++;
     });
   };
 
