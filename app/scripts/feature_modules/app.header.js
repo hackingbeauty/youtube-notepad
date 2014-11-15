@@ -131,12 +131,34 @@ app.header = (function () {
   };
 
   onSearchBoxEnter = function(){
+    var 
+      liSelected, 
+      next, 
+      searchItems,
+      currSelectedItem,
+      firstClick  = true,
+      searchItemsRemaining = 0;
+
     jqueryMap.$youtubeLinkInput.keydown( function(evt){
+      setJqueryMap();
+
+      searchItems = jqueryMap.$searchResultsList.children();
+
       if (evt.which == 13){
         evt.preventDefault();
-      } else if (evt.which == 40){ // If down arrow key clicked
-        setJqueryMap();
-        jqueryMap.$searchResultsList.children().first().css('background', 'red');
+      } else if (evt.which === 40){ // If down arrow key clicked
+        
+        // if(firstClick){
+        //   // jqueryMap.$searchResultsList.children().get(searchItemsRemaining).focus();
+        //   firstClick = false;
+        // }
+
+        if(searchItemsRemaining < searchItems.length){
+          currSelectedItem = jqueryMap.$searchResultsList.children().get(searchItemsRemaining);
+          console.log('currSelectedItem ', currSelectedItem);
+          $(currSelectedItem).addClass('selected');
+          searchItemsRemaining++;
+        }
       }
     });
   };
