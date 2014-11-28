@@ -165,8 +165,6 @@ app.shell = (function () {
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  onCloseModal);
     
-    app.model.player.show_time_interval(); // Show video time as it progresses
-
     $(window)
       .bind( 'hashchange', parseRoute );
 

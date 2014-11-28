@@ -27,9 +27,8 @@ app.model.player = (function () {
     play_video,
     pause_video,
     get_current_time,
-    seek_time,
-    show_time_interval;
-
+    seek_time;
+    
   //----------------- END MODEL SCOPE VARIABLES ---------------
 
   create_video_script = function ( dimensions, videoContainerID ){
@@ -93,13 +92,6 @@ app.model.player = (function () {
     }
   };
 
-  show_time_interval = function ( ) {
-    var currentTime;
-    setInterval(function(){
-      currentTime = app.model.player.get_current_time();
-      $.gevent.publish( 'app-video-time', [ currentTime ] );
-    }, 100);
-  };
 
   //------------------- PRIVATE FUNCTIONS ----------------------
 
@@ -112,8 +104,7 @@ app.model.player = (function () {
     play_video              : play_video,
     pause_video             : pause_video,
     get_current_time        : get_current_time,
-    seek_time               : seek_time,
-    show_time_interval      : show_time_interval
+    seek_time               : seek_time
   };
 
 }());

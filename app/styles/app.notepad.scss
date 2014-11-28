@@ -84,6 +84,10 @@
 
 				.video-time{
 					padding-top: 23px;
+					width: 70px;
+					display: block;
+					border: 1px solid red;
+					height: 50px;
 				}
 
 				.text {
@@ -111,6 +115,7 @@
 					width: 85%;
 					padding-top:17px;
 					margin-top:13px;
+					margin-left: 75px;
 					&:focus {
 						outline: 0;
 					}

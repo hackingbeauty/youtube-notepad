@@ -36,7 +36,6 @@ app.notepad = (function () {
     refreshNotePad,
     onRecordedTimeClick,
     onKeyPress,
-    showVideoTime,
     onRemoveClick,
     onDeleteNotesBtnClick,
     onSaveNotesBtnClick,
@@ -179,13 +178,13 @@ app.notepad = (function () {
             })
           );
         }
-        
-        setTimeout(function(){
-          if( lastNote ){
-            $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
-          }
-          _createNoteInput();
-        }, 2000);
+
+        if( lastNote ){
+          $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
+        }
+
+        _createNoteInput();
+
       }
     });
   };
@@ -200,14 +199,6 @@ app.notepad = (function () {
       app.model.player.seek_time( recordedTime );
       event.preventDefault();
     });
-  };
-
-  /*
-   *  Purpose: Listen for continuously updated current video time.
-   *           Show current time next to latest input
-  */
-  showVideoTime = function( event, time ){
-    jqueryMap.$container.find('.video-time').html( time );
   };
 
   /*
@@ -308,7 +299,6 @@ app.notepad = (function () {
     onRemoveClick();
     onDeleteNotesBtnClick();
     onSaveNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-video-time', showVideoTime );
     return true;
   };
   // End public method /initModule/

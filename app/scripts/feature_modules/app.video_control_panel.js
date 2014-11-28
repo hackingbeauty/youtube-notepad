@@ -83,7 +83,7 @@ app.video_control_panel = (function () {
   }
 
   loadVideo = function( event, videoID ){
-    if(window.player){
+    if(window.player && window.player.loadVideoById){
       window.player.loadVideoById( videoID );
       jqueryMap.$videoIframe.show();
     }
@@ -111,8 +111,6 @@ app.video_control_panel = (function () {
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
-
-
 
   // Begin public method /configModule/
   // Purpose    : Adjust configuration of allowed keys
