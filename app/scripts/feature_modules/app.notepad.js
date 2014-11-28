@@ -163,7 +163,7 @@ app.notepad = (function () {
         noteCount, 
         lastNote,
         currentVideoID  = app.model.video.get_video_id();
-     
+
     app.model.note.get_all_by_video_id( id, function( notes ){
 
       jqueryMap.$notesList.empty();
