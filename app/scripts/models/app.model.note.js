@@ -78,12 +78,19 @@ app.model.note = (function () {
 
   get_all_by_video_id = function( videoID, callback ){
     var 
+      notes = [],
       videoNotesRef,
       userUID = app.model.user.get_user().uid;
 
     videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/' + videoID + '/notes/');
-    videoNotesRef.once('value', function(data) {
-      callback( data.val() );
+    videoNotesRef.once('value', function( data) {
+      var dataObjects = data.val();
+
+      for(var key in dataObjects){
+        notes.push( dataObjects[key] );
+      }
+
+      callback( notes);
     });
   };
 
