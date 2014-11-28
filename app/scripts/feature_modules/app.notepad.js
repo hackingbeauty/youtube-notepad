@@ -63,7 +63,6 @@ app.notepad = (function () {
     jqueryMap.$notesList.append(
       configMap.note_item_html(note) 
     );
-    // jqueryMap.$container.find('.note:last').attr('data-id', note.___id);
   }
 
   //--------------------- BEGIN DOM METHODS --------------------
