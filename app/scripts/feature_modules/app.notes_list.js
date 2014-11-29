@@ -27,6 +27,7 @@ app.notes_list_modal = (function () {
     showSearchResults,
     onCloseModal,
     onLoadNoteClick,
+    onDeleteNoteClick,
 
     setJqueryMap, 
     configModule, 
@@ -46,7 +47,8 @@ app.notes_list_modal = (function () {
       $container        : $container,
       $closeNotesBtn    : $container.find('#close-notes-modal-btn'),
       $modalBody        : $container.find('.modal-body'),
-      $searchNotesInput : $container.find('#app-search-notes-input') 
+      $searchNotesInput : $container.find('#app-search-notes-input'),
+      $deleteNoteIcon   : $container.find('.delete-note') 
     };
   };
   // End DOM method /setJqueryMap/
@@ -102,6 +104,12 @@ app.notes_list_modal = (function () {
     });
   };
 
+  onDeleteNoteClick = function(){
+    jqueryMap.$container.on('click', '.delete-note', function(){
+      $.gevent.publish( 'app-alert-modal', [ 'delete-note' ] );
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -140,6 +148,7 @@ app.notes_list_modal = (function () {
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
     onCloseModal();
     onLoadNoteClick();
+    onDeleteNoteClick();
     return true;
   };
   // End public method /initModule/

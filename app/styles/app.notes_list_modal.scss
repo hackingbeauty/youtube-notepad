@@ -22,13 +22,12 @@
 	}
 
 	#app-search-notes{
+		display: none;
 		width: 400px;
 		position:relative;
+		margin-bottom: 30px;
+		margin-left: 20px;
 
-		#app-search-notes-input {
-			
-		}
-		
 		i {
 			position: absolute;
 			right:10px;
@@ -38,10 +37,18 @@
 
 	ul#notes-list{
 		margin-top: -15px !important;
+
 		.note-item {
 			margin-bottom: 20px;
 			text-align:center;
 			height: 230px;
+			position: relative;
+			i.delete-note {
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				cursor: pointer;
+			}
 			h3{
 				font-size:13px;
 				height: 30px;

@@ -1,5 +1,5 @@
 /*
- * module_template.js
+ * alert_modal.js
  * <Module name> feature module
 */
 
@@ -12,16 +12,18 @@
 
 /*global $, app */
 
-app.module_template = (function () {
+app.alert_modal = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-        main_html: Handlebars.compile($('#template-id').html())
+        main_html: Handlebars.compile($('#app-alert-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
+
+    showAlertModal,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -33,8 +35,7 @@ app.module_template = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('');
-
+    var $container = stateMap.$append_target.find('#app-modal-alert');
     jqueryMap = { $container : $container };
   };
   // End DOM method /setJqueryMap/
@@ -44,6 +45,9 @@ app.module_template = (function () {
   // example: onClickButton = ...
   //-------------------- END EVENT HANDLERS --------------------
 
+  showAlertModal = function( evt, type ){
+    alert('delete note - coming soon');
+  };
 
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -77,6 +81,7 @@ app.module_template = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+    $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal', showAlertModal );
     return true;
   };
   // End public method /initModule/
