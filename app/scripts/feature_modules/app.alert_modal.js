@@ -36,7 +36,9 @@ app.alert_modal = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-modal-alert');
-    jqueryMap = { $container : $container };
+    jqueryMap = { 
+      $container : $container 
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
@@ -46,7 +48,7 @@ app.alert_modal = (function () {
   //-------------------- END EVENT HANDLERS --------------------
 
   showAlertModal = function( evt, type ){
-    alert('delete note - coming soon');
+    jqueryMap.$container.modal();
   };
 
 
