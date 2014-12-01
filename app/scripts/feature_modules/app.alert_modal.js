@@ -44,12 +44,22 @@ app.alert_modal = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
-  //-------------------- END EVENT HANDLERS --------------------
 
   showAlertModal = function( evt, type ){
+    var action;
     jqueryMap.$container.modal();
+    jqueryMap.$container.on('click','.btn-main-action', function( evt ){
+      action = $(this).data('modal-action');
+      switch( action ){
+        case "delete-notes":
+          alert('gonna delete notes');
+          // delete notes here
+          break;
+      }
+    });
   };
+
+  //-------------------- END EVENT HANDLERS --------------------
 
 
   //------------------- BEGIN PUBLIC METHODS -------------------
