@@ -25,6 +25,7 @@ app.alert_modal = (function () {
 
     showAlertModal,
     onDeleteNotesClick,
+    onConfirm,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -99,7 +100,7 @@ app.alert_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onDeleteNotesClick();
+    onConfirm();
     $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal', showAlertModal );
     return true;
   };
