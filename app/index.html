@@ -335,27 +335,23 @@
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
             <ul id="notes-list">
                 <div class="row">
-                    <div class="row">
-                        <div class="col-lg-4">
+                    <div class="col-lg-12">
                          <div id="app-search-notes">
-                                <input id="app-search-notes-input" class="form-control search-box" type="url" class="form-control" placeholder="Search your notes" autofocus="autofocus" autocomplete="off" required>
-                                <i class="fa fa-search"></i>
-                              </div>
+                            <input id="app-search-notes-input" class="form-control search-box" type="url" class="form-control" placeholder="Search your notes" autofocus="autofocus" autocomplete="off" required>
+                            <i class="fa fa-search"></i>
                         </div>
                     </div>
                     {{#each results}}
-                        <div class="col-lg-2">
-                            <li class="note-item module rounded">
-                                <i class="delete-icon delete-note fa fa-remove"></i>
-                                <h3>{{ title }}</h3>
-                                <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                                <br />
-                                <button data-video-id= "{{@key}}" class="load-note-btn pure-button pure-button-primary">
-                                    <strong>Load Notes</strong>
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </li>
-                        </div>
+                        <li  data-video=id="{{ @key }}" class="note-item module rounded col-lg-2">
+                            <i class="delete-icon delete-note fa fa-remove"></i>
+                            <h3>{{ title }}</h3>
+                            <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
+                            <br />
+                            <button data-video-id= "{{@key}}" class="load-note-btn pure-button pure-button-primary">
+                                <strong>Load Notes</strong>
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </li>
                     {{/each}}
                 </div>
             </ul>

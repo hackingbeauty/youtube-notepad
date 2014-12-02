@@ -61,10 +61,6 @@ app.notes_list_modal = (function () {
       jqueryMap.$modalBody.empty(); 
       jqueryMap.$container.modal();
       app.model.note.get_saved_notes(function( notes ){
-
-
-        debugger;
-        
         jqueryMap.$modalBody.append(
           configMap.content_html({
             results : notes
