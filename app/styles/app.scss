@@ -23,6 +23,13 @@ li {
   list-style-type:none;
 }
 
+img,
+embed,
+object,
+video {
+  max-width: 100%;
+}
+
 .beta{
   color: orange;
 }
