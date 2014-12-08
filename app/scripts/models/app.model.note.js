@@ -31,6 +31,7 @@ app.model.note = (function () {
   save_all_notes,
   get_saved_notes,
   delete_notes,
+  delete_video,
   initModule;
 
   create = function( note, startTime, videoTitle ){
@@ -158,6 +159,13 @@ app.model.note = (function () {
     }
   };
 
+  delete_video = function( videoID ){
+    console.log('delete_video, videoID is: ', videoID);
+    var userUID = app.model.user.get_user().uid;
+    var videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/video/' + videoID);
+    videoRef.remove();
+  };
+
   initModule = function(){
     db = TAFFY();
     db.store('videos');
@@ -174,6 +182,7 @@ app.model.note = (function () {
     save_all_notes        : save_all_notes,
     get_saved_notes       : get_saved_notes,
     delete_notes          : delete_notes,
+    delete_video          : delete_video,
     get_by_id             : get_by_id,
     initModule            : initModule
   };

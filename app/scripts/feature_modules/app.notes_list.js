@@ -105,8 +105,16 @@ app.notes_list_modal = (function () {
   };
 
   onDeleteNoteClick = function(){
+    var videoID;
+    var func;
+
     jqueryMap.$container.on('click', '.delete-note', function(){
-      $.gevent.publish( 'app-alert-modal', [ 'delete-note' ] );
+      videoID = $(this).closest('[data-video-id]').data('video-id').trim();
+      console.log('videoID is: ', videoID);
+      func = function(){
+        app.model.note.delete_video( videoID );
+      }
+      $.gevent.publish( 'app-alert-modal-show', [ func ] );
     });
   };
 

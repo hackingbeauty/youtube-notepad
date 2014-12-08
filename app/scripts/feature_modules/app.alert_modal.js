@@ -24,8 +24,7 @@ app.alert_modal = (function () {
     jqueryMap = {},
 
     showAlertModal,
-    onDeleteNotesClick,
-    onConfirm,
+    hideAlertModal,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -47,23 +46,17 @@ app.alert_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
 
-  showAlertModal = function( evt, type ){
-    var action;
+  showAlertModal = function( evt, callback ){
     jqueryMap.$container.modal();
+    var confirmFunc = function(){
+      callback();
+      jqueryMap.$container.off('click','.btn-main-action', this);
+    }
+    jqueryMap.$container.on('click','.btn-main-action', confirmFunc );
   };
 
-  onConfirm = function( ){
-    var action;
-    jqueryMap.$container.on('click','.btn-main-action', function( evt ){
-      action = $(this).data('modal-action');
-      console.log('$(this) is: ', $(this));
-      switch( action ){
-        case "delete-notes":
-          alert('gonna delete notes');
-          // delete notes here
-          break;
-      }
-    });
+  hideAlertModal = function( evt ){
+    jqueryMap.$container.modal('hide');
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -100,8 +93,8 @@ app.alert_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onConfirm();
-    $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal', showAlertModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal-show', showAlertModal );
+    $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal-hide', hideAlertModal );
     return true;
   };
   // End public method /initModule/
