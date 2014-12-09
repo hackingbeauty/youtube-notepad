@@ -105,16 +105,14 @@ app.notes_list_modal = (function () {
   };
 
   onDeleteNoteClick = function(){
-    var videoID;
-    var func;
-
     jqueryMap.$container.on('click', '.delete-note', function(){
-      videoID = $(this).closest('[data-video-id]').data('video-id').trim();
-      console.log('videoID is: ', videoID);
-      func = function(){
+      var $videoListItem = $(this).closest('[data-video-id]');
+      var videoID = $videoListItem.data('video-id').trim();
+      var deleteNoteCallback = function(){
         app.model.note.delete_video( videoID );
+        $videoListItem.remove();
       }
-      $.gevent.publish( 'app-alert-modal-show', [ func ] );
+      $.gevent.publish( 'app-alert-modal-show', [ deleteNoteCallback ] );
     });
   };
 

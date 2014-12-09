@@ -160,7 +160,6 @@ app.model.note = (function () {
   };
 
   delete_video = function( videoID ){
-    console.log('delete_video, videoID is: ', videoID);
     var userUID = app.model.user.get_user().uid;
     var videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
     videoRef.remove();

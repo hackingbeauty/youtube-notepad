@@ -47,12 +47,11 @@ app.alert_modal = (function () {
 
   showAlertModal = function( evt, callback ){
     jqueryMap.$container.modal();
-    var confirmFunc = function(){
+    jqueryMap.$container.on('click','.btn-main-action', function(){
       callback();
       jqueryMap.$container.off('click','.btn-main-action', this);
       jqueryMap.$container.modal('hide');
-    }
-    jqueryMap.$container.on('click','.btn-main-action', confirmFunc );
+    });
   };
 
   //-------------------- END EVENT HANDLERS --------------------
