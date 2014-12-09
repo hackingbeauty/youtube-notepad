@@ -24,7 +24,6 @@ app.alert_modal = (function () {
     jqueryMap = {},
 
     showAlertModal,
-    hideAlertModal,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -51,12 +50,9 @@ app.alert_modal = (function () {
     var confirmFunc = function(){
       callback();
       jqueryMap.$container.off('click','.btn-main-action', this);
+      jqueryMap.$container.modal('hide');
     }
     jqueryMap.$container.on('click','.btn-main-action', confirmFunc );
-  };
-
-  hideAlertModal = function( evt ){
-    jqueryMap.$container.modal('hide');
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -94,7 +90,6 @@ app.alert_modal = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal-show', showAlertModal );
-    $.gevent.subscribe( jqueryMap.$container, 'app-alert-modal-hide', hideAlertModal );
     return true;
   };
   // End public method /initModule/
