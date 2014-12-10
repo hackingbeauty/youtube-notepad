@@ -159,6 +159,7 @@ app.shell = (function () {
     app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
+    app.notepad_form.initModule       ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
