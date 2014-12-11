@@ -1,6 +1,6 @@
 /*
  * app.notepad_form.js
- * Notepad form feature module
+ * Chat feature module for SPA
 */
 
 /*jslint         browser : true, continue : true,
@@ -17,7 +17,33 @@ app.notepad_form = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html : Handlebars.compile($('#app-notes-form-template').html()),
+      main_html : String()
+        + '<div class="spa-chat">'
+          + '<div class="spa-chat-head">'
+            + '<div class="spa-chat-head-toggle">+</div>'
+            + '<div class="spa-chat-head-title">'
+              + 'Chat'
+            + '</div>'
+          + '</div>'
+          + '<div class="spa-chat-closer">x</div>'
+          + '<div class="spa-chat-sizer">'
+            + '<div class="spa-chat-list">'
+              + '<div class="spa-chat-list-box"></div>'
+            + '</div>'
+            + '<div class="spa-chat-msg">'
+              + '<div class="spa-chat-msg-log"></div>'
+              + '<div class="spa-chat-msg-in">'
+                + '<form class="spa-chat-msg-form">'
+                  + '<input type="text"/>'
+                  + '<input type="submit" style="display:none"/>'
+                  + '<div class="spa-chat-msg-send">'
+                    + 'send'
+                  + '</div>'
+                + '</form>'
+              + '</div>'
+            + '</div>'
+          + '</div>'
+        + '</div>',
 
       settable_map : {
         slider_open_time    : true,
@@ -27,14 +53,14 @@ app.notepad_form = (function () {
         slider_opened_title : true,
         slider_closed_title : true,
 
-        chat_model          : true,
-        conversation_model  : true,
-        set_chat_anchor     : true
+        chat_model      : true,
+        people_model    : true,
+        set_chat_anchor : true
       },
 
-      slider_open_time     : 120,
-      slider_close_time    : 120,
-      slider_opened_em     : 30,
+      slider_open_time     : 250,
+      slider_close_time    : 250,
+      slider_opened_em     : 18,
       slider_closed_em     : 2,
       slider_opened_title  : 'Tap to close',
       slider_closed_title  : 'Tap to open',
@@ -51,15 +77,18 @@ app.notepad_form = (function () {
       px_per_em        : 0,
       slider_hidden_px : 0,
       slider_closed_px : 0,
-      slider_opened_px : '21em'
+      slider_opened_px : 0
     },
     jqueryMap = {},
-    setJqueryMap,  setPxSizes,
+
+    setJqueryMap,  setPxSizes,   scrollChat,
+    writeChat,     writeAlert,   clearChat,
     setSliderPosition,
     onTapToggle,   onSubmitMsg,  onTapList,
+    onSetchatee,   onUpdatechat, onListchange,
     onLogin,       onLogout,
-    configModule,  characterCount,
-    removeSlider,  handleResize, initModule;
+    configModule,  initModule,
+    removeSlider,  handleResize;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -70,23 +99,21 @@ app.notepad_form = (function () {
   setJqueryMap = function () {
     var
       $append_target = stateMap.$append_target,
-      $slider        = $append_target.find( '#app-notepad-form-container' );
+      $slider        = $append_target.find( '.spa-chat' );
 
     jqueryMap = {
-      $slider         : $slider,
-      $head           : $slider.find( '.spa-conversation-head' ),
-      $toggle         : $slider.find( '.spa-conversation-head-toggle' ),
-      $title          : $slider.find( '.spa-conversation-head-title' ),
-      $sizer          : $slider.find( '.spa-conversation-sizer' ),
-      $list_box       : $slider.find( '.spa-conversation-list-box' ),
-      $msg_log        : $slider.find( '.spa-conversation-msg-log' ),
-      $msg_in         : $slider.find( '.spa-conversation-msg-in' ),
-      $convo_url      : $slider.find( '.spa-conversation-url'),
-      $convo_title    : $slider.find( '.spa-conversation-title'),
-      $countdown      : $slider.find( '.spa-conversation-countdown' ),
-      $send           : $slider.find( '.spa-conversation-msg-send' ),
-      $form           : $slider.find( '.spa-conversation-msg-form' ),
-      $window         : $(window)
+      $slider   : $slider,
+      $head     : $slider.find( '.spa-chat-head' ),
+      $toggle   : $slider.find( '.spa-chat-head-toggle' ),
+      $title    : $slider.find( '.spa-chat-head-title' ),
+      $sizer    : $slider.find( '.spa-chat-sizer' ),
+      $list_box : $slider.find( '.spa-chat-list-box' ),
+      $msg_log  : $slider.find( '.spa-chat-msg-log' ),
+      $msg_in   : $slider.find( '.spa-chat-msg-in' ),
+      $input    : $slider.find( '.spa-chat-msg-in input[type=text]'),
+      $send     : $slider.find( '.spa-chat-msg-send' ),
+      $form     : $slider.find( '.spa-chat-msg-form' ),
+      $window   : $(window)
     };
   };
   // End DOM method /setJqueryMap/
@@ -107,7 +134,7 @@ app.notepad_form = (function () {
 
     stateMap.px_per_em        = px_per_em;
     stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
-
+    stateMap.slider_opened_px = opened_height_em * px_per_em;
     jqueryMap.$sizer.css({
       height : ( opened_height_em - 2 ) * px_per_em
     });
@@ -115,7 +142,7 @@ app.notepad_form = (function () {
   // End DOM method /setPxSizes/
 
   // Begin public method /setSliderPosition/
-  // Example   : spa.conversation.setSliderPosition( 'closed' );
+  // Example   : spa.chat.setSliderPosition( 'closed' );
   // Purpose   : Move the chat slider to the requested position
   // Arguments :
   //   * position_type - enum('closed', 'opened', or 'hidden')
@@ -136,6 +163,21 @@ app.notepad_form = (function () {
     var
       height_px, animate_time, slider_title, toggle_text;
 
+    // position type of 'opened' is not allowed for anon user;
+    // therefore we simply return false; the shell will fix the
+    // uri and try again.
+    // if ( position_type === 'opened'
+    //   && configMap.people_model.get_user().get_is_anon()
+    // ){ return false; }
+
+    // return true if slider already in requested position
+    if ( stateMap.position_type === position_type ){
+      if ( position_type === 'opened' ) {
+        jqueryMap.$input.focus();
+      }
+      return true;
+    }
+
     // prepare animate parameters
     switch ( position_type ){
       case 'opened' :
@@ -143,6 +185,7 @@ app.notepad_form = (function () {
         animate_time = configMap.slider_open_time;
         slider_title = configMap.slider_opened_title;
         toggle_text  = '=';
+        // jqueryMap.$input.focus();
       break;
 
       case 'hidden' :
@@ -165,6 +208,7 @@ app.notepad_form = (function () {
 
     // animate slider position change
     stateMap.position_type = '';
+     
     jqueryMap.$slider.animate(
       { height : height_px },
       animate_time,
@@ -180,8 +224,39 @@ app.notepad_form = (function () {
   // End public DOM method /setSliderPosition/
 
   // Begin private DOM methods to manage chat message
+  scrollChat = function() {
+    var $msg_log = jqueryMap.$msg_log;
+    $msg_log.animate(
+      { scrollTop : $msg_log.prop( 'scrollHeight' )
+        - $msg_log.height()
+      },
+      150
+    );
+  };
 
+  writeChat = function ( person_name, text, is_user ) {
+    var msg_class = is_user
+      ? 'spa-chat-msg-log-me' : 'spa-chat-msg-log-msg';
 
+    jqueryMap.$msg_log.append(
+      '<div class="' + msg_class + '">'
+      + spa.util_b.encodeHtml(person_name) + ': '
+      + spa.util_b.encodeHtml(text) + '</div>'
+    );
+
+    scrollChat();
+  };
+
+  writeAlert = function ( alert_text ) {
+    jqueryMap.$msg_log.append(
+      '<div class="spa-chat-msg-log-alert">'
+        + spa.util_b.encodeHtml(alert_text)
+      + '</div>'
+    );
+    scrollChat();
+  };
+
+  clearChat = function () { jqueryMap.$msg_log.empty(); };
   // End private DOM methods to manage chat message
   //---------------------- END DOM METHODS ---------------------
 
@@ -198,16 +273,15 @@ app.notepad_form = (function () {
   };
 
   onSubmitMsg = function ( event ) {
-    var data = {
-      "convo_title" : jqueryMap.$convo_title.val(),
-      "convo_url"  : jqueryMap.$convo_url.val()
-    };
-
-    jqueryMap.$convo_title.val('');
-    jqueryMap.$convo_url.val('');
-    jqueryMap.$convo_url.focus();
-
-    spa.model.conversations.create(data);
+    var msg_text = jqueryMap.$input.val();
+    if ( msg_text.trim() === '' ) { return false; }
+    configMap.chat_model.send_msg( msg_text );
+    jqueryMap.$input.focus();
+    jqueryMap.$send.addClass( 'spa-x-select' );
+    setTimeout(
+      function () { jqueryMap.$send.removeClass( 'spa-x-select' ); },
+      250
+    );
     return false;
   };
 
@@ -222,6 +296,96 @@ app.notepad_form = (function () {
     return false;
   };
 
+  onSetchatee = function ( event, arg_map ) {
+    var
+      new_chatee = arg_map.new_chatee,
+      old_chatee = arg_map.old_chatee;
+
+    jqueryMap.$input.focus();
+    if ( ! new_chatee ) {
+      if ( old_chatee ) {
+        writeAlert( old_chatee.name + ' has left the chat' );
+      }
+      else {
+        writeAlert( 'Your friend has left the chat' );
+      }
+      jqueryMap.$title.text( 'Chat' );
+      return false;
+    }
+
+    jqueryMap.$list_box
+      .find( '.spa-chat-list-name' )
+      .removeClass( 'spa-x-select' )
+      .end()
+      .find( '[data-id=' + arg_map.new_chatee.id + ']' )
+      .addClass( 'spa-x-select' );
+
+    writeAlert( 'Now chatting with ' + arg_map.new_chatee.name );
+    jqueryMap.$title.text( 'Chat with ' + arg_map.new_chatee.name );
+    return true;
+  };
+
+  onListchange = function ( event ) {
+    var
+      list_html = String(),
+      people_db = configMap.people_model.get_db(),
+      chatee    = configMap.chat_model.get_chatee();
+
+
+    people_db().each( function ( person, idx ) {
+      var select_class = '';
+
+      if ( person.get_is_anon() || person.get_is_user()
+      ) { return true;}
+
+      if ( chatee && chatee.id === person.id ) {
+        select_class=' spa-x-select';
+      }
+      list_html
+        += '<div class="spa-chat-list-name'
+        +  select_class + '" data-id="' + person.id + '">'
+        +  spa.util_b.encodeHtml( person.name ) + '</div>';
+    });
+
+    if ( ! list_html ) {
+      list_html = String()
+        + '<div class="spa-chat-list-note">'
+        + 'To chat alone is the fate of all great souls...<br><br>'
+        + 'No one is online'
+        + '</div>';
+      clearChat();
+    }
+    // jqueryMap.$list_box.html( list_html );
+    jqueryMap.$list_box.html( list_html );
+  };
+
+  onUpdatechat = function ( event, msg_map ) {
+    var
+      is_user,
+      sender_id = msg_map.sender_id,
+      msg_text  = msg_map.msg_text,
+      chatee    = configMap.chat_model.get_chatee() || {},
+      sender    = configMap.people_model.get_by_cid( sender_id );
+
+    if ( ! sender ) {
+      writeAlert( msg_text );
+      return false;
+    }
+
+    is_user = sender.get_is_user();
+
+    if ( ! ( is_user || sender_id === chatee.id ) ) {
+      configMap.chat_model.set_chatee( sender_id );
+    }
+
+    writeChat( sender.name, msg_text, is_user );
+
+    if ( is_user ) {
+      jqueryMap.$input.val( '' );
+      jqueryMap.$input.focus();
+    }
+  };
+
   onLogin = function ( event, login_user ) {
     configMap.set_chat_anchor( 'opened' );
   };
@@ -229,18 +393,14 @@ app.notepad_form = (function () {
   onLogout = function ( event, logout_user ) {
     configMap.set_chat_anchor( 'closed' );
     jqueryMap.$title.text( 'Chat' );
-  };
-
-  characterCount = function ( ) {
-    var remaining = 50 - jqueryMap.$convo_title.val().length;
-    jqueryMap.$countdown.text(remaining + ' characters remaining.');
+    clearChat();
   };
 
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/
-  // Example   : spa.conversation.configModule({ slider_open_em : 18 });
+  // Example   : spa.chat.configModule({ slider_open_em : 18 });
   // Purpose   : Configure the module prior to initialization
   // Arguments :
   //   * set_chat_anchor - a callback to modify the URI anchor to
@@ -261,7 +421,7 @@ app.notepad_form = (function () {
   //             unacceptable or missing arguments
   //
   configModule = function ( input_map ) {
-    spa.util.setConfigMap({
+    app.util.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -269,6 +429,53 @@ app.notepad_form = (function () {
     return true;
   };
   // End public method /configModule/
+
+  // Begin public method /initModule/
+  // Example    : spa.chat.initModule( $('#div_id') );
+  // Purpose    :
+  //   Directs Chat to offer its capability to the user
+  // Arguments  :
+  //   * $append_target (example: $('#div_id')).
+  //     A jQuery collection that should represent
+  //     a single DOM container
+  // Action     :
+  //   Appends the chat slider to the provided container and fills
+  //   it with HTML content.  It then initializes elements,
+  //   events, and handlers to provide the user with a chat-room
+  //   interface
+  // Returns    : true on success, false on failure
+  // Throws     : none
+  //
+  initModule = function ( $append_target ) {
+    var $list_box;
+
+    // load chat slider html and jquery cache
+    stateMap.$append_target = $append_target;
+    $append_target.append( configMap.main_html );
+    setJqueryMap();
+    setPxSizes();
+
+    // initialize chat slider to default title and state
+    jqueryMap.$toggle.prop( 'title', configMap.slider_closed_title );
+    stateMap.position_type = 'closed';
+
+    // Have $list_box subscribe to jQuery global events
+    $list_box = jqueryMap.$list_box;
+    // $.gevent.subscribe( $list_box, 'spa-listchange', onListchange );
+    // $.gevent.subscribe( $list_box, 'spa-setchatee',  onSetchatee  );
+    // $.gevent.subscribe( $list_box, 'spa-updatechat', onUpdatechat );
+    // $.gevent.subscribe( $list_box, 'spa-login',      onLogin      );
+    $.gevent.subscribe( $list_box, 'spa-logout',     onLogout     );
+
+    onLogin();
+
+    // bind user input events
+    jqueryMap.$head.bind(     'utap', onTapToggle );
+    jqueryMap.$list_box.bind( 'utap', onTapList   );
+    jqueryMap.$send.bind(     'utap', onSubmitMsg );
+    jqueryMap.$form.bind(   'submit', onSubmitMsg );
+  };
+  // End public method /initModule/
 
   // Begin public method /removeSlider/
   // Purpose    :
@@ -290,9 +497,9 @@ app.notepad_form = (function () {
     stateMap.position_type  = 'closed';
 
     // unwind key configurations
-    configMap.chat_model            = null;
-    configMap.conversation_model    = null;
-    configMap.set_chat_anchor       = null;
+    configMap.chat_model      = null;
+    configMap.people_model    = null;
+    configMap.set_chat_anchor = null;
 
     return true;
   };
@@ -322,50 +529,6 @@ app.notepad_form = (function () {
     return true;
   };
   // End public method /handleResize/
-
-  // Begin public method /initModule/
-  // Example    : spa.conversation.initModule( $('#div_id') );
-  // Purpose    :
-  //   Directs Chat to offer its capability to the user
-  // Arguments  :
-  //   * $append_target (example: $('#div_id')).
-  //     A jQuery collection that should represent
-  //     a single DOM container
-  // Action     :
-  //   Appends the chat slider to the provided container and fills
-  //   it with HTML content.  It then initializes elements,
-  //   events, and handlers to provide the user with a chat-room
-  //   interface
-  // Returns    : true on success, false on failure
-  // Throws     : none
-  //
-  initModule = function ( $append_target ) {
-    var $list_box;
-
-    // load chat slider html and jquery cache
-    stateMap.$append_target = $append_target;
-    $append_target.append( configMap.main_html );
-    setJqueryMap();
-    setPxSizes();
-    alert('yada')
-    jqueryMap.$convo_title.change(characterCount);
-    jqueryMap.$convo_title.keyup(characterCount);
-
-    // initialize chat slider to default title and state
-    jqueryMap.$toggle.prop( 'title', configMap.slider_closed_title );
-    stateMap.position_type = 'opened';
-
-    // Have $list_box subscribe to jQuery global events
-    $list_box = jqueryMap.$list_box;
-    $.gevent.subscribe( $list_box, 'spa-login',      onLogin      );
-    $.gevent.subscribe( $list_box, 'spa-logout',     onLogout     );
-
-    // bind user input events
-    jqueryMap.$head.bind(     'utap', onTapToggle );
-    jqueryMap.$list_box.bind( 'utap', onTapList   );
-    jqueryMap.$form.bind(   'submit', onSubmitMsg );
-  };
-  // End public method /initModule/
 
   // return public methods
   return {
