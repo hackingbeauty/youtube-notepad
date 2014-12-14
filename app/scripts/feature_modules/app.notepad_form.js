@@ -209,16 +209,7 @@ app.notepad_form = (function () {
     // animate slider position change
     stateMap.position_type = '';
      
-    jqueryMap.$slider.animate(
-      { height : height_px },
-      animate_time,
-      function () {
-        jqueryMap.$toggle.prop( 'title', slider_title );
-        jqueryMap.$toggle.text( toggle_text );
-        stateMap.position_type = position_type;
-        if ( callback ) { callback( jqueryMap.$slider ); }
-      }
-    );
+    jqueryMap.$slider.height('90%');
     return true;
   };
   // End public DOM method /setSliderPosition/

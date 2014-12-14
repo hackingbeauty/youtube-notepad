@@ -239,10 +239,8 @@ app.shell = (function () {
       set_chat_anchor : setChatAnchor
     });
 
-
     app.notepad_form.initModule( jqueryMap.$container );
-        app.notepad_form.setSliderPosition( 'opened' );
-
+    app.notepad_form.setSliderPosition( 'opened' );
 
     app.header.initModule( jqueryMap.$shellBody );
 

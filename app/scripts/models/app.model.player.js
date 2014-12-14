@@ -38,7 +38,7 @@ app.model.player = (function () {
             // 'height: "'+dimensions.height+'", '+
             // 'width: "'+dimensions.width+'", '+
             'videoId: "", '+
-            // 'playerVars: { "controls": 0 }, ' +
+            'playerVars: { "wmode": "transparent" }, ' +
             'events: { '+
               '"onReady": app.model.player.on_player_ready,'+
               '"onStateChange": app.model.player.on_player_state_change '+
