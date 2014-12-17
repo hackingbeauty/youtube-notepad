@@ -169,7 +169,7 @@ app.notepad = (function () {
 
       if(currentVideoID){
         disableOrEnableBttns();
-        
+
         if (notes){
           lastNote = notes[notes.length-1];
           jqueryMap.$notesList.append(
@@ -177,10 +177,9 @@ app.notepad = (function () {
               notes: notes
             })
           );
-        }
-
-        if( lastNote ){
-          $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
+          if(lastNote){
+            $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
+          }
         }
 
         _createNoteInput();
@@ -207,7 +206,6 @@ app.notepad = (function () {
   onRemoveClick = function( event ){
     var $inputCheckBox;
     jqueryMap.$notesList.on('click', '.remove', function(){
-      console.log('$this is: ', $(this));
       $inputCheckBox = $(this);
       if($inputCheckBox.is(':checked')){
         deleteNoteCount++;

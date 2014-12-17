@@ -54,14 +54,14 @@ app.model.note = (function () {
     startTime = null;
     endTime = null;
 
-    videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
-    videosRef.set( videoData );
+    // videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+    // videosRef.set( videoData );
 
     noteID  = get_by_id( note )['___id'];
     noteObj = get_by_id( note );
 
-    notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-    notesRef.set( noteObj ); 
+    // notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
+    // notesRef.set( noteObj ); 
 
     videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + '/notes/' + noteID);
     videosNotesRef.set( noteObj );
@@ -101,7 +101,7 @@ app.model.note = (function () {
 
   receive = function(){
     firebaseRef.on('child_added', function(snapshot){
-      console.log('snapshot is: ', snapshot.val());
+
     });
   };
 

@@ -59,9 +59,8 @@ app.model.video = (function () {
 	}; 
 
 	set_video_data = function( videoID ){
-		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet'
-		console.log('url is:' , url);
-		console.log(' app.config.get_api_key(): ',  app.config.get_api_key());
+		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet';
+
 		$.getJSON( url, function( data ){
 			videoData = data.items[0].snippet;
 		});

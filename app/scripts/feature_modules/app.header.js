@@ -155,7 +155,6 @@ app.header = (function () {
 
         if(searchItemsRemaining < searchItems.length){
           currSelectedItem = jqueryMap.$searchResultsList.children().get(searchItemsRemaining);
-          console.log('currSelectedItem ', currSelectedItem);
           $(currSelectedItem).addClass('selected');
           searchItemsRemaining++;
         }
