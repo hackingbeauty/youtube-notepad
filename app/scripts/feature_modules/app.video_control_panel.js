@@ -30,6 +30,8 @@ app.video_control_panel = (function () {
     loadVideo,
     insertVideoIframe,
     onFullScreenModeClick,
+    speedControlBtnClicks,
+
     seekInVideo,
     setJqueryMap, 
     configModule, 
@@ -47,10 +49,14 @@ app.video_control_panel = (function () {
     jqueryMap = { 
       $container              : $container,
       $videoContainer         : $container.find('#app-video-control-panel-container'),
+      $videoControls          : $container.find('#app-video-control-panel-controls'),
       $videoIframe            : $container.find('#app-video-iframe'),
       $progressBarContainer   : $container.find('.progress'),
       $progressBar            : $container.find('.progress-bar'),
-      $fullScreenModeBtn      : $container.find('#full-screen-mode-btn')
+      $fullScreenModeBtn      : $container.find('#full-screen-mode-btn'),
+      $fasterSpeedBtn         : $container.find('#faster-speed-btn'),
+      $normalSpeedBtn         : $container.find('#normal-speed-btn'),
+      $slowerSpeedBtn         : $container.find('#slower-speed-btn')
     };
   };
   // End DOM method /setJqueryMap/
@@ -80,7 +86,24 @@ app.video_control_panel = (function () {
           // Ignore or do something else
       }
     });
-  }
+  };
+
+  speedControlBtnClicks = function(){
+    jqueryMap.$videoControls.on('click', function( evt ){
+      var $btnClicked = evt.target;
+
+      switch( $btnClicked.id ){
+        case 'faster-speed-btn':
+          break;
+        case '':
+          alert('normal')
+          break;
+        case '':
+          alert('slow')
+          break;
+      }
+    });
+  };
 
   loadVideo = function( event, videoID ){
     if(window.player && window.player.loadVideoById){
@@ -143,6 +166,7 @@ app.video_control_panel = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     onFullScreenModeClick();
+    speedControlBtnClicks();
     $.gevent.subscribe( jqueryMap.$container, 'app-youtube-authorized', insertVideoIframe);
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video',         loadVideo);
     $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video',      seekInVideo );
