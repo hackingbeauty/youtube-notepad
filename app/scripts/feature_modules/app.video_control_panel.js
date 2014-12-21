@@ -90,18 +90,8 @@ app.video_control_panel = (function () {
 
   speedControlBtnClicks = function(){
     jqueryMap.$videoControls.on('click', function( evt ){
-      var $btnClicked = evt.target;
-
-      switch( $btnClicked.id ){
-        case 'faster-speed-btn':
-          break;
-        case '':
-          alert('normal')
-          break;
-        case '':
-          alert('slow')
-          break;
-      }
+      var speed = parseFloat($(evt.target).data('speed'));
+      app.model.player.change_speed( speed );
     });
   };
 

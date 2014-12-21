@@ -26,6 +26,7 @@ app.model.player = (function () {
     on_player_state_change,
     play_video,
     pause_video,
+    change_speed,
     get_current_time,
     seek_time;
     
@@ -62,7 +63,11 @@ app.model.player = (function () {
 
   pause_video = function(){
     window.player.pauseVideo();
-  }
+  };
+
+  change_speed = function( speed ){
+    window.player.setPlaybackRate( speed );
+  };
 
   get_current_time = function(){
     var date,
@@ -104,7 +109,8 @@ app.model.player = (function () {
     play_video              : play_video,
     pause_video             : pause_video,
     get_current_time        : get_current_time,
-    seek_time               : seek_time
+    seek_time               : seek_time,
+    change_speed            : change_speed
   };
 
 }());
