@@ -6,7 +6,7 @@
 #app-notepad {
 	height: 0;
 	overflow:hidden;
-	transition: all 0.5s ease;
+	transition: all 0.3s ease;
 	position: absolute;
 	width: 49%;
 	right: 10px;
@@ -24,8 +24,8 @@
 		color:white;
 		font-weight: bold;
 		position: relative;
-			border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 		h3 {
 			text-align:center;
 			color: inherit
@@ -128,7 +128,7 @@
 					word-break: break-all;
 					overflow: hidden;
 					white-space: nowrap;
-					width: 87%;
+					width: 85%;
 					padding-top:9px;
 				}
 
