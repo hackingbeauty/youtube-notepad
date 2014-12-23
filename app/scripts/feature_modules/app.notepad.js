@@ -297,7 +297,7 @@ app.notepad = (function () {
     onRemoveClick();
     onDeleteNotesBtnClick();
     onSaveNotesBtnClick();
-    jqueryMap.$container.height('90%');
+    jqueryMap.$container.height('92%');
     return true;
   };
   // End public method /initModule/
