@@ -29,7 +29,6 @@ app.shell = (function () {
     updateURL,
     parseRoute,
     closeModalsOnClick,
-    onCloseModal,
 
     setJqueryMap, 
     configModule, 
@@ -71,10 +70,6 @@ app.shell = (function () {
     });
   };
 
-  onCloseModal = function(){
-
-  };
-
   parseRoute = function(){
     var 
         routeHash = window.location.hash.substr(2),
@@ -106,6 +101,14 @@ app.shell = (function () {
         break;
       case 'notes':
         $.gevent.publish( 'app-show-notes', [  ] );
+        break;
+      case 'notepad':
+        app.notepad.setPosition( routeVal );
+        break;
+      default:
+        $.uriAnchor.setAnchor( {
+          notepad: 'opened'
+        }); 
         break;
     }
   };
@@ -151,6 +154,9 @@ app.shell = (function () {
 
     app.header.initModule( jqueryMap.$shellBody );
 
+    $(window)
+      .bind( 'hashchange', parseRoute );
+
     app.model.video.load_library( function(){ //rename this function
       parseRoute();
     });
@@ -164,7 +170,6 @@ app.shell = (function () {
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
-    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  onCloseModal);
     
     $(window)
       .bind( 'hashchange', parseRoute );

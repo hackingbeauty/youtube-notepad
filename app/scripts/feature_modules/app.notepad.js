@@ -40,6 +40,7 @@ app.notepad = (function () {
     onDeleteNotesBtnClick,
     onSaveNotesBtnClick,
     disableOrEnableBttns,
+    setPosition,
 
     setJqueryMap, 
     configModule, 
@@ -146,7 +147,6 @@ app.notepad = (function () {
       if(inputKeypressCount === 1){
         app.model.player.pause_video();
         currentVideoTime = app.model.player.get_current_time();
-
         jqueryMap.$container.find('.note input:last').data('start-time', currentVideoTime);
       }
       inputKeypressCount++;
@@ -260,6 +260,42 @@ app.notepad = (function () {
 
 
   //------------------- BEGIN PUBLIC METHODS -------------------
+  // Begin public method /setPosition/
+  // Example   : spa.chat.setPosition( 'closed' );
+  // Purpose   : Move the chat slider to the requested position
+  // Arguments :
+  //   * position_type - enum('closed', 'opened', or 'hidden')
+  //   * callback - optional callback to be run end at the end
+  //     of slider animation.  The callback receives a jQuery
+  //     collection representing the slider div as its single
+  //     argument
+  // Action    :
+  //   This method moves the slider into the requested position.
+  //   If the requested position is the current position, it
+  //   returns true without taking further action
+  // Returns   :
+  //   * true  - The requested position was achieved
+  //   * false - The requested position was not achieved
+  // Throws    : none
+  //
+  setPosition = function ( position_type, callback ) {
+
+    // prepare animate parameters
+    switch ( position_type ){
+      case 'opened' :
+        jqueryMap.$container.height('92%');
+        break;
+      case 'closed' :
+        jqueryMap.$container.height('0');
+        break;
+      // bail for unknown position_type
+      default : 
+        return false;
+    }
+
+  };
+  // End public DOM method /setPosition/
+
   // Begin public method /configModule/
   // Purpose    : Adjust configuration of allowed keys
   // Arguments  : A map of settable keys and values
@@ -297,7 +333,6 @@ app.notepad = (function () {
     onRemoveClick();
     onDeleteNotesBtnClick();
     onSaveNotesBtnClick();
-    jqueryMap.$container.height('92%');
     return true;
   };
   // End public method /initModule/
@@ -306,7 +341,8 @@ app.notepad = (function () {
   return {
     configModule    : configModule,
     initModule      : initModule,
-    refreshNotePad  : refreshNotePad
+    refreshNotePad  : refreshNotePad,
+    setPosition     : setPosition
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

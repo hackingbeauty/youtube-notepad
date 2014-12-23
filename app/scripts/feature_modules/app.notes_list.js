@@ -85,9 +85,9 @@ app.notes_list_modal = (function () {
   onCloseModal = function(){
     var anchorMap;
     jqueryMap.$container.on('hidden.bs.modal', function () {
-      //TODO: create a router module
-      anchorMap = $.uriAnchor.makeAnchorMap();
-      delete anchorMap['notes']
+      anchorMap = {
+        notepad  : 'opened' 
+      }
       $.uriAnchor.setAnchor( anchorMap ); 
       jqueryMap.$modalBody.empty();   
     });
