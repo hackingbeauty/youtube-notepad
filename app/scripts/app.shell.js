@@ -171,9 +171,6 @@ app.shell = (function () {
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
     
-    $(window)
-      .bind( 'hashchange', parseRoute );
-
     return true;
   };
   // End public method /initModule/
