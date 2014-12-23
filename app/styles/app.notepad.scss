@@ -4,8 +4,16 @@
 */
 
 #app-notepad {
-	height: 650px;
+	height: 0;
 	overflow:hidden;
+	transition: all 0.5s ease;
+	position: absolute;
+	width: 49%;
+	right: 10px;
+	bottom: 0px;
+	background: white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 
 	#app-notepad-time-head { /* hiding for now */
 		display: none; 

@@ -180,28 +180,26 @@
 
         <!-- Notepad template-->
         <script id="app-notepad-template" type=“x-text/handlebars”>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-notepad" class="rounded">
-                    <div id="app-notes-container">
-                        <ul id="notes-list">
-                        </ul>
+            <div id="app-notepad">
+                <div id="app-notes-container">
+                    <ul id="notes-list">
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error">
+                            <strong>Delete Notes</strong>
+                            <i class="fa fa-remove"></i>
+                        </button>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error">
-                                <strong>Delete Notes</strong>
-                                <i class="fa fa-remove"></i>
-                            </button>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
-                                <strong>Save notes</strong>
-                                <i class="fa fa-save"></i>
-                            </button>
-                        </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
+                            <strong>Save notes</strong>
+                            <i class="fa fa-save"></i>
+                        </button>
                     </div>
                 </div>
-            </div><!-- .col-xx-xx -->
+            </div>
         </script>
         <!-- End Video form template-->
 
