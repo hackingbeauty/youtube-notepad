@@ -154,9 +154,6 @@ app.shell = (function () {
 
     app.header.initModule( jqueryMap.$shellBody );
 
-    $(window)
-      .bind( 'hashchange', parseRoute );
-
     app.model.video.load_library( function(){ //rename this function
       parseRoute();
     });
@@ -167,9 +164,14 @@ app.shell = (function () {
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
 
+    parseRoute();
+
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
+
+    $(window)
+      .bind( 'hashchange', parseRoute );
     
     return true;
   };
