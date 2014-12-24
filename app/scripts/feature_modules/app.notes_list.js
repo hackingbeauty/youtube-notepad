@@ -85,21 +85,20 @@ app.notes_list_modal = (function () {
   onCloseModal = function(){
     var anchorMap;
     jqueryMap.$container.on('hidden.bs.modal', function () {
-      anchorMap = {
-        notepad  : 'opened' 
-      }
-      $.uriAnchor.setAnchor( anchorMap ); 
+      anchorMap = $.uriAnchor.makeAnchorMap();
+      delete anchorMap['notes'];
+      $.uriAnchor.setAnchor( $.extend( { notepad: 'opened'}, anchorMap  )); 
       jqueryMap.$modalBody.empty();   
     });
   };
 
   onLoadNoteClick = function(){
-    var videoID;
+    var videoID, anchorMap;
     jqueryMap.$container.on('click','.load-note-btn', function(){
       videoID = $(this).data('video-id');
-      $.uriAnchor.setAnchor({
-        video_id : videoID
-      });
+      anchorMap = $.uriAnchor.makeAnchorMap();
+      delete anchorMap['notes'];
+      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, anchorMap )); 
       jqueryMap.$container.modal('hide');
     });
   };

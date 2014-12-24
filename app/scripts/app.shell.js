@@ -73,9 +73,10 @@ app.shell = (function () {
   parseRoute = function(){
     var 
         routeHash = window.location.hash.substr(2),
-        route    = routeHash.split('='),
-        routeKey = route[0],
-        routeVal = route[1],
+        route    = routeHash.split('&'),
+        routeKeyVal = route[0].split('='),
+        routeKey = routeKeyVal[0],
+        routeVal = routeKeyVal[1],
         videoID,
         url;
 
