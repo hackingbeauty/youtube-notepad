@@ -89,10 +89,17 @@ app.video_control_panel = (function () {
   };
 
   speedControlBtnClicks = function(){
-    var speed, speedControlBtns;
-    jqueryMap.$videoControls.on('click', function( evt ){
+    var speed, $speedControlBtns, $button;
+    jqueryMap.$videoControls.on('click', 'button',function( evt ){
       speed = parseFloat($(evt.target).data('speed'));
-      
+      $speedControlBtns = jqueryMap.$videoControls.find('button');
+      for(var i = 0; i < $speedControlBtns.length; i++){
+        $button = $($speedControlBtns[i]);
+        if($button.hasClass('selected')){
+          $button.removeClass('selected');
+        }
+      }
+      $(evt.target).addClass('selected');
       app.model.player.change_speed( speed );
     });
   };
