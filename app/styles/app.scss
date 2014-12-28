@@ -55,8 +55,9 @@ video {
 }
 
 .selected {
-  background: red !important;
+  background: green !important;
 }
+
 
 .video-container {
 	border: 1px solid #e3e3e3;
@@ -91,7 +92,6 @@ video {
 }
 
 .search-box {
-  border-radius: 20px;
   color:white;
   background:#171b1e;
   font-weight:bold;

@@ -19,7 +19,12 @@
 	}
 
 	.fa-search {
-		margin-left: -30px;
+		height: 100%;
+		display: block;
+		float: right;
+		margin-top: 15px;
+		position: relative;
+		right: 30px;
 	}
 
 	.navbar-form {
