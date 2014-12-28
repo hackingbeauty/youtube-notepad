@@ -80,10 +80,9 @@ app.shell = (function () {
 
     for(var i = 0; i< route.length; i++){
 
-      if( /video_id/.test(routeHash) ){
-        
-        videoID  = routeHash.substr(routeHash.search('video_id'),routeHash.length).split('=')[1];
-        url         = 'http://www.youtube.com/watch?v=' + videoID;
+      if( /video_id/.test(route[i]) ){
+        videoID  = route[i].split('=')[1];
+        url      = 'http://www.youtube.com/watch?v=' + videoID;
 
         app.model.video.check_video(
           videoID,
@@ -100,13 +99,8 @@ app.shell = (function () {
         );
       }
 
-      if( /notes/.test( routeHash ) ){
+      if( /notes/.test( route[i] ) ){
         $.gevent.publish( 'app-show-notes', [  ] );
-      }
-
-      if( /notepad/.test(routeHash) ){
-        routeVal = route[i].split('=')[1];
-        app.notepad.setPosition( routeVal );
       }
 
     } 
@@ -152,6 +146,8 @@ app.shell = (function () {
     $container.html(  configMap.main_html() );
     setJqueryMap();
 
+    app.model.video.load_library($.noop);
+
     app.header.initModule( jqueryMap.$shellBody );
 
     app.login_modal.initModule        ( jqueryMap.$shellBody );
@@ -160,11 +156,7 @@ app.shell = (function () {
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
 
-    $.uriAnchor.setAnchor( {
-      notepad: 'opened'
-    });
-
-    parseRoute();
+    app.notepad.setPosition( 'opened' );
 
     closeModalsOnClick();
   
