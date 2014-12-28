@@ -50,6 +50,7 @@ app.video_control_panel = (function () {
       $container              : $container,
       $videoContainer         : $container.find('#app-video-control-panel-container'),
       $videoControls          : $container.find('#app-video-speed-controls'),
+      $speedControlBtns       : $container.find('#app-video-speed-controls button'),
       $videoIframe            : $container.find('#app-video-iframe'),
       $progressBarContainer   : $container.find('.progress'),
       $progressBar            : $container.find('.progress-bar'),
@@ -89,12 +90,11 @@ app.video_control_panel = (function () {
   };
 
   speedControlBtnClicks = function(){
-    var speed, $speedControlBtns, $button;
+    var speed, $button;
     jqueryMap.$videoControls.on('click', 'button',function( evt ){
       speed = parseFloat($(evt.target).data('speed'));
-      $speedControlBtns = jqueryMap.$videoControls.find('button');
-      for(var i = 0; i < $speedControlBtns.length; i++){
-        $button = $($speedControlBtns[i]);
+      for(var i = 0; i < jqueryMap.$speedControlBtns.length; i++){
+        $button = $(jqueryMap.$speedControlBtns[i]);
         if($button.hasClass('selected')){
           $button.removeClass('selected');
         }
@@ -105,9 +105,17 @@ app.video_control_panel = (function () {
   };
 
   loadVideo = function( event, videoID ){
+    var $button;
     if(window.player && window.player.loadVideoById){
       window.player.loadVideoById( videoID );
       jqueryMap.$videoIframe.show();
+      for(var i = 0; i < jqueryMap.$speedControlBtns.length; i++){
+        $button = $(jqueryMap.$speedControlBtns[i]);
+        if($button.hasClass('selected')){
+          $button.removeClass('selected');
+        }
+      }
+      jqueryMap.$speedControlBtns.filter('[data-speed="1"]').addClass('selected');
     }
   };
 
