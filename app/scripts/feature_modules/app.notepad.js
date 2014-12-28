@@ -38,7 +38,6 @@ app.notepad = (function () {
     onKeyPress,
     onRemoveClick,
     onDeleteNotesBtnClick,
-    onSaveNotesBtnClick,
     disableOrEnableBttns,
     setPosition,
 
@@ -246,16 +245,6 @@ app.notepad = (function () {
     });
   };
 
-  onSaveNotesBtnClick = function(){
-    jqueryMap.$saveNotesBtn.on('click', function(){
-      // if(app.model.user.is_authenticated()){
-      //   app.model.note.save_all_notes();
-      // } else {
-      //   $.gevent.publish( 'app-login-modal', [ ] );
-      // }
-    });
-  };
-
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -332,7 +321,6 @@ app.notepad = (function () {
     onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
-    onSaveNotesBtnClick();
     return true;
   };
   // End public method /initModule/
