@@ -146,7 +146,9 @@ app.shell = (function () {
     $container.html(  configMap.main_html() );
     setJqueryMap();
 
-    app.model.video.load_library($.noop);
+    app.model.video.load_library(function(){
+      parseRoute() // must do first time
+    });
 
     app.header.initModule( jqueryMap.$shellBody );
 
@@ -161,6 +163,7 @@ app.shell = (function () {
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
+
 
     $(window)
       .bind( 'hashchange', parseRoute );
