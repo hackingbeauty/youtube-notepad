@@ -35,6 +35,7 @@ app.notepad = (function () {
     onNoteEdit,
     refreshNotePad,
     onRecordedTimeClick,
+    onToggle,
     onKeyPress,
     onRemoveClick,
     onDeleteNotesBtnClick,
@@ -75,7 +76,8 @@ app.notepad = (function () {
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
       $deleteNotesBtn         : $container.find('#delete-notes-btn'),
-      $saveNotesBtn           : $container.find('#save-notes-btn')
+      $saveNotesBtn           : $container.find('#save-notes-btn'),
+      $toggleHandle           : $container.find('#app-notepad-toggle-handle')
     };
   };
   // End DOM method /setJqueryMap/
@@ -245,6 +247,21 @@ app.notepad = (function () {
     });
   };
 
+  onToggle = function(){
+    var currentPosition;
+    jqueryMap.$toggleHandle.on('click', function(){
+      currentPosition = jqueryMap.$toggleHandle.data('position');
+
+      if( currentPosition === 'opened'){
+        setPosition( 'closed' );
+        jqueryMap.$toggleHandle.data('position', 'closed');
+      } else if ( currentPosition === 'closed'){
+        setPosition( 'opened' );
+        jqueryMap.$toggleHandle.data('position', 'opened');
+      }
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -267,7 +284,7 @@ app.notepad = (function () {
   //   * false - The requested position was not achieved
   // Throws    : none
   //
-  setPosition = function ( position_type, callback ) {
+  setPosition = function ( position_type ) {
 
     // prepare animate parameters
     switch ( position_type ){
@@ -275,11 +292,12 @@ app.notepad = (function () {
         jqueryMap.$container.height('92%');
         break;
       case 'closed' :
-        jqueryMap.$container.height('0');
+        jqueryMap.$container.height('5%');
         break;
       // bail for unknown position_type
       default : 
-        return false;
+        jqueryMap.$container.height('92%');
+        break;
     }
 
   };
@@ -321,6 +339,8 @@ app.notepad = (function () {
     onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
+    onToggle();
+    setPosition( 'opened' );
     return true;
   };
   // End public method /initModule/

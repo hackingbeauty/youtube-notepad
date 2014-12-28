@@ -4,7 +4,7 @@
 */
 
 #app-notepad {
-	height: 0;
+	height: 5%;
 	overflow:hidden;
 	transition: all 0.5s ease;
 	position: absolute;
@@ -30,11 +30,12 @@
 			text-align:center;
 			color: inherit
 		}
-		.app-notepad-head-toggle {
+		#app-notepad-toggle-handle {
 			font-weight: bold;
 			padding-left: 20px;
 			position: absolute;
 			left: 0px;
+			cursor: pointer;
 		}
 	}
 

@@ -158,12 +158,9 @@ app.shell = (function () {
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
 
-    app.notepad.setPosition( 'opened' );
-
     closeModalsOnClick();
   
     $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
-
 
     $(window)
       .bind( 'hashchange', parseRoute );
