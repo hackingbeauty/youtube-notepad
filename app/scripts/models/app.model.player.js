@@ -53,9 +53,25 @@ app.model.player = (function () {
     play_video();
   };
 
-  on_player_state_change = function( ){
-    console.log('player video url is: ', window.player.getVideoUrl());
-    console.log('player state changes, arguments are: ', arguments);
+  on_player_state_change = function( state, target ){
+    var videoURL,
+        videoIDMatch,
+        videoID;
+
+    if( state.data === -1){
+      videoURL = window.player.getVideoUrl();
+      videoIDMatch = videoURL.match(/v=[\D\d\W\w]*/g);
+      
+      if(videoIDMatch !== null){
+        videoID = videoIDMatch[0].slice(2, videoIDMatch[0].length);
+
+        $.uriAnchor.setAnchor({
+          video_id : videoID
+        });
+      }
+
+    }
+   
   };
 
   play_video = function(){
