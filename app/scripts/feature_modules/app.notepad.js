@@ -289,14 +289,14 @@ app.notepad = (function () {
     // prepare animate parameters
     switch ( position_type ){
       case 'opened' :
-        jqueryMap.$container.height('92%');
+        jqueryMap.$container.height('90.5%');
         break;
       case 'closed' :
         jqueryMap.$container.height('5%');
         break;
       // bail for unknown position_type
       default : 
-        jqueryMap.$container.height('92%');
+        jqueryMap.$container.height('90.5%');
         break;
     }
 
