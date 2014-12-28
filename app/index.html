@@ -396,26 +396,24 @@
           ga('send', 'pageview');
         </script>
 
+        <!-- build:js scripts/vendor.js -->
+        <script src="../bower_components/jquery/dist/jquery.js"                             ></script>
+        <script src="../bower_components/firebase/firebase.js"                              ></script>
+        <script src="../bower_components/firebase-simple-login/firebase-simple-login.js"    ></script>
+        <script src="../bower_components/screenfull/dist/screenfull.min.js"                 ></script>
+        <script src="scripts/vendor/handlebars-v1.0.3.js"                                   ></script>
+        <script src="scripts/vendor/jquery.event.gevent-0.1.9.js"                           ></script>
+        <script src="scripts/vendor/taffydb.js"                                             ></script>
+        <script src="scripts/vendor/jquery.uri-anchor.js"                                   ></script>
+        <script src="scripts/vendor/bootstrap.js"                                           ></script>
+        <script src="scripts/vendor/bootstrap-checkbox.js"                                  ></script>
+        <script src="scripts/vendor/sly.js"                                                 ></script>
+        <!-- endbuild -->
+
         <!-- Firebase -->
-        <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'     ></script>
         <script>
             var firebaseRef = new Firebase('https://intense-fire-7738.firebaseio.com/');
         </script>
-        <script 
-            src='https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js'>
-        </script>
-
-        <!-- build:js scripts/vendor.js -->
-        <script src="../bower_components/jquery/dist/jquery.js"                 ></script>
-        <script src="scripts/vendor/handlebars-v1.0.3.js"                       ></script>
-        <script src="scripts/vendor/jquery.event.gevent-0.1.9.js"               ></script>
-        <script src="scripts/vendor/taffydb.js"                                 ></script>
-        <script src="scripts/vendor/jquery.uri-anchor.js"                       ></script>
-        <script src="../bower_components/screenfull/dist/screenfull.min.js"     ></script>
-        <script src="scripts/vendor/bootstrap.js"                               ></script>
-        <script src="scripts/vendor/bootstrap-checkbox.js"                      ></script>
-        <script src="scripts/vendor/sly.js"                                     ></script>
-        <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/main.js"                                           ></script>

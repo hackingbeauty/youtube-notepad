@@ -4,7 +4,9 @@
   "dependencies": {
     "bootstrap-sass-official": "~3.1.0",
     "jquery": "~1.11.0",
-    "screenfull": "~1.2.1"
+    "screenfull": "~1.2.1",
+    "firebase": "~2.0.6",
+    "firebase-simple-login": "~1.6.4"
   },
   "devDependencies": {}
 }
