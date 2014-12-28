@@ -50,11 +50,14 @@ app.model.player = (function () {
   };
 
   on_player_ready = function( ){
+    // alert('yo');
     play_video();
+    console.log('PLAYER IS READY!!!');
   };
 
   on_player_state_change = function( ){
     //
+    console.log('player state changes, arguments are: ', arguments);
   };
 
   play_video = function(){

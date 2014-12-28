@@ -74,16 +74,17 @@ app.shell = (function () {
     var 
         routeHash = window.location.hash.substr(2),
         route    = routeHash.split('&'),
-        routeKeyVal = route[0].split('='),
-        routeKey = routeKeyVal[0],
-        routeVal = routeKeyVal[1],
+        routeVal,
         videoID,
         url;
 
-    switch( routeKey ){
-      case 'video_id':
-        videoID = app.util.parseVideoID(routeHash);
-        url     = 'http://www.youtube.com/watch?v=' + videoID;
+    for(var i = 0; i< route.length; i++){
+
+      if( /video_id/.test(routeHash) ){
+        
+        videoID  = routeHash.substr(routeHash.search('video_id'),routeHash.length).split('=')[1];
+        url         = 'http://www.youtube.com/watch?v=' + videoID;
+
         app.model.video.check_video(
           videoID,
           function(){
@@ -97,21 +98,19 @@ app.shell = (function () {
             alert('video not found!');
           }
         );
-        break;
-      case 'user_id':
-        break;
-      case 'notes':
+      }
+
+      if( /notes/.test( routeHash ) ){
         $.gevent.publish( 'app-show-notes', [  ] );
-        break;
-      case 'notepad':
+      }
+
+      if( /notepad/.test(routeHash) ){
+        routeVal = route[i].split('=')[1];
         app.notepad.setPosition( routeVal );
-        break;
-      default:
-        $.uriAnchor.setAnchor( {
-          notepad: 'opened'
-        }); 
-        break;
-    }
+      }
+
+    } 
+
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -155,15 +154,15 @@ app.shell = (function () {
 
     app.header.initModule( jqueryMap.$shellBody );
 
-    app.model.video.load_library( function(){ //rename this function
-      parseRoute();
-    });
-
     app.login_modal.initModule        ( jqueryMap.$shellBody );
     app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
+
+    $.uriAnchor.setAnchor( {
+      notepad: 'opened'
+    });
 
     parseRoute();
 
