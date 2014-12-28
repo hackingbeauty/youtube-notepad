@@ -49,7 +49,7 @@ app.video_control_panel = (function () {
     jqueryMap = { 
       $container              : $container,
       $videoContainer         : $container.find('#app-video-control-panel-container'),
-      $videoControls          : $container.find('#app-video-control-panel-controls'),
+      $videoControls          : $container.find('#app-video-speed-controls'),
       $videoIframe            : $container.find('#app-video-iframe'),
       $progressBarContainer   : $container.find('.progress'),
       $progressBar            : $container.find('.progress-bar'),
@@ -89,8 +89,10 @@ app.video_control_panel = (function () {
   };
 
   speedControlBtnClicks = function(){
+    var speed, speedControlBtns;
     jqueryMap.$videoControls.on('click', function( evt ){
-      var speed = parseFloat($(evt.target).data('speed'));
+      speed = parseFloat($(evt.target).data('speed'));
+      
       app.model.player.change_speed( speed );
     });
   };
