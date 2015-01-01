@@ -187,7 +187,7 @@
                     <h3>Notepad</h3>
                 </div>
                 <div id="app-notes-container">
-                    <ul id="notes-list">
+                    <ul id="notes-list" data-video-id="{{ videoID }}">
                     </ul>
                 </div>
                 <div id="app-notepad-controls">
@@ -212,7 +212,7 @@
 
         <!-- Note Item Template -->
         <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
-            <li class="note" data-id="{{ ___id }}">
+            <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
                 <span class="time recorded-video-time">{{ startTime }}</span>
                 <span class="text" contenteditable="true">{{ note }}</span>
                 <input class="remove checkbox" type="checkbox" />

@@ -54,14 +54,8 @@ app.model.note = (function () {
     startTime = null;
     endTime = null;
 
-    // videosRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
-    // videosRef.set( videoData );
-
     noteID  = get_by_id( note )['___id'];
     noteObj = get_by_id( note );
-
-    // notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-    // notesRef.set( noteObj ); 
 
     videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + '/notes/' + noteID);
     videosNotesRef.set( noteObj );
@@ -69,16 +63,26 @@ app.model.note = (function () {
     return note.get()[0];
   };
 
-  edit = function( id, val ){
-    db(id).update( { "note" : val } );
-  }
+  edit = function( videoID, noteID, note ){
+    var
+      videoNotesRef,
+      noteObj,
+      userUID = app.model.user.get_user().uid;
+
+    noteObj = {
+      note: note
+    };
+
+    videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + '/notes/' + noteID);
+    videoNotesRef.update( noteObj );
+  };
 
   get_all = function(){
     return db().order('videoTime').get();
   };
 
   get_all_by_video_id = function( videoID, callback ){
-    var 
+    var
       notes = [],
       videoNotesRef,
       userUID = app.model.user.get_user().uid;
@@ -143,14 +147,9 @@ app.model.note = (function () {
     var 
       userUID = app.model.user.get_user().uid,
       videoID = app.model.video.get_video_id(),
-      noteID,
-      notesRef,
       videosNotesRef;
 
     for(var i = 0; i < notes.length; i++){
-      noteID = notes[i];
-      notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-      notesRef.remove();
 
       videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/notes/' + noteID);
       videosNotesRef.remove();

@@ -120,22 +120,24 @@ app.notepad = (function () {
             $.gevent.publish( 'app-login-modal', [ ] );
           }
         }
-    });
+      });
   };
 
   /*
    *  Purpose: Called when user edits a note via contentEditable
   */
   onNoteEdit = function(){
-    var elementID,
-        elementVal;
-    jqueryMap.$notesList.keypress(function( evt ){
-      if (evt.which == 13 && evt.target.className === 'text') { 
-        elementID = $(evt.target).parent().data('id');
-        elementVal = $(evt.target).html();
-        app.model.note.edit( elementID, elementVal );
-        jqueryMap.$notesList.find('.note:last input').focus();
-      }
+    var 
+      videoID,
+      noteID,
+      noteVal;
+
+    jqueryMap.$notesList.on('blur','.note' ,function( evt ){
+      videoID = $(evt.target).parent().data('video-id');
+      noteID = $(evt.target).parent().data('note-id');
+      noteVal = $(evt.target).html();
+      app.model.note.edit( videoID, noteID, noteVal );
+      // jqueryMap.$notesList.find('.note:last input').focus();
     });
   };
 
