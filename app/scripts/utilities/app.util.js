@@ -19,7 +19,18 @@
 /*global $, app */
 
 app.util = (function () {
-  var makeError, setConfigMap;
+  var makeError, setConfigMap, parseVideoID;
+
+  // Begin Public constructor /parseVideoID/
+  // Purpose: parse the video id from a given route
+  // Arguments:
+  //   * route - the actual hash route
+  // Returns  : video id
+  // Throws   : none
+  //
+  parseVideoID = function(route){
+    return route.match(/video_id=(.*)/)[1];
+  };
 
   // Begin Public constructor /makeError/
   // Purpose: a convenience wrapper to create an error object
@@ -75,6 +86,7 @@ app.util = (function () {
 
   return {
     makeError    : makeError,
-    setConfigMap : setConfigMap
+    setConfigMap : setConfigMap,
+    parseVideoID : parseVideoID
   };
 }());

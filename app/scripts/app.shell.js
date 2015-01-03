@@ -78,31 +78,28 @@ app.shell = (function () {
         videoID,
         url;
 
-    for(var i = 0; i< routes.length; i++){
+    if(/video_id/.test( routeHash )){
+      videoID  = app.util.parseVideoID( routeHash );
+      url      = 'http://www.youtube.com/watch?v=' + videoID;
 
-      if( /video_id/.test(routes[i]) ){
-        videoID  = routes[i].split('=')[1];
-        url      = 'http://www.youtube.com/watch?v=' + videoID;
+      app.model.video.check_video(
+        videoID,
+        function(){
+          $.gevent.publish( 'app-load-video',               [ videoID ] );
+          $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
+          app.model.video.set_video_id( videoID );
+          app.notepad.refreshNotePad( videoID );
+          app.model.video.set_video_data( videoID );       
+        },
+        function(){
+          alert('video not found!');
+        }
+      );
 
-        app.model.video.check_video(
-          videoID,
-          function(){
-            $.gevent.publish( 'app-load-video',               [ videoID ] );
-            $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
-            app.model.video.set_video_id( videoID );
-            app.notepad.refreshNotePad( videoID ); 
-            app.model.video.set_video_data( videoID );          
-          },
-          function(){
-            alert('video not found!');
-          }
-        );
-      }
+    }
 
-      if( /notes/.test( routes[i] ) ){
-        $.gevent.publish( 'app-show-notes', [  ] );
-      }
-
+    if( /notes/.test( routeHash )){
+      $.gevent.publish( 'app-show-notes', [  ] );
     }
 
   };
