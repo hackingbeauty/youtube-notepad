@@ -15,7 +15,7 @@ app.sound = (function () {
   'use strict';
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
-    clickSound = document.createElement('audio'), 
+    clickSound = document.createElement('audio'),
     play, stop, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -50,7 +50,7 @@ app.sound = (function () {
     clickSound.setAttribute('src','/sounds/single_click_trimmed.mp3');
     clickSound.setAttribute('autoplay', 'autoplay'); //putting this here for now, otherwise issues :)
     $('body').on('click','.app-sound-click', function(){
-      spa.sound.playSound('click');
+      app.sound.play('click');
     });
   };
   // End PUBLIC method /initModule/

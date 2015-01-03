@@ -10,7 +10,7 @@
   white  : true
 */
 
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.video_control_panel = (function () {
   'use strict';
@@ -33,8 +33,8 @@ app.video_control_panel = (function () {
     speedControlBtnClicks,
 
     seekInVideo,
-    setJqueryMap, 
-    configModule, 
+    setJqueryMap,
+    configModule,
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -46,7 +46,7 @@ app.video_control_panel = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-video-control-panel');
-    jqueryMap = { 
+    jqueryMap = {
       $container              : $container,
       $videoContainer         : $container.find('#app-video-control-panel-container'),
       $videoControls          : $container.find('#app-video-speed-controls'),

@@ -43,12 +43,12 @@ app.notes_list_modal = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-notes-list-modal');
 
-    jqueryMap = { 
+    jqueryMap = {
       $container        : $container,
       $closeNotesBtn    : $container.find('#close-notes-modal-btn'),
       $modalBody        : $container.find('.modal-body'),
       $searchNotesInput : $container.find('#app-search-notes-input'),
-      $deleteNoteIcon   : $container.find('.delete-note') 
+      $deleteNoteIcon   : $container.find('.delete-note')
     };
   };
   // End DOM method /setJqueryMap/
@@ -56,9 +56,9 @@ app.notes_list_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   
-  getSavedNotes = function () {;
+  getSavedNotes = function () {
     if(app.model.user.is_authenticated()){
-      jqueryMap.$modalBody.empty(); 
+      jqueryMap.$modalBody.empty();
       jqueryMap.$container.modal();
       app.model.note.get_saved_notes(function( notes ){
         jqueryMap.$modalBody.append(
@@ -72,7 +72,7 @@ app.notes_list_modal = (function () {
   };
 
   showSearchResults = function( evt, searchResults){
-    jqueryMap.$modalBody.empty(); 
+    jqueryMap.$modalBody.empty();
     jqueryMap.$container.modal();
     jqueryMap.$modalBody.append(
       configMap.content_html({
@@ -87,8 +87,8 @@ app.notes_list_modal = (function () {
     jqueryMap.$container.on('hidden.bs.modal', function () {
       anchorMap = $.uriAnchor.makeAnchorMap();
       delete anchorMap['notes'];
-      $.uriAnchor.setAnchor( $.extend( { notepad: 'opened' }, anchorMap ) ); 
-      jqueryMap.$modalBody.empty();   
+      // $.uriAnchor.setAnchor( $.extend( { notepad: 'opened' }, anchorMap ) );
+      jqueryMap.$modalBody.empty();  
     });
   };
 
@@ -96,9 +96,10 @@ app.notes_list_modal = (function () {
     var videoID, anchorMap;
     jqueryMap.$container.on('click','.load-note-btn', function(){
       videoID = $(this).data('video-id');
+      console.log('THE VIDEOID IS: ', videoID);
       anchorMap = $.uriAnchor.makeAnchorMap();
       delete anchorMap['notes'];
-      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, anchorMap )); 
+      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, anchorMap ));
       jqueryMap.$container.modal('hide');
     });
   };

@@ -56,7 +56,7 @@ app.model.video = (function () {
 				errorCallback();
 			}
 		}); 
-	}; 
+	};
 
 	set_video_data = function( videoID ){
 		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet';
