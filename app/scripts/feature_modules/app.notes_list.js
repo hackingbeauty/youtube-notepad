@@ -25,7 +25,7 @@ app.notes_list_modal = (function () {
 
     getSavedNotes,
     showSearchResults,
-    onCloseModal,
+    closeModal,
     onLoadNoteClick,
     onDeleteNoteClick,
 
@@ -82,24 +82,21 @@ app.notes_list_modal = (function () {
     );
   };
 
-  onCloseModal = function(){
+  closeModal = function(){
     var anchorMap;
-    jqueryMap.$container.on('hidden.bs.modal', function () {
-      // anchorMap = $.uriAnchor.makeAnchorMap();
-      // delete anchorMap['notes'];
-      // $.uriAnchor.setAnchor( $.extend( { notepad: 'opened' }, anchorMap ) );
-      jqueryMap.$modalBody.empty();  
-    });
+    jqueryMap.$modalBody.empty();
+    anchorMap = $.uriAnchor.makeAnchorMap();
+    delete anchorMap['notes'];
+    $.uriAnchor.setAnchor( $.extend( { notepad: 'opened' }, anchorMap ) );
   };
 
   onLoadNoteClick = function(){
     var videoID, anchorMap;
     jqueryMap.$container.on('click','.load-note-btn', function(){
       videoID = $(this).data('video-id');
-      console.log('THE VIDEOID IS: ', videoID);
       anchorMap = $.uriAnchor.makeAnchorMap();
       delete anchorMap['notes'];
-      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, anchorMap ));
+      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' },  anchorMap ));
       jqueryMap.$container.modal('hide');
     });
   };
@@ -152,7 +149,6 @@ app.notes_list_modal = (function () {
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
-    onCloseModal();
     onLoadNoteClick();
     onDeleteNoteClick();
     return true;

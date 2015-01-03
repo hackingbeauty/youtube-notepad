@@ -64,10 +64,6 @@ app.model.player = (function () {
       
       if(videoIDMatch !== null){
         videoID = videoIDMatch[0].slice(2, videoIDMatch[0].length);
-
-        $.uriAnchor.setAnchor({
-          video_id : videoID
-        });
       }
 
     }
