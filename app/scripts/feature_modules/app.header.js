@@ -269,6 +269,9 @@ app.header = (function () {
     var searchTerm; 
     jqueryMap.$searchResultsBox.on('click','li', function(){
       searchTerm = $(this).html();
+      $.uriAnchor.setAnchor({
+        notes : 'opened',
+      });
       app.model.video.get_results( searchTerm );
     });
   };
