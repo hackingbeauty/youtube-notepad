@@ -10,7 +10,7 @@
   white  : true
 */
 
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.notepad = (function () {
   'use strict';
@@ -42,8 +42,8 @@ app.notepad = (function () {
     disableOrEnableBttns,
     setPosition,
 
-    setJqueryMap, 
-    configModule, 
+    setJqueryMap,
+    configModule,
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -53,25 +53,25 @@ app.notepad = (function () {
 
   _createNoteInput = function( ){
     jqueryMap.$notesList.append(
-      configMap.new_note_item_html() 
+      configMap.new_note_item_html()
     );
     jqueryMap.$notesList.find('.note:last input').focus();
-  }
+  };
 
-  _appendNote = function( note ){  
+  _appendNote = function( note ){
     jqueryMap.$container.find('.note:last').remove();
     jqueryMap.$notesList.append(
-      configMap.note_item_html(note) 
+      configMap.note_item_html(note)
     );
-  }
+  };
 
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-notepad');
 
-    jqueryMap = { 
-      $container              : $container, 
+    jqueryMap = {
+      $container              : $container,
       $notesList              : $container.find('ul#notes-list'),
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
@@ -91,7 +91,7 @@ app.notepad = (function () {
    *  Purpose: Called when user enters a note in the notepad
   */
   onNoteEnter = function(){
-    var 
+    var
         note,
         inputValue,
         startTime,
@@ -127,7 +127,7 @@ app.notepad = (function () {
    *  Purpose: Called when user edits a note via contentEditable
   */
   onNoteEdit = function(){
-    var 
+    var
       videoID,
       noteID,
       noteVal;
@@ -160,9 +160,9 @@ app.notepad = (function () {
    *  Purpose: Refreshes notepad with list of notes if they exist.
   */
   refreshNotePad = function( id ){
-    var 
-        notes, 
-        noteCount, 
+    var
+        notes,
+        noteCount,
         lastNote,
         currentVideoID  = app.model.video.get_video_id();
 
@@ -216,18 +216,18 @@ app.notepad = (function () {
         deleteNoteCount--;
       }
       if(deleteNoteCount > 1){
-        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes') 
+        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes');
       } else if(deleteNoteCount === 1){
-        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note') 
+        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note');
       } else {
-         jqueryMap.$deleteNotesBtn.val('Delete Notes') 
-      }                           
+        jqueryMap.$deleteNotesBtn.val('Delete Notes');
+      }                        
     });
   };
 
   onDeleteNotesBtnClick = function(){
     var
-      notesList, 
+      notesList,
       notesToDelete = [];
 
     jqueryMap.$deleteNotesBtn.on('click', function(){
@@ -244,7 +244,7 @@ app.notepad = (function () {
     app.model.note.get_all_by_video_id( app.model.video.get_video_id(), function( notes ){
       if( notes && notes.length > 0 ){
         jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
-        jqueryMap.$deleteNotesBtn.removeClass( 'disabled' ); 
+        jqueryMap.$deleteNotesBtn.removeClass( 'disabled' );
       }
     });
   };
