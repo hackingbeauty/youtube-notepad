@@ -58,10 +58,8 @@ app.notes_list_modal = (function () {
   
   getSavedNotes = function () {
     if(app.model.user.is_authenticated()){
-      // jqueryMap.$modalBody.empty();
       jqueryMap.$container.css('left','0%');
       jqueryMap.$container.css('overflowY','auto');
-
       app.model.note.get_saved_notes(function( notes ){
         jqueryMap.$body.append(
           configMap.content_html({

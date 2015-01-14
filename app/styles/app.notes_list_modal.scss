@@ -15,19 +15,11 @@
 	transition: all .5s ease;
 	overflow: hidden;
 
-	#app-notes-list-header {
-		height: 100px;
-		display : block;
-		border: 1px solid red !important;
-	}
-
 	#app-search-notes{
-		display: none;
-		width: 400px;
+		width: 100%;
 		position:relative;
 		margin-bottom: 30px;
-		margin-left: 20px;
-
+		margin-top :20px;
 		i {
 			position: absolute;
 			right:10px;
@@ -36,8 +28,7 @@
 	}
 
 	ul#notes-list{
-		margin-top: -15px !important;
-
+		clear: both;
 		.note-item {
 			margin-bottom: 20px;
 			text-align:center;
