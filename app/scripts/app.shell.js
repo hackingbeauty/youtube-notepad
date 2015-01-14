@@ -13,7 +13,7 @@
   white  : true
 */
 
-/*global $, app */
+/*global $, app, Handlebars, unescape */
 
 app.shell = (function () {
   'use strict';
@@ -30,8 +30,8 @@ app.shell = (function () {
     parseRoute,
     closeModalsOnClick,
 
-    setJqueryMap, 
-    configModule, 
+    setJqueryMap,
+    configModule,
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -44,12 +44,12 @@ app.shell = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$container;
 
-    jqueryMap = { 
+    jqueryMap = {
       $container    : $container,
       $shell        : $container.find('#app-shell'),
       $shellBody    : $container.find('#app-shell-body'),
       $videoForm    : $container.find('#app-video-form'),
-      $saveNotesBtn : $container.find('#save-notes')    
+      $saveNotesBtn : $container.find('#save-notes')
     };
   };
   // End DOM method /setJqueryMap/
@@ -72,11 +72,12 @@ app.shell = (function () {
 
   parseRoute = function(){
     var
-        routeHash = window.location.hash.substr(2),
-        routes    = routeHash.split('&'),
-        routeVal,
-        videoID,
-        url;
+      routeHash = window.location.hash.substr(2),
+      routes    = routeHash.split('&'),
+      routeVal,
+      videoID,
+      url,
+      searchTerm;
 
     if(/video_id/.test( routeHash )){
       videoID  = app.util.parseVideoID( routeHash );
@@ -89,18 +90,23 @@ app.shell = (function () {
           $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
           app.model.video.set_video_id( videoID );
           app.notepad.refreshNotePad( videoID );
-          app.model.video.set_video_data( videoID );       
+          app.model.video.set_video_data( videoID );    
         },
         function(){
           alert('video not found!');
         }
       );
-
     }
 
     if( /notes/.test( routeHash )){
       $.gevent.publish( 'app-show-notes', [  ] );
     }
+
+    if( /search/.test( routeHash )){
+      searchTerm = unescape(routeHash.split('=')[1]);
+      app.model.video.get_results( searchTerm );
+    }
+
 
   };
 

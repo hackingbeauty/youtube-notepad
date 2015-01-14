@@ -272,9 +272,8 @@ app.header = (function () {
     jqueryMap.$searchResultsBox.on('click','li', function(){
       searchTerm = $(this).html();
       $.uriAnchor.setAnchor({
-        notes : 'opened',
+        search : searchTerm,
       });
-      app.model.video.get_results( searchTerm );
     });
   };
 

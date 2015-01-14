@@ -58,6 +58,7 @@ app.notes_list_modal = (function () {
   
   getSavedNotes = function () {
     if(app.model.user.is_authenticated()){
+      alert('yup');
       jqueryMap.$container.css('left','0%');
       jqueryMap.$container.css('overflowY','auto');
       app.model.note.get_saved_notes(function( notes ){
@@ -71,10 +72,10 @@ app.notes_list_modal = (function () {
     }
   };
 
-  showSearchResults = function( evt, searchResults){
-    jqueryMap.$modalBody.empty();
-    jqueryMap.$container.modal();
-    jqueryMap.$modalBody.append(
+  showSearchResults = function( evt, searchResults ){
+    jqueryMap.$container.css('left','0%');
+    jqueryMap.$container.css('overflowY','auto');
+    jqueryMap.$body.append(
       configMap.content_html({
         searchQueryResults  : true,
         results             : searchResults
@@ -83,11 +84,9 @@ app.notes_list_modal = (function () {
   };
 
   closeModal = function(){
-    var anchorMap;
-    anchorMap = $.uriAnchor.makeAnchorMap();
     jqueryMap.$container.css('left','-101%');
     jqueryMap.$container.css('overflow','hidden');
-    // jqueryMap.$body.empty();
+    jqueryMap.$body.empty();
   };
 
   onLoadNoteClick = function(){
@@ -97,8 +96,8 @@ app.notes_list_modal = (function () {
       anchorMap = $.uriAnchor.makeAnchorMap();
       closeModal();
       delete anchorMap['notes'];
-      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' },  anchorMap ));
-      jqueryMap.$container.modal('hide');
+      delete anchorMap['search'];
+      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' } ));
     });
   };
 
@@ -149,7 +148,7 @@ app.notes_list_modal = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
-    // $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
+    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
     onLoadNoteClick();
     onDeleteNoteClick();
     return true;
