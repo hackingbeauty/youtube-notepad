@@ -9,7 +9,7 @@
   regexp : true, sloppy  : true, vars     : false,
   white  : true
 */
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.notes_list_modal = (function () {
   'use strict';
@@ -29,8 +29,8 @@ app.notes_list_modal = (function () {
     onLoadNoteClick,
     onDeleteNoteClick,
 
-    setJqueryMap, 
-    configModule, 
+    setJqueryMap,
+    configModule,
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -101,13 +101,17 @@ app.notes_list_modal = (function () {
   };
 
   onDeleteNoteClick = function(){
+    var
+      $videoListItem,
+      videoID;
+
     jqueryMap.$container.on('click', '.delete-note', function(){
-      var $videoListItem = $(this).closest('[data-video-id]');
-      var videoID = $videoListItem.data('video-id').trim();
+      $videoListItem = $(this).closest('[data-video-id]');
+      videoID = $videoListItem.data('video-id').trim();
       var deleteNoteCallback = function(){
         app.model.note.delete_video( videoID );
         $videoListItem.remove();
-      }
+      };
       $.gevent.publish( 'app-alert-modal-show', [ deleteNoteCallback ] );
     });
   };
