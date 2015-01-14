@@ -10,7 +10,7 @@
   white  : true
 */
 
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.header = (function () {
   'use strict';
@@ -41,19 +41,21 @@ app.header = (function () {
     _isURL,
     _checkAndInsertVideo,
 
-    setJqueryMap, 
-    configModule, 
+    setJqueryMap,
+    configModule,
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   _populateDropDown = function( searchResults ){
-    var pluckedArray = [];
+    var
+      pluckedArray = [],
+      i;
 
     jqueryMap.$searchResultsBox.empty();
     jqueryMap.$searchResultsBox.show();
 
-    for(var i=0; i<searchResults.length; i++){
-      pluckedArray.push(searchResults[i][0])
+    for(i=0; i<searchResults.length; i++){
+      pluckedArray.push(searchResults[i][0]);
     }
 
     jqueryMap.$searchResultsBox.append(
@@ -65,7 +67,7 @@ app.header = (function () {
   };
 
   _isURL = function( inputValue ){
-    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
     if ( urlPattern.test( inputValue ) ){    // This should really test for youtube video urls
       return true;
     } else {
@@ -81,8 +83,8 @@ app.header = (function () {
     var videoID;
     if( _isURL(inputValue) ){
       videoID = app.model.video.get_video_id_from_url( inputValue );
-      app.model.video.check_video( 
-        videoID, 
+      app.model.video.check_video(
+        videoID,
         function(){ // Success
           jqueryMap.$urlErrorMsg.hide();
           jqueryMap.$videoNotFoundMsg.hide();
@@ -97,7 +99,7 @@ app.header = (function () {
     } else {
       jqueryMap.$urlErrorMsg.show();
     }
-  }
+  };
   //------------------- BEGIN UTILITY METHODS ------------------
 
   //-------------------- END UTILITY METHODS -------------------
@@ -105,9 +107,9 @@ app.header = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
 
   onSearchBoxKeyPress = function(){
-    var 
+    var
       inputValue,
-      videoID, 
+      videoID,
       query;
 
     jqueryMap.$youtubeLinkInput.keydown( function(e){
@@ -131,9 +133,9 @@ app.header = (function () {
   };
 
   onSearchBoxEnter = function(){
-    var 
-      liSelected, 
-      next, 
+    var
+      liSelected,
+      next,
       searchItems,
       currSelectedItem,
       firstClick  = true,
@@ -144,7 +146,7 @@ app.header = (function () {
 
       searchItems = jqueryMap.$searchResultsList.children();
 
-      if (evt.which == 13){
+      if (evt.which === 13){
         evt.preventDefault();
       } else if (evt.which === 40){ // If down arrow key clicked
         
@@ -169,7 +171,7 @@ app.header = (function () {
   onVideoLinkBlur = function( ){
     var inputValue,videoID;
     jqueryMap.$youtubeLinkInput.keydown( function(e){
-      if ((e.which == 13) || (e.keyCode == 9)) { // If enter key or tab key pressed
+      if ((e.which === 13) || (e.keyCode === 9)) { // If enter key or tab key pressed
         inputValue = $.trim($(this).val());
         _checkAndInsertVideo( inputValue );
         e.preventDefault();
@@ -204,7 +206,7 @@ app.header = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-header');
-    jqueryMap = { 
+    jqueryMap = {
       $container              : $container,
       $authButtons            : $container.find('#app-authentication-buttons'),
       $youtubeLinkInput       : $container.find('#app-youtube-link'),
@@ -266,7 +268,7 @@ app.header = (function () {
   };
 
   onSearchItemSelect = function(){
-    var searchTerm; 
+    var searchTerm;
     jqueryMap.$searchResultsBox.on('click','li', function(){
       searchTerm = $(this).html();
       $.uriAnchor.setAnchor({
@@ -294,7 +296,7 @@ app.header = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
