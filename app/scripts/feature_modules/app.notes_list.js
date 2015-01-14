@@ -41,12 +41,12 @@ app.notes_list_modal = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('#app-notes-list-modal');
+    var $container = stateMap.$append_target.find('#app-notes-list');
 
     jqueryMap = {
       $container        : $container,
       $closeNotesBtn    : $container.find('#close-notes-modal-btn'),
-      $modalBody        : $container.find('.modal-body'),
+      $body             : $container.find('#app-notes-list-body'),
       $searchNotesInput : $container.find('#app-search-notes-input'),
       $deleteNoteIcon   : $container.find('.delete-note')
     };
@@ -58,10 +58,12 @@ app.notes_list_modal = (function () {
   
   getSavedNotes = function () {
     if(app.model.user.is_authenticated()){
-      jqueryMap.$modalBody.empty();
-      jqueryMap.$container.modal();
+      // jqueryMap.$modalBody.empty();
+      jqueryMap.$container.css('left','0%');
+      jqueryMap.$container.css('overflowY','auto');
+
       app.model.note.get_saved_notes(function( notes ){
-        jqueryMap.$modalBody.append(
+        jqueryMap.$body.append(
           configMap.content_html({
             results : notes
           })
@@ -84,10 +86,10 @@ app.notes_list_modal = (function () {
 
   closeModal = function(){
     var anchorMap;
-    jqueryMap.$modalBody.empty();
     anchorMap = $.uriAnchor.makeAnchorMap();
-    delete anchorMap['notes'];
-    $.uriAnchor.setAnchor( $.extend( { notepad: 'opened' }, anchorMap ) );
+    jqueryMap.$container.css('left','-101%');
+    jqueryMap.$container.css('overflow','hidden');
+    // jqueryMap.$body.empty();
   };
 
   onLoadNoteClick = function(){
@@ -95,6 +97,7 @@ app.notes_list_modal = (function () {
     jqueryMap.$container.on('click','.load-note-btn', function(){
       videoID = $(this).data('video-id');
       anchorMap = $.uriAnchor.makeAnchorMap();
+      closeModal();
       delete anchorMap['notes'];
       $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' },  anchorMap ));
       jqueryMap.$container.modal('hide');
@@ -126,7 +129,7 @@ app.notes_list_modal = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -148,7 +151,7 @@ app.notes_list_modal = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
-    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
+    // $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
     onLoadNoteClick();
     onDeleteNoteClick();
     return true;
