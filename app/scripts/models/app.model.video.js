@@ -82,11 +82,12 @@ app.model.video = (function () {
 		var 
 			videoID,
 			urlMatch = url.match(/v=[\D\d\W\w]*/g);
+		
 		if( urlMatch && urlMatch.length > 0 ){
 			videoID = urlMatch[0].replace('v=','').split('&')[0];
-			return videoID;
+		  	return videoID;
 		} else {
-			return false;
+		  return false;
 		}
 	};
 

@@ -322,9 +322,8 @@ app.header = (function () {
     onSearchItemSelect();
     onSearchBoxEnter();
     $.gevent.subscribe( jqueryMap.$container, 'app-successfully-found-video', updateLinkInput );
-    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  showAuthButtons );
-    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',  closeModals);
-
+    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',    showAuthButtons );
+    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals',             closeModals);
     return true;
   };
   // End public method /initModule/

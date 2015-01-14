@@ -90,7 +90,7 @@ app.shell = (function () {
           $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
           app.model.video.set_video_id( videoID );
           app.notepad.refreshNotePad( videoID );
-          app.model.video.set_video_data( videoID );    
+          app.model.video.set_video_data( videoID );   
         },
         function(){
           alert('video not found!');
@@ -150,7 +150,7 @@ app.shell = (function () {
     setJqueryMap();
 
     app.model.video.load_library(function(){
-      parseRoute() // must do first time
+      parseRoute(); // must do first time
     });
 
     app.header.initModule( jqueryMap.$shellBody );
