@@ -4,6 +4,11 @@
 */
 
 #app-header {
+
+	h1 {
+		color: white;
+		font-size:22px;
+	}
 	
 	.navbar {
 		border:none;
@@ -15,9 +20,9 @@
 	}
 
 	.navbar-collapse {
-		position: relative;
-		z-index:1;
-		background-color: #1d262c;
+		// position: relative;
+		// z-index:1;
+		// background-color: #1d262c;
 	}
 
 	.navbar-brand {

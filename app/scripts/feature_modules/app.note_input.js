@@ -1,5 +1,5 @@
 /*
- * module_template.js
+ * note_input.js
  * <Module name> feature module
 */
 
@@ -12,13 +12,13 @@
 
 /*global $, app, Handlebars */
 
-app.module_template = (function () {
+app.note_input = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html: Handlebars.compile($('#template-id').html())
+      main_html: Handlebars.compile($('#app-note-input-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},

@@ -160,6 +160,7 @@ app.shell = (function () {
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
+    app.note_input.initModule         ( jqueryMap.$container );
 
     closeModalsOnClick();
   
