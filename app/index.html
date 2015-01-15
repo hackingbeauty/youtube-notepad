@@ -215,7 +215,7 @@
         <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
             <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
                 <span class="time recorded-video-time">{{ startTime }}</span>
-                <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
+                <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" data-delay="{ show: 10, hide: 10}" title="{{ note }}">{{ note }}</span>
                 <input class="remove checkbox" type="checkbox" />
             </li>
         </script>
