@@ -14,6 +14,12 @@
 		background-repeat: repeat-x;
 	}
 
+	.navbar-collapse {
+		position: relative;
+		z-index:1;
+		background-color: #1d262c;
+	}
+
 	.navbar-brand {
 		color: #7a828b;
 	}
