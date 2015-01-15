@@ -40,7 +40,6 @@ app.notepad = (function () {
     onRemoveClick,
     onDeleteNotesBtnClick,
     disableOrEnableBttns,
-    setPosition,
 
     setJqueryMap,
     configModule,
@@ -100,7 +99,7 @@ app.notepad = (function () {
 
     jqueryMap.$notesList.keypress(function( evt ){
 
-        if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
+        if (evt.which === 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
           if(app.model.user.is_authenticated()){
 
             $notePad = $(this);
@@ -221,7 +220,7 @@ app.notepad = (function () {
         jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note');
       } else {
         jqueryMap.$deleteNotesBtn.val('Delete Notes');
-      }                        
+      }                      
     });
   };
 
@@ -268,43 +267,6 @@ app.notepad = (function () {
 
 
   //------------------- BEGIN PUBLIC METHODS -------------------
-  // Begin public method /setPosition/
-  // Example   : spa.chat.setPosition( 'closed' );
-  // Purpose   : Move the chat slider to the requested position
-  // Arguments :
-  //   * position_type - enum('closed', 'opened', or 'hidden')
-  //   * callback - optional callback to be run end at the end
-  //     of slider animation.  The callback receives a jQuery
-  //     collection representing the slider div as its single
-  //     argument
-  // Action    :
-  //   This method moves the slider into the requested position.
-  //   If the requested position is the current position, it
-  //   returns true without taking further action
-  // Returns   :
-  //   * true  - The requested position was achieved
-  //   * false - The requested position was not achieved
-  // Throws    : none
-  //
-  setPosition = function ( position_type ) {
-
-    // prepare animate parameters
-    switch ( position_type ){
-      case 'opened' :
-        jqueryMap.$container.height('90.5%');
-        break;
-      case 'closed' :
-        jqueryMap.$container.height('5%');
-        break;
-      // bail for unknown position_type
-      default : 
-        jqueryMap.$container.height('90.5%');
-        break;
-    }
-
-  };
-  // End public DOM method /setPosition/
-
   // Begin public method /configModule/
   // Purpose    : Adjust configuration of allowed keys
   // Arguments  : A map of settable keys and values
@@ -315,7 +277,7 @@ app.notepad = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -342,7 +304,6 @@ app.notepad = (function () {
     onRemoveClick();
     onDeleteNotesBtnClick();
     onToggle();
-    setPosition( 'opened' );
     return true;
   };
   // End public method /initModule/
@@ -351,8 +312,7 @@ app.notepad = (function () {
   return {
     configModule    : configModule,
     initModule      : initModule,
-    refreshNotePad  : refreshNotePad,
-    setPosition     : setPosition
+    refreshNotePad  : refreshNotePad
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

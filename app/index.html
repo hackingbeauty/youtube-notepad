@@ -65,7 +65,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <form class="navbar-form navbar-left" id="app-get-video-form" role="search">
                         <div class="form-group">
-                            <input id="app-youtube-link" class="form-control search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
+                            <input id="app-youtube-link" class="form-control search-box" placeholder="Search Youtube and take notes on videos" autofocus="autofocus" autocomplete="off" required>
                             <i class="fa fa-search"></i>
                             <div id="app-search-results-box"></div>
                         </div>
@@ -181,32 +181,33 @@
 
         <!-- Notepad template-->
         <script id="app-notepad-template" type=“x-text/handlebars”>
-            <div id="app-notepad">
-                <div id="app-notepad-header">
-                    <div id="app-notepad-toggle-handle" data-position="opened">=</div>
-                    <h3>Notepad</h3>
-                </div>
-                <div id="app-notes-container">
-                    <ul id="notes-list" data-video-id="{{ videoID }}">
-                    </ul>
-                </div>
-                <div id="app-notepad-controls">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
-                            <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
-                                <strong>Delete Note</strong>
-                                <i class="fa fa-remove"></i>
-                            </button>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div id="app-notepad">
+                    <div id="app-notepad-header">
+                        <h3>Notepad</h3>
+                    </div>
+                    <div id="app-notes-container">
+                        <ul id="notes-list" data-video-id="{{ videoID }}">
+                        </ul>
+                    </div>
+                    <div id="app-notepad-controls">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
+                                <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
+                                    <strong>Delete Note</strong>
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                            <!--<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
+                                    <strong>Save notes</strong>
+                                    <i class="fa fa-save"></i>
+                                </button>
+                            </div>-->
                         </div>
-                        <!--<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
-                                <strong>Save notes</strong>
-                                <i class="fa fa-save"></i>
-                            </button>
-                        </div>-->
                     </div>
                 </div>
-            </div>
+            </div><!-- end #app-notepad -->
         </script>
         <!-- End Video form template-->
 
