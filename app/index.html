@@ -197,10 +197,10 @@
                     <div id="app-notepad-controls">
                         <div class="row">
                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
-                                <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
+                                <!--<button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
                                     <strong>Delete Note</strong>
                                     <i class="fa fa-remove"></i>
-                                </button>
+                                </button>-->
                             </div>
                             <!--<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
@@ -331,7 +331,7 @@
         <script id="app-notes-list-modal-template" type=“x-text/handlebars”>
             <div id="app-notes-list">
                 <div id="app-notes-list-body">
-                    <!--  notes content template here -->
+                    <!--  saved notes content template here -->
                 </div>
             </div>
         </script>
@@ -382,17 +382,19 @@
 
         <!-- Note Input template-->
         <script id="app-note-input-template" type=“x-text/handlebars”>
-            <div id="app-note-input">
+            <div id="app-note-input" class="module">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <input id="app-input-box" class="form-control search-box" placeholder="Enter note" autofocus="autofocus" autocomplete="off" required>
-                    </div>
+                    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                        <input id="app-input-box" class="form-control search-box" placeholder="" autofocus="autofocus" autocomplete="off" required>
+                    </div><!-- .col-xx-xx -->
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                         <button id="create-note-btn" class="pure-button pure-button-primary" href="#">
+                            <strong>Create Note</strong>
+                            <i class="fa fa-file-text"></i>
+                        </button>
+                    </div><!-- .col-xx-xx -->
                 </div><!-- .row -->
-                 <button id="create-note-btn" class="pure-button pure-button-primary" href="#">
-                    <strong>Create Note</strong>
-                    <i class="fa fa-file-text"></i>
-                </button>
-            </div>
+            </div><!-- #app-note-input -->
         </script>
         <!-- End Note Input template-->
 
