@@ -49,7 +49,8 @@ app.shell = (function () {
       $shell        : $container.find('#app-shell'),
       $shellBody    : $container.find('#app-shell-body'),
       $videoForm    : $container.find('#app-video-form'),
-      $saveNotesBtn : $container.find('#save-notes')
+      $saveNotesBtn : $container.find('#save-notes'),
+      $coreHeaderPanel : $container.find('#headerPanel')
     };
   };
   // End DOM method /setJqueryMap/
@@ -153,10 +154,10 @@ app.shell = (function () {
       parseRoute(); // must do first time
     });
 
-    // app.header.initModule( jqueryMap.$shellBody );
+    app.header.initModule( jqueryMap.$coreHeaderPanel );
 
     // app.login_modal.initModule        ( jqueryMap.$shellBody );
-    // app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
+    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
     // app.alert_modal.initModule        ( jqueryMap.$shellBody );

@@ -35,12 +35,9 @@ app.notepad = (function () {
     onNoteEdit,
     refreshNotePad,
     onRecordedTimeClick,
-    onToggle,
     onKeyPress,
     onRemoveClick,
     onDeleteNotesBtnClick,
-    disableOrEnableBttns,
-    setPosition,
 
     setJqueryMap,
     configModule,
@@ -113,7 +110,6 @@ app.notepad = (function () {
               inputKeypressCount = 0; // Reset keypress count
               _appendNote( note );
               _createNoteInput();
-              disableOrEnableBttns();
             }
             evt.preventDefault();
           } else {
@@ -171,7 +167,6 @@ app.notepad = (function () {
       jqueryMap.$notesList.empty();
 
       if(currentVideoID){
-        disableOrEnableBttns();
 
         if (notes){
           lastNote = notes[notes.length-1];
@@ -240,70 +235,11 @@ app.notepad = (function () {
     });
   };
 
-  disableOrEnableBttns = function(){
-    app.model.note.get_all_by_video_id( app.model.video.get_video_id(), function( notes ){
-      if( notes && notes.length > 0 ){
-        jqueryMap.$saveNotesBtn.removeClass( 'disabled' );
-        jqueryMap.$deleteNotesBtn.removeClass( 'disabled' );
-      }
-    });
-  };
-
-  onToggle = function(){
-    var currentPosition;
-    jqueryMap.$toggleHandle.on('click', function(){
-      currentPosition = jqueryMap.$toggleHandle.data('position');
-
-      if( currentPosition === 'opened'){
-        setPosition( 'closed' );
-        jqueryMap.$toggleHandle.data('position', 'closed');
-      } else if ( currentPosition === 'closed'){
-        setPosition( 'opened' );
-        jqueryMap.$toggleHandle.data('position', 'opened');
-      }
-    });
-  };
-
   //-------------------- END EVENT HANDLERS --------------------
 
 
   //------------------- BEGIN PUBLIC METHODS -------------------
-  // Begin public method /setPosition/
-  // Example   : spa.chat.setPosition( 'closed' );
-  // Purpose   : Move the chat slider to the requested position
-  // Arguments :
-  //   * position_type - enum('closed', 'opened', or 'hidden')
-  //   * callback - optional callback to be run end at the end
-  //     of slider animation.  The callback receives a jQuery
-  //     collection representing the slider div as its single
-  //     argument
-  // Action    :
-  //   This method moves the slider into the requested position.
-  //   If the requested position is the current position, it
-  //   returns true without taking further action
-  // Returns   :
-  //   * true  - The requested position was achieved
-  //   * false - The requested position was not achieved
-  // Throws    : none
-  //
-  setPosition = function ( position_type ) {
-
-    // // prepare animate parameters
-    // switch ( position_type ){
-    //   case 'opened' :
-    //     jqueryMap.$container.height('90.5%');
-    //     break;
-    //   case 'closed' :
-    //     jqueryMap.$container.height('5%');
-    //     break;
-    //   // bail for unknown position_type
-    //   default : 
-    //     jqueryMap.$container.height('90.5%');
-    //     break;
-    // }
-
-  };
-  // End public DOM method /setPosition/
+  // End public DOM method /set/
 
   // Begin public method /configModule/
   // Purpose    : Adjust configuration of allowed keys
@@ -315,7 +251,7 @@ app.notepad = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -341,8 +277,6 @@ app.notepad = (function () {
     onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
-    onToggle();
-    setPosition( 'opened' );
     return true;
   };
   // End public method /initModule/
@@ -351,8 +285,7 @@ app.notepad = (function () {
   return {
     configModule    : configModule,
     initModule      : initModule,
-    refreshNotePad  : refreshNotePad,
-    setPosition     : setPosition
+    refreshNotePad  : refreshNotePad
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

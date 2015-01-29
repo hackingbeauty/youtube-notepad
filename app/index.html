@@ -44,47 +44,23 @@
 
         <core-scaffold>
 
-            <core-header-panel navigation flex >
-              <core-toolbar style="background-color: #526E9C; color: #fff;">Application</core-toolbar>
+            <core-header-panel navigation flex>
+              <core-toolbar style="background-color: #526E9C; color: #fff;">
+                <h1>Youtube Notepad</h1>
+              </core-toolbar>
               <core-menu>
                 <core-item icon="settings" label="item1"></core-item>
                 <core-item icon="settings" label="item2"></core-item>
               </core-menu>
             </core-header-panel>
             
-            <div tool>Title</div>
+<!--             <div tool>Youtube Notepad</div> -->
             
             <div id="app-container"></div>
-
-
-                <!-- Main content -->
-              <div layout horizontal wrap>
-
-                <!-- Column 1 -->
-                <div flex two>
-                  <youtube-search-input></youtube-search-input>
-                  <google-youtube
-                    videoid="..."
-                    fluid="true"
-                    rel="0"
-                    start="5"
-                    autoplay="1">
-                  </google-youtube>
-                  <note-input></note-input>
-                </div>
-                <!-- End Column 1 -->
-
-                <!-- Column 2 -->
-                <div flex one>
-                  <notepad-element></notepad-element>
-                </div>
-                <!-- End Column 2 -->
-
 
         </core-scaffold>
 
        
-
         <!-- Shell template -->
         <script id="app-shell-template" type=“x-text/handlebars”>
             <div id="app-shell" class="container-fluid">
