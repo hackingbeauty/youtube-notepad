@@ -4,7 +4,7 @@
 */
 
 #app-notepad {	
-	overflow:hidden;
+	height: 80vh;
 
 	#app-notepad-header {
 		height: 40px;
@@ -13,8 +13,6 @@
 		color:white;
 		font-weight: bold;
 		position: relative;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
 		h3 {
 			text-align:center;
 			color: inherit
@@ -55,12 +53,12 @@
 
 	#app-notes-container {
 		overflow: auto;
-		height: 90%;
+		height: 100%;
 		background: white;
 
 		ul#notes-list {
-			min-height: 90%;
-			padding: 0 0 20px 0;
+			min-height: 97%;
+			// padding: 0 0 20px 0;
 			background-color: #fff;
 			position: relative;
 			margin-top: 0px;

@@ -37,7 +37,7 @@
         <!-- endbuild-->
 
     </head>
-    <body>
+    <body fullbleed unresolved>
          <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -57,7 +57,7 @@
             <div id="app-container"></div>
 
 
-                  <!-- Main content -->
+                <!-- Main content -->
               <div layout horizontal wrap>
 
                 <!-- Column 1 -->
@@ -205,7 +205,7 @@
         <!-- Video control panel template-->
         <script id="app-video-control-panel-template" type=“x-text/handlebars”>
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-video-control-panel" class="rounded">
+                <div id="app-video-control-panel">
                     <div id="app-video-control-panel-container" class="">
                         <div id="app-video-iframe"></div>
                     </div>
@@ -231,29 +231,14 @@
 
         <!-- Notepad template-->
         <script id="app-notepad-template" type=“x-text/handlebars”>
-            <div id="app-notepad">
-                <div id="app-notepad-header">
-                    <div id="app-notepad-toggle-handle" data-position="opened">=</div>
-                    <h3>Notepad</h3>
-                </div>
-                <div id="app-notes-container">
-                    <ul id="notes-list" data-video-id="{{ videoID }}">
-                    </ul>
-                </div>
-                <div id="app-notepad-controls">
-                    <div class="row">
-                        <!--<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
-                            <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
-                                <strong>Delete Note</strong>
-                                <i class="fa fa-remove"></i>
-                            </button>
-                        </div>-->
-                        <!--<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
-                                <strong>Save notes</strong>
-                                <i class="fa fa-save"></i>
-                            </button>
-                        </div>-->
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <div id="app-notepad">
+                    <div id="app-notepad-header">
+                        <h3>Notes</h3>
+                    </div>
+                    <div id="app-notes-container">
+                        <ul id="notes-list" data-video-id="{{ videoID }}">
+                        </ul>
                     </div>
                 </div>
             </div>
