@@ -27,13 +27,63 @@
         <!-- endbuild -->
 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
+
+        <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+        <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:vulcanized elements/elements.vulcanized.html -->
+        <link rel="import" href="elements/elements.html">
+        <!-- endbuild-->
+
     </head>
     <body>
          <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="app-container"></div>
+        <core-scaffold>
+
+            <core-header-panel navigation flex >
+              <core-toolbar style="background-color: #526E9C; color: #fff;">Application</core-toolbar>
+              <core-menu>
+                <core-item icon="settings" label="item1"></core-item>
+                <core-item icon="settings" label="item2"></core-item>
+              </core-menu>
+            </core-header-panel>
+            
+            <div tool>Title</div>
+            
+            <div id="app-container"></div>
+
+
+                  <!-- Main content -->
+              <div layout horizontal wrap>
+
+                <!-- Column 1 -->
+                <div flex two>
+                  <youtube-search-input></youtube-search-input>
+                  <google-youtube
+                    videoid="..."
+                    fluid="true"
+                    rel="0"
+                    start="5"
+                    autoplay="1">
+                  </google-youtube>
+                  <note-input></note-input>
+                </div>
+                <!-- End Column 1 -->
+
+                <!-- Column 2 -->
+                <div flex one>
+                  <notepad-element></notepad-element>
+                </div>
+                <!-- End Column 2 -->
+
+
+        </core-scaffold>
+
+       
 
         <!-- Shell template -->
         <script id="app-shell-template" type=“x-text/handlebars”>
@@ -154,7 +204,7 @@
 
         <!-- Video control panel template-->
         <script id="app-video-control-panel-template" type=“x-text/handlebars”>
-            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <div id="app-video-control-panel" class="rounded">
                     <div id="app-video-control-panel-container" class="">
                         <div id="app-video-iframe"></div>
@@ -192,12 +242,12 @@
                 </div>
                 <div id="app-notepad-controls">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
+                        <!--<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pull-right">
                             <button id="delete-notes-btn" class="pure-button pure-button-primary disabled button-error ">
                                 <strong>Delete Note</strong>
                                 <i class="fa fa-remove"></i>
                             </button>
-                        </div>
+                        </div>-->
                         <!--<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <button id="save-notes-btn" class="pure-button pure-button-primary button-success disabled">
                                 <strong>Save notes</strong>

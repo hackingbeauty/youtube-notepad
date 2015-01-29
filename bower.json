@@ -6,7 +6,8 @@
     "jquery": "~1.11.0",
     "screenfull": "~1.2.1",
     "firebase": "~2.0.6",
-    "firebase-simple-login": "~1.6.4"
+    "firebase-simple-login": "~1.6.4",
+    "polymer": "Polymer/polymer#~0.5.4"
   },
   "devDependencies": {}
 }

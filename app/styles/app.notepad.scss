@@ -3,19 +3,8 @@
  * Video form/notepad feature module styles
 */
 
-#app-notepad {
-	height: 5%;
+#app-notepad {	
 	overflow:hidden;
-	transition: all 0.5s ease;
-	position: absolute;
-	width: 41%;
-	right: 10px;
-	bottom: 0px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	box-shadow: 0 0 0.75em 0 #4d5357;
-	border-color:#4d5357;
-	border-width: thin 0 0 thin;
 
 	#app-notepad-header {
 		height: 40px;
