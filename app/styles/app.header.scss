@@ -9,13 +9,17 @@
 		border:none;
 		height: 58px;
 		border-radius: 0 !important;
-		background-image: -webkit-linear-gradient(top, #212b32 0%, #171d22 100%);
-		background-image: linear-gradient(to bottom, #212b32 0%, #171d22 100%);
+
 		background-repeat: repeat-x;
+		background: rgb(67, 76, 179);
 	}
 
 	.navbar-brand {
 		color: #7a828b;
+		h1 {
+			color: white;
+			font-size: 16px;
+		}
 	}
 
 	.fa-search {
