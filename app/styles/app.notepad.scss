@@ -4,7 +4,7 @@
 */
 
 #app-notepad {	
-	height: 80vh;
+	height: 87vh;
 
 	#app-notepad-header {
 		height: 40px;
@@ -151,6 +151,14 @@
 		input#app-notepad-enter-btn[type="submit"] {
 			width: 100%;
 		}
+	}
+	
+}
+
+@media only screen and (max-width: 1200px){
+
+	#app-notepad {
+		height: 100%;
 	}
 	
 }
