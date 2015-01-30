@@ -24,14 +24,40 @@ app.note_input = (function () {
     jqueryMap = {},
     inputKeypressCount = 0,
 
+    _enterNewNote,
+
     onNoteEnter,
+    onCreateNoteBtnClick,
     onKeyPressPause,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
+  _enterNewNote = function(){
+    var
+        note,
+        inputValue,
+        startTime,
+        videoTitle;
+
+    inputValue = $.trim(jqueryMap.$newNoteInput.val());
+
+    if(inputValue !== ''){
+
+      if(app.model.user.is_authenticated()){
+        app.model.player.play_video();
+        startTime = app.model.player.get_current_time();
+        videoTitle = app.model.video.get_video_data().title;
+        note = app.model.note.create( inputValue, startTime, videoTitle );
+        $.gevent.publish( 'app-new-note', note );
+        jqueryMap.$newNoteInput.val('');
+        inputKeypressCount = 0;
+      } else {
+        $.gevent.publish( 'app-login-modal', [ ] );
+      }
+    }
+  };
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -40,8 +66,9 @@ app.note_input = (function () {
     var $container = stateMap.$append_target;
 
     jqueryMap = {
-      $container    : $container,
-      $newNoteInput : $container.find('#new-note-input')
+      $container     : $container,
+      $newNoteInput  : $container.find('#new-note-input'),
+      $createNoteBtn : $container.find('#new-note-btn')
     };
   };
   // End DOM method /setJqueryMap/
@@ -53,35 +80,11 @@ app.note_input = (function () {
    *  Purpose: Called when user enters a note in the notepad
    */
   onNoteEnter = function(){
-    var
-        note,
-        inputValue,
-        startTime,
-        videoTitle,
-        $notePad;
-
     jqueryMap.$newNoteInput.keypress(function( evt ){
 
-        if (evt.which === 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed
-
-          if(app.model.user.is_authenticated()){
-
-            $notePad = $(this);
-            inputValue = $.trim(jqueryMap.$newNoteInput.val());
-
-            if(inputValue !== ''){
-              app.model.player.play_video();
-              startTime = app.model.player.get_current_time();
-              videoTitle = app.model.video.get_video_data().title;
-              note = app.model.note.create( inputValue, startTime, videoTitle );
-              $.gevent.publish( 'app-new-note', note );
-              jqueryMap.$newNoteInput.val('');
-              inputKeypressCount = 0;
-            }
-            evt.preventDefault();
-          } else {
-            $.gevent.publish( 'app-login-modal', [ ] );
-          }
+        // If enter key was pressed
+        if (evt.which === 13) {
+          _enterNewNote();
         }
       });
   };
@@ -94,10 +97,17 @@ app.note_input = (function () {
     jqueryMap.$newNoteInput.keypress(function(e){
       if(inputKeypressCount === 1){
         app.model.player.pause_video();
-        currentVideoTime = app.model.player.get_current_time();
-        jqueryMap.$container.find('.note input:last').data('start-time', currentVideoTime);
       }
       inputKeypressCount++;
+    });
+  };
+
+  /*
+   *  Purpose: Create note when "Create Note" button is clicked
+   */
+  onCreateNoteBtnClick = function(){
+    jqueryMap.$createNoteBtn.on('click', function(evt){
+      _enterNewNote();
     });
   };
 
@@ -137,6 +147,7 @@ app.note_input = (function () {
     $('#app-video-control-panel').after( configMap.main_html ); // Redundant id lookup - had to do it
     setJqueryMap();
     onNoteEnter();
+    onCreateNoteBtnClick();
     onKeyPressPause();
     return true;
   };
