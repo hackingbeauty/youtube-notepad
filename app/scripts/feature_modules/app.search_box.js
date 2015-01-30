@@ -32,6 +32,7 @@ app.search_box = (function () {
     onSearchBoxEnter,
     onNotesLinkClick,
     onSearchItemSelect,
+    closeSearchBox,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -115,23 +116,29 @@ app.search_box = (function () {
       videoID,
       query;
 
-    jqueryMap.$searchInput.keydown( function(e){
+    jqueryMap.$searchInput.keyup( function(e){
       query = $.trim($(this).val());
-      $.ajax({
-        type      : 'GET',
-        url       : '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=' + query,
-        dataType  : 'jsonp',
-        crossDomain : true,
-        success: function(resp){
-          var searchResults = resp[1];
-          if(searchResults.length > 0){
-            _populateDropDown( searchResults );
+
+      if(query.length > 0){
+        $.ajax({
+          type      : 'GET',
+          url       : '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=' + query,
+          dataType  : 'jsonp',
+          crossDomain : true,
+          success: function(resp){
+            var searchResults = resp[1];
+            if(searchResults.length > 0){
+              _populateDropDown( searchResults );
+            }
+          },
+          error: function(){
+            console.log('ERRRROORR');
           }
-        },
-        error: function(){
-          console.log('ERRRROORR');
-        }
-      });
+        });
+      } else {
+        closeSearchBox();
+      }
+ 
     });
   };
 
@@ -186,6 +193,10 @@ app.search_box = (function () {
     });
   };
 
+  closeSearchBox = function(){
+    jqueryMap.$searchResultsBox.hide();
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -224,6 +235,7 @@ app.search_box = (function () {
     onSearchBoxEnter();
     onNotesLinkClick();
     onSearchItemSelect();
+    $.gevent.subscribe( jqueryMap.$container, 'app-close-modals', closeSearchBox );
     return true;
   };
   // End public method /initModule/
