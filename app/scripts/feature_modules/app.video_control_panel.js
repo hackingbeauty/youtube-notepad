@@ -22,11 +22,7 @@ app.video_control_panel = (function () {
     },
     stateMap  = { $container : null },
     jqueryMap = {},
-    progressBarComplete = '0',
 
-    _showProgress,
-
-    showProgress,
     loadVideo,
     insertVideoIframe,
     onFullScreenModeClick,
@@ -52,8 +48,7 @@ app.video_control_panel = (function () {
       $videoControls          : $container.find('#app-video-speed-controls'),
       $speedControlBtns       : $container.find('#app-video-speed-controls button'),
       $videoIframe            : $container.find('#app-video-iframe'),
-      $progressBarContainer   : $container.find('.progress'),
-      $progressBar            : $container.find('.progress-bar'),
+
       $fullScreenModeBtn      : $container.find('#full-screen-mode-btn'),
       $fasterSpeedBtn         : $container.find('#faster-speed-btn'),
       $normalSpeedBtn         : $container.find('#normal-speed-btn'),
@@ -64,20 +59,6 @@ app.video_control_panel = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-
-  showProgress = function(){
-    jqueryMap.$progressBarContainer.show();
-    _showProgress();
-  };
-
-  _showProgress = function(){
-    var progressBarAnimation;
-    if (progressBarComplete <= 100){
-      jqueryMap.$progressBar.width(  progressBarComplete + '%' );
-      progressBarComplete++;
-      progressBarAnimation = requestAnimationFrame(_showProgress);
-    }
-  };
 
   onFullScreenModeClick = function(){
     jqueryMap.$fullScreenModeBtn.on('click', function(){
