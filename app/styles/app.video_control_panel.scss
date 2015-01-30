@@ -37,3 +37,15 @@
 	}
 
 }
+
+@media only screen and (max-width: 510px){
+
+	#app-video-speed-controls {
+		button {
+			display: block;
+			width: 100%;
+			margin-top: 10px;
+		}
+	}
+	
+}

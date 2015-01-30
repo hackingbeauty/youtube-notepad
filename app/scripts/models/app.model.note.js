@@ -95,6 +95,11 @@ app.model.note = (function () {
         notes.push( dataObjects[key] );
       }
 
+      // Sort descending
+      notes.sort(function(a,b){
+        return parseInt(b.startTime) - parseInt(a.startTime);
+      });
+
       callback( notes);
     });
   };
