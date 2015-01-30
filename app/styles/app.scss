@@ -20,10 +20,15 @@ h1 {
   font-size:18px;
   // font-weight:bold;
   color: white;
+  border: 1px solid red;
 }
 
 li {
   list-style-type:none;
+}
+
+dl, menu, ul, ol {
+  margin: 0 0;
 }
 
 img,
@@ -107,4 +112,11 @@ video {
 
 core-toolbar {
   background-color: #5100e9;
+  h1 {
+    border: 1px solid green !important;
+  }
+}
+
+core-header-panel {
+  background-color: white;
 }
