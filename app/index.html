@@ -83,15 +83,11 @@
 
         <!-- Search Results template -->
         <script id="app-search-results-template" type=“x-text/handlebars”>
-            <div class="row">
-            <div class="col-lg-12">
             <ul id="app-search-results-list">
                 {{#each searchResults}}
                     <li>{{ this }}</li>
                 {{/each}}   
-            </ul>  
-            </div>
-            </div> 
+            </ul>
         </script>
         <!-- End Search Results template -->
 
@@ -125,7 +121,7 @@
 
         <!-- Search Box template-->
         <script id="app-search-box-template" type=“x-text/handlebars”>
-            <div id="app-search-box" class="module">
+            <div id="app-search-box">
                <input id="app-search-input" class="search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
                 <!--<i class="fa fa-search"></i>-->
                 <div id="app-search-results-box"></div>
