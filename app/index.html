@@ -55,7 +55,7 @@
               </core-menu>
             </core-header-panel>
             
-<!--             <div tool>Youtube Notepad</div> -->
+            <div id="app-header-container" tool></div>
             
             <div id="app-container"></div>
 
@@ -75,63 +75,20 @@
         <!-- Header template -->
         <script id="app-header-template" type=“x-text/handlebars”>
             <div id="app-header">
-              <nav class="navbar navbar-default" role="navigation">
-                  <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="#"><h1>Youtube Notepad</h1></a>
+                <div class="row">
+
+                    <div class="col-lg-8">
+                        <form id="app-get-video-form" role="search">
+                     
+                                <input id="app-youtube-link" class="search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
+                                <!--<i class="fa fa-search"></i>-->
+                                <div id="app-search-results-box"></div>
+                        </form>
                     </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <form class="navbar-form navbar-left" id="app-get-video-form" role="search">
-                        <div class="form-group">
-                            <input id="app-youtube-link" class="form-control search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
-                            <i class="fa fa-search"></i>
-                            <div id="app-search-results-box"></div>
-                        </div>
-                      </form>
-
-                    <!-- Error/Success Alert Messages -->
-                    <div id="app-error-messages" class="nav navbar-nav navbar-left">
-                        <div id="app-notepad-url-error" class="hide alert alert-danger">
-                            <strong>You need to enter a valid YouTube URL</strong>
-                        </div>
-                        <div id="app-notepad-video-not-found-error" class="hide alert alert-danger">
-                            <strong>You need to enter a valid YouTube URL</strong>
-                        </div> 
-                        <div id="app-notepad-video-found" class="hide alert alert-success">
-                            <strong>YouTube video found!</strong>
-                        </div>
-                    </div><!-- #app-error-messages -->
-                    <!-- End Error/Success Alert Messages -->
-
-                      <ul id="app-authentication-buttons" class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-         
-                    </div><!-- /.navbar-collapse -->
-                  </div><!-- /.container-fluid -->
-                </nav>
+                    <div class="col-lg-4">
+                        <ul id="app-authentication-buttons" class="pull-right"></ul>
+                    </div>
+                </div>
             </div><!-- #app-header -->
         </script>
         <!-- End Header template -->
@@ -149,20 +106,15 @@
         <!-- Authentication buttons template -->
         <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
             {{#if userSignedIn}} 
-                <li><button id="notes-link" class="pure-button pure-button-primary" href="#">
-                    <strong>Your Notes</strong>
-                    <i class="fa fa-file-text"></i>
-                    </button>
-                </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img id="user-image" src="{{ userPhoto }}" alt="{{ displayName }}" />
                     {{ firstName }} <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" role="menu">
-                    <!-- <li><a href="#">Profile</a></li>-->
-                    <!-- <li><a href="#">Settings</a></li>-->
-                    <!--<li class="divider"></li>-->
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li class="divider"></li>
                     <li><a id="sign-out" href="#">Sign Out</a></li>
                   </ul>
                 </li>
@@ -227,7 +179,7 @@
             <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
                 <span class="time recorded-video-time">{{ startTime }}</span>
                 <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
-                <input class="remove checkbox" type="checkbox" />
+                <!--<input class="remove checkbox" type="checkbox" />-->
             </li>
         </script>
         <!-- End Note Item Template -->

@@ -45,12 +45,12 @@ app.shell = (function () {
     var $container = stateMap.$container;
 
     jqueryMap = {
-      $container    : $container,
-      $shell        : $container.find('#app-shell'),
-      $shellBody    : $container.find('#app-shell-body'),
-      $videoForm    : $container.find('#app-video-form'),
-      $saveNotesBtn : $container.find('#save-notes'),
-      $coreHeaderPanel : $container.find('#headerPanel')
+      $container        : $container,
+      $shell            : $container.find('#app-shell'),
+      $shellBody        : $container.find('#app-shell-body'),
+      $videoForm        : $container.find('#app-video-form'),
+      $saveNotesBtn     : $container.find('#save-notes'),
+      $headerContainer  : $('#app-header-container')
     };
   };
   // End DOM method /setJqueryMap/
@@ -154,7 +154,7 @@ app.shell = (function () {
       parseRoute(); // must do first time
     });
 
-    app.header.initModule( jqueryMap.$coreHeaderPanel );
+    app.header.initModule( jqueryMap.$headerContainer );
 
     app.login_modal.initModule        ( jqueryMap.$shellBody );
     app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
