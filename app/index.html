@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="styles/app.login_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.alert_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.notes_list_modal.css"       type="text/css"> 
+        <link rel="stylesheet" href="styles/app.search_box.css"             type="text/css"> 
         <!-- endbuild -->
 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
@@ -75,31 +76,22 @@
         <!-- Header template -->
         <script id="app-header-template" type=“x-text/handlebars”>
             <div id="app-header">
-                <div class="row">
-
-                    <div class="col-lg-8">
-                        <form id="app-get-video-form" role="search">
-                     
-                                <input id="app-youtube-link" class="search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
-                                <!--<i class="fa fa-search"></i>-->
-                                <div id="app-search-results-box"></div>
-                        </form>
-                    </div>
-                    <div class="col-lg-4">
-                        <ul id="app-authentication-buttons" class="pull-right"></ul>
-                    </div>
-                </div>
+                <ul id="app-authentication-buttons" class="pull-right"></ul>
             </div><!-- #app-header -->
         </script>
         <!-- End Header template -->
 
         <!-- Search Results template -->
         <script id="app-search-results-template" type=“x-text/handlebars”>
-            <ul id="app-search-results-list" class="rounded">
+            <div class="row">
+            <div class="col-lg-12">
+            <ul id="app-search-results-list">
                 {{#each searchResults}}
                     <li>{{ this }}</li>
                 {{/each}}   
-            </ul>   
+            </ul>  
+            </div>
+            </div> 
         </script>
         <!-- End Search Results template -->
 
@@ -130,6 +122,16 @@
             {{/if}}
         </script>
         <!-- End Authentication buttons template -->
+
+        <!-- Search Box template-->
+        <script id="app-search-box-template" type=“x-text/handlebars”>
+            <div id="app-search-box" class="module">
+               <input id="app-search-input" class="search-box" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
+                <!--<i class="fa fa-search"></i>-->
+                <div id="app-search-results-box"></div>
+            </div>
+        </script>
+        <!-- End Search Box template-->
 
         <!-- Video control panel template-->
         <script id="app-video-control-panel-template" type=“x-text/handlebars”>
@@ -386,6 +388,7 @@
         <script src="scripts/feature_modules/app.note_input.js"                 ></script>
         <script src="scripts/feature_modules/app.notepad.js"                    ></script>
         <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
+        <script src="scripts/feature_modules/app.search_box.js"                 ></script>
         <script src="scripts/feature_modules/app.login_modal.js"                ></script>
         <script src="scripts/feature_modules/app.notes_list.js"                 ></script>
         <script src="scripts/feature_modules/app.alert_modal.js"                ></script>
