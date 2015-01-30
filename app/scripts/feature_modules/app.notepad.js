@@ -25,7 +25,6 @@ app.notepad = (function () {
     },
     stateMap  = { $container : null },
     jqueryMap = {},
-    inputKeypressCount = 0,
     deleteNoteCount = 0,
     
     appendNote,
@@ -86,22 +85,6 @@ app.notepad = (function () {
       noteID = $(evt.target).parent().data('note-id');
       noteVal = $(evt.target).html();
       app.model.note.edit( videoID, noteID, noteVal );
-      // jqueryMap.$notesList.find('.note:last input').focus();
-    });
-  };
-
-  /*
-   *  Purpose: Called when user enters a key in input
-  */
-  onKeyPress = function(){
-    var currentVideoTime;
-    jqueryMap.$notesList.keypress(function(e){
-      if(inputKeypressCount === 1){
-        app.model.player.pause_video();
-        currentVideoTime = app.model.player.get_current_time();
-        jqueryMap.$container.find('.note input:last').data('start-time', currentVideoTime);
-      }
-      inputKeypressCount++;
     });
   };
 
@@ -167,7 +150,7 @@ app.notepad = (function () {
         jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note');
       } else {
         jqueryMap.$deleteNotesBtn.val('Delete Notes');
-      }                        
+      }                     
     });
   };
 
@@ -224,7 +207,6 @@ app.notepad = (function () {
     setJqueryMap();
     onNoteEdit();
     onRecordedTimeClick();
-    onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-new-note', appendNote );

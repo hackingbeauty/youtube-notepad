@@ -22,8 +22,10 @@ app.note_input = (function () {
     },
     stateMap  = { $container : null },
     jqueryMap = {},
+    inputKeypressCount = 0,
 
     onNoteEnter,
+    onKeyPressPause,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -46,9 +48,10 @@ app.note_input = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-    /*
+
+  /*
    *  Purpose: Called when user enters a note in the notepad
-  */
+   */
   onNoteEnter = function(){
     var
         note,
@@ -73,6 +76,7 @@ app.note_input = (function () {
               note = app.model.note.create( inputValue, startTime, videoTitle );
               $.gevent.publish( 'app-new-note', note );
               jqueryMap.$newNoteInput.val('');
+              inputKeypressCount = 0;
             }
             evt.preventDefault();
           } else {
@@ -81,6 +85,22 @@ app.note_input = (function () {
         }
       });
   };
+
+  /*
+   *  Purpose: Pause video when user is typing
+   */
+  onKeyPressPause = function(){
+    var currentVideoTime;
+    jqueryMap.$newNoteInput.keypress(function(e){
+      if(inputKeypressCount === 1){
+        app.model.player.pause_video();
+        currentVideoTime = app.model.player.get_current_time();
+        jqueryMap.$container.find('.note input:last').data('start-time', currentVideoTime);
+      }
+      inputKeypressCount++;
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -117,6 +137,7 @@ app.note_input = (function () {
     $('#app-video-control-panel').after( configMap.main_html ); // Redundant id lookup - had to do it
     setJqueryMap();
     onNoteEnter();
+    onKeyPressPause();
     return true;
   };
   // End public method /initModule/
