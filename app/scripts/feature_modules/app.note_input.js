@@ -10,7 +10,7 @@
   white  : true
 */
 
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.note_input = (function () {
   'use strict';
@@ -23,6 +23,8 @@ app.note_input = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
+    onNoteEnter,
+
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -33,15 +35,52 @@ app.note_input = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$container;
+    var $container = stateMap.$append_target;
 
-    jqueryMap = { $container : $container };
+    jqueryMap = {
+      $container    : $container,
+      $newNoteInput : $container.find('#new-note-input')
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
+    /*
+   *  Purpose: Called when user enters a note in the notepad
+  */
+  onNoteEnter = function(){
+    var
+        note,
+        inputValue,
+        startTime,
+        videoTitle,
+        $notePad;
+
+    jqueryMap.$newNoteInput.keypress(function( evt ){
+
+        if (evt.which === 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed
+
+          if(app.model.user.is_authenticated()){
+
+            $notePad = $(this);
+            inputValue = $.trim(jqueryMap.$newNoteInput.val());
+
+            if(inputValue !== ''){
+              app.model.player.play_video();
+              startTime = app.model.player.get_current_time();
+              videoTitle = app.model.video.get_video_data().title;
+              note = app.model.note.create( inputValue, startTime, videoTitle );
+              $.gevent.publish( 'app-new-note', note );
+              jqueryMap.$newNoteInput.val('');
+            }
+            evt.preventDefault();
+          } else {
+            $.gevent.publish( 'app-login-modal', [ ] );
+          }
+        }
+      });
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -77,6 +116,7 @@ app.note_input = (function () {
     stateMap.$append_target = $append_target;
     $('#app-video-control-panel').after( configMap.main_html ); // Redundant id lookup - had to do it
     setJqueryMap();
+    onNoteEnter();
     return true;
   };
   // End public method /initModule/

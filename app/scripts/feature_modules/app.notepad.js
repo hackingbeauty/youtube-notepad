@@ -28,10 +28,8 @@ app.notepad = (function () {
     inputKeypressCount = 0,
     deleteNoteCount = 0,
     
-    _appendNote,
-    _createNoteInput,
+    appendNote,
 
-    onNoteEnter,
     onNoteEdit,
     refreshNotePad,
     onRecordedTimeClick,
@@ -48,15 +46,7 @@ app.notepad = (function () {
 
   //-------------------- END UTILITY METHODS -------------------
 
-  _createNoteInput = function( ){
-    jqueryMap.$notesList.append(
-      configMap.new_note_item_html()
-    );
-    jqueryMap.$notesList.find('.note:last input').focus();
-  };
-
-  _appendNote = function( note ){
-    jqueryMap.$container.find('.note:last').remove();
+  appendNote = function( evt, note ){
     jqueryMap.$notesList.append(
       configMap.note_item_html(note)
     );
@@ -80,44 +70,7 @@ app.notepad = (function () {
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
-
-
   //------------------- BEGIN EVENT HANDLERS -------------------
-
-  /*
-   *  Purpose: Called when user enters a note in the notepad
-  */
-  onNoteEnter = function(){
-    var
-        note,
-        inputValue,
-        startTime,
-        videoTitle,
-        $notePad;
-
-    jqueryMap.$notesList.keypress(function( evt ){
-
-        if (evt.which == 13 && evt.target.id === 'new-note-input') {  // If enter key was pressed and
-          if(app.model.user.is_authenticated()){
-
-            $notePad = $(this);
-            inputValue = $.trim($notePad.find('.note input:last').val());
-            if(inputValue !== ''){
-              app.model.player.play_video();
-              startTime = $notePad.find('.note input:last').data('start-time');
-              videoTitle = app.model.video.get_video_data().title;
-              note = app.model.note.create( inputValue, startTime, videoTitle );
-              inputKeypressCount = 0; // Reset keypress count
-              _appendNote( note );
-              _createNoteInput();
-            }
-            evt.preventDefault();
-          } else {
-            $.gevent.publish( 'app-login-modal', [ ] );
-          }
-        }
-      });
-  };
 
   /*
    *  Purpose: Called when user edits a note via contentEditable
@@ -179,8 +132,6 @@ app.notepad = (function () {
             $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
           }
         }
-
-        _createNoteInput();
 
       }
     });
@@ -271,12 +222,12 @@ app.notepad = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onNoteEnter();
     onNoteEdit();
     onRecordedTimeClick();
     onKeyPress();
     onRemoveClick();
     onDeleteNotesBtnClick();
+    $.gevent.subscribe( jqueryMap.$container, 'app-new-note', appendNote );
     return true;
   };
   // End public method /initModule/
