@@ -156,11 +156,12 @@ app.shell = (function () {
 
     app.header.initModule( jqueryMap.$coreHeaderPanel );
 
-    // app.login_modal.initModule        ( jqueryMap.$shellBody );
+    app.login_modal.initModule        ( jqueryMap.$shellBody );
     app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );
-    // app.alert_modal.initModule        ( jqueryMap.$shellBody );
+    app.note_input.initModule         ( jqueryMap.$shellBody );
+    app.alert_modal.initModule        ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   

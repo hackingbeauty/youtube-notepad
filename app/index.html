@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="styles/app.modal.css"                  type="text/css"> 
         <link rel="stylesheet" href="styles/app.video_control_panel.css"    type="text/css"> 
         <link rel="stylesheet" href="styles/app.notepad.css"                type="text/css"> 
+        <link rel="stylesheet" href="styles/app.note_input.css"             type="text/css"> 
         <link rel="stylesheet" href="styles/app.login_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.alert_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.notes_list_modal.css"       type="text/css"> 
@@ -190,7 +191,7 @@
                         <span class="sr-only">40% Complete (success)</span>
                       </progress>
                     </div>
-                    <div id="app-video-speed-controls" class="pull-right module">
+                    <div id="app-video-speed-controls" class="module">
                         <!-- <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>-->
                         <span class="label">Speed:</span>
                         <button class="pure-button pure-button-primary" data-speed="0.25">0.25</button>
@@ -249,16 +250,16 @@
         </script>
         <!-- End New Note Item Template -->
 
-        <!-- Users template-->
-        <script id="app-users-template" type=“x-text/handlebars”>
-            <div id="app-users">
-                <div class="panel panel-default">
-                    <div class="panel-heading">What are other people watching?</div>
-                    <div class="panel-body">
-                        users template
+        <!-- Note Input template-->
+        <script id="app-note-input-template" type=“x-text/handlebars”>
+            <div id="app-note-input" class="module">
+                    <div class="col-lg-10">
+                        <input id="new-note-input" type="text" />
                     </div>
-                </div>
-            </div><!-- #app-users-->
+                    <div class="col-lg-2">
+                        <button id="new-note-btn">Create Note</button>
+                    </div>
+            </div><!-- #app-note-input -->
         </script>
         <!-- End Users template-->
 
@@ -430,7 +431,7 @@
         <script src="scripts/models/app.model.player.js"                        ></script>
         <script src="scripts/models/app.model.note.js"                          ></script>
         <script src="scripts/feature_modules/app.header.js"                     ></script>
-        <script src="scripts/feature_modules/app.users.js"                      ></script>
+        <script src="scripts/feature_modules/app.note_input.js"                 ></script>
         <script src="scripts/feature_modules/app.notepad.js"                    ></script>
         <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
         <script src="scripts/feature_modules/app.login_modal.js"                ></script>

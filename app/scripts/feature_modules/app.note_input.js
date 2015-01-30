@@ -1,6 +1,6 @@
 /*
- * app.users.js
- * Users feature module
+ * app.note_input.js
+ * Note Input feature module
 */
 
 /*jslint         browser : true, continue : true,
@@ -12,13 +12,13 @@
 
 /*global $, app */
 
-app.users = (function () {
+app.note_input = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html : Handlebars.compile($('#app-users-template').html())
+      main_html : Handlebars.compile($('#app-note-input-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
