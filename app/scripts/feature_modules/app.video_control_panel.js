@@ -81,6 +81,8 @@ app.video_control_panel = (function () {
 
   onFullScreenModeClick = function(){
     jqueryMap.$fullScreenModeBtn.on('click', function(){
+      app.model.player.full_screen();
+
       if (screenfull.enabled) {
         screenfull.request();
       } else {

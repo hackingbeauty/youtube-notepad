@@ -8,8 +8,13 @@
 	text-align: center;
 	overflow: hidden;
 
-	#app-video-speed-controls {
+	#app-video-full-screen {
+		float: left;
+	}
 
+	#app-video-speed-controls {
+		width: 100%;
+		margin-top: 20px;
       .label {
       	color: white;
       	font-size: 16px;

@@ -136,17 +136,16 @@
         <!-- Video control panel template-->
         <script id="app-video-control-panel-template" type=“x-text/handlebars”>
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-video-control-panel">
+                <div id="app-video-control-panel" class="module">
                     <div id="app-video-control-panel-container" class="">
                         <div id="app-video-iframe"></div>
                     </div>
-                    <div class="progress hide">
-                      <progress class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="50">
-                        <span class="sr-only">40% Complete (success)</span>
-                      </progress>
+                    <!--
+                    <div id="app-video-full-screen">
+                        <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>
                     </div>
-                    <div id="app-video-speed-controls" class="module">
-                        <!-- <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>-->
+                    -->
+                    <div id="app-video-speed-controls">
                         <span class="label">Speed:</span>
                         <button class="pure-button pure-button-primary" data-speed="0.25">0.25</button>
                         <button class="pure-button pure-button-primary" data-speed="0.5">0.5</button>

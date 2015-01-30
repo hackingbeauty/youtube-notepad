@@ -28,7 +28,8 @@ app.model.player = (function () {
     pause_video,
     change_speed,
     get_current_time,
-    seek_time;
+    seek_time,
+    full_screen;
     
   //----------------- END MODEL SCOPE VARIABLES ---------------
 
@@ -83,6 +84,10 @@ app.model.player = (function () {
     window.player.setPlaybackRate( speed );
   };
 
+  full_screen = function(){
+    window.player.setSize(1000, 1000);
+  };
+
   get_current_time = function(){
     var date,
         minutes,
@@ -124,7 +129,8 @@ app.model.player = (function () {
     pause_video             : pause_video,
     get_current_time        : get_current_time,
     seek_time               : seek_time,
-    change_speed            : change_speed
+    change_speed            : change_speed,
+    full_screen             : full_screen
   };
 
 }());
