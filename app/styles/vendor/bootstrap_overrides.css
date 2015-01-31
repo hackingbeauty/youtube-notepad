@@ -15,3 +15,7 @@ ul, ol {
 	padding-left: 0;
 	padding-right: 0;
 }
+
+.dropdown-menu {
+	left: -100px;
+}
