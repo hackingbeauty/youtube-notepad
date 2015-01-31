@@ -3,6 +3,10 @@
  * General/universal styles
 */
 
+// * {
+//   border: 1px solid red !important;
+// }
+
 html,
 body {
   height: 100%;
@@ -18,9 +22,7 @@ body {
 h1 {
   margin:0 ;
   font-size:18px;
-  // font-weight:bold;
-  color: white;
-  border: 1px solid red;
+  color: black;
 }
 
 li {
@@ -111,9 +113,10 @@ video {
 }
 
 core-toolbar {
-  background-color: #5100e9;
+  background-color: white;
   h1 {
-    border: 1px solid green !important;
+    // position: relative;
+    // top: -12px;
   }
 }
 
