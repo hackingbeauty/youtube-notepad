@@ -51,8 +51,16 @@
                 <h1>Youtube Notepad</h1>
               </core-toolbar>
               <core-menu>
-                <core-item icon="settings" label="item1"></core-item>
-                <core-item icon="settings" label="item2"></core-item>
+                <core-item icon="settings" label="item1">
+                    <div class="module">
+                        Your Notes
+                    </div>
+                </core-item>
+                <core-item icon="settings" label="item2">
+                    <div class="module">
+                        Your Tags
+                    </div>
+                </core-item>
               </core-menu>
             </core-header-panel>
             
@@ -295,12 +303,6 @@
 
         <!-- Notes List content template-->
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
-            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                <div id="app-search-notes">
-                    <input id="app-search-notes-input" class="form-control search-box" type="url" class="form-control" placeholder="Search your notes" autofocus="autofocus" autocomplete="off" required>
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
             <ul id="notes-list">
                 <div class="row">
                     {{#if searchQueryResults}}
