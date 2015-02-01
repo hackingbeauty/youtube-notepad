@@ -14,4 +14,21 @@
 	.modal-footer {
 		border-top: none;
 	}
+
+	button {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	
+	.modal-content{
+		position: relative;
+	}
+
+	.close {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 20px;
+	}
+
 }

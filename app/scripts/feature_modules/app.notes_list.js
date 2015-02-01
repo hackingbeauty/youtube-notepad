@@ -27,7 +27,6 @@ app.notes_list_modal = (function () {
     showSearchResults,
     closeModal,
     onLoadNoteClick,
-    onDeleteNoteClick,
 
     setJqueryMap,
     configModule,
@@ -56,20 +55,6 @@ app.notes_list_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   
-  getSavedNotes = function () {
-    if(app.model.user.is_authenticated()){
-      jqueryMap.$container.css('left','0%');
-      jqueryMap.$container.css('overflowY','auto');
-      app.model.note.get_saved_notes(function( notes ){
-        jqueryMap.$body.append(
-          configMap.content_html({
-            results : notes
-          })
-        );
-      });
-    }
-  };
-
   showSearchResults = function( evt, searchResults ){
     jqueryMap.$container.css('left','0%');
     jqueryMap.$container.css('overflowY','auto');
@@ -96,22 +81,6 @@ app.notes_list_modal = (function () {
       delete anchorMap['notes'];
       delete anchorMap['search'];
       $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' } ));
-    });
-  };
-
-  onDeleteNoteClick = function(){
-    var
-      $videoListItem,
-      videoID;
-
-    jqueryMap.$container.on('click', '.delete-note', function(){
-      $videoListItem = $(this).closest('[data-video-id]');
-      videoID = $videoListItem.data('video-id').trim();
-      var deleteNoteCallback = function(){
-        app.model.note.delete_video( videoID );
-        $videoListItem.remove();
-      };
-      $.gevent.publish( 'app-alert-modal-show', [ deleteNoteCallback ] );
     });
   };
 
@@ -149,10 +118,8 @@ app.notes_list_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-show-notes', getSavedNotes );
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
     onLoadNoteClick();
-    onDeleteNoteClick();
     return true;
   };
   // End public method /initModule/

@@ -18,18 +18,33 @@ app.your_notes = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-    	main_html: Handlebars.compile($('#app-your-notes-template').html())
+    	main_html : Handlebars.compile($('#app-your-notes-template').html()),
+      body_html : Handlebars.compile($('#app-your-notes-body-template').html()),
     },
     stateMap  = { $container : null },
     jqueryMap = {},
 
+    _showNotes,
+
     onButtonClick,
+    onLoadNoteClick,
+    onDeleteNoteClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
+  _showNotes = function(){
+    if(app.model.user.is_authenticated()){
+      app.model.note.get_saved_notes(function( notes ){
+        jqueryMap.$body.append(
+          configMap.body_html({
+            results: notes
+          })
+        );
+      });
+    }
+  };
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -38,8 +53,9 @@ app.your_notes = (function () {
     var $container = stateMap.$append_target.find('#app-your-notes');
 
     jqueryMap = { 
-    	$container 		: $container, 
-    	$yourNotesBtn 	: $container.find('#app-get-your-notes-btn')
+    	$container 		  : $container, 
+    	$yourNotesLink 	: $container.find('#app-get-your-notes-link'),
+      $body           : $container.find('#app-your-notes-body')
     };
   };
   // End DOM method /setJqueryMap/
@@ -47,12 +63,34 @@ app.your_notes = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onButtonClick = function(){
-  	jqueryMap.$yourNotesBtn.on('click', function( evt ){
-		$.uriAnchor.setAnchor({
-			notes : 'opened',
-		});
+  	jqueryMap.$yourNotesLink.on('click', function( evt ){
+      _showNotes();
   	});
-  }
+  };
+
+  onLoadNoteClick = function(){
+    var videoID;
+    jqueryMap.$body.on('click','.load-note', function(){
+      videoID = $(this).data('video-id');
+      $.uriAnchor.setAnchor( { video_id : videoID } );
+    });
+  };
+
+  onDeleteNoteClick = function(){
+    var
+      $videoListItem,
+      videoID;
+
+    jqueryMap.$container.on('click', '.delete-note', function(){
+      $videoListItem = $(this).closest('[data-video-id]');
+      videoID = $videoListItem.data('video-id').trim();
+      var deleteNoteCallback = function(){
+        app.model.note.delete_video( videoID );
+        $videoListItem.remove();
+      };
+      $.gevent.publish( 'app-alert-modal-show', [ deleteNoteCallback ] );
+    });
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -87,6 +125,8 @@ app.your_notes = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     onButtonClick();
+    onLoadNoteClick();
+    onDeleteNoteClick();
     return true;
   };
   // End public method /initModule/

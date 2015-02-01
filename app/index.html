@@ -25,7 +25,9 @@
         <link rel="stylesheet" href="styles/app.login_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.alert_modal.css"            type="text/css"> 
         <link rel="stylesheet" href="styles/app.notes_list_modal.css"       type="text/css"> 
-        <link rel="stylesheet" href="styles/app.search_box.css"             type="text/css"> 
+        <link rel="stylesheet" href="styles/app.search_box.css"             type="text/css">
+        <link rel="stylesheet" href="styles/app.your_notes.css"             type="text/css"> 
+
         <!-- endbuild -->
 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
@@ -53,9 +55,8 @@
               <core-menu>
                 <div id="app-your-notes-module-container" class="module"></div>
                 <div id="app-your-notes-module-container" class="module">
-                    
-                                            <h3>Your Tags<h3>
-
+        
+                    <h3>Your Tags<h3>
                 </div>
               </core-menu>
             </core-header-panel>
@@ -278,8 +279,14 @@
                             <h4>Are you sure you want to delete these notes?</h4>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="pure-button pure-button-primary" data-dismiss="modal">Cancel</button>
-                            <button type="button" data-modal-action="delete-notes" class="btn-main-action pure-button pure-button-primary button-error">Delete notes</button>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-xs">
+                                    <button type="button" class="pure-button pure-button-primary" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-7 col-md-12 col-sm-12 col-xs-xs">
+                                    <button type="button" data-modal-action="delete-notes" class="btn-main-action pure-button pure-button-primary button-error">Delete notes</button>
+                                </div>
+                            </div><!-- .row -->
                         </div>
                     </div>
                 </div>
@@ -300,11 +307,27 @@
         <!-- Your Notes template -->
         <script id="app-your-notes-template" type=“x-text/handlebars”>
             <div id="app-your-notes">
-                <h3>Your Notes</h3>
-                <button id="app-get-your-notes-btn" type="button" class="pure-button pure-button-primary">click for your notes</button>
+                <h2 class="heading"><a id="app-get-your-notes-link">Your Notes</a></h2>
+                <div id="app-your-notes-body"></div>
             </div>
         </script>
         <!-- End Your Notes template -->
+
+        <!-- Your Notes Body template -->
+        <script id="app-your-notes-body-template" type=“x-text/handlebars”>
+            <ul id="app-your-notes-list">
+                <div class="row">
+                    {{#each results}}
+                        <li  data-video-id="{{ @key }}" class="note-item col-lg-12">
+                            <i class="delete-icon delete-note fa fa-remove"></i>
+                            <h3>{{ title }}</h3>
+                            <img data-video-id= "{{@key}}" src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" class="load-note rounded" />
+                        </li>
+                    {{/each}}
+                </div>
+            </ul>
+        </script>
+        <!-- End Your Notes Body template -->
 
         <!-- Notes List content template-->
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
