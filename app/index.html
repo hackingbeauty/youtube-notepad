@@ -51,23 +51,19 @@
                 <h1>Youtube Notepad</h1>
               </core-toolbar>
               <core-menu>
-                <core-item icon="settings" label="item1">
-                    <div class="module">
-                        Your Notes
-                    </div>
-                </core-item>
-                <core-item icon="settings" label="item2">
-                    <div class="module">
-                        Your Tags
-                    </div>
-                </core-item>
+                <div id="app-your-notes-module-container" class="module"></div>
+                <div id="app-your-notes-module-container" class="module">
+                    
+                                            <h3>Your Tags<h3>
+
+                </div>
               </core-menu>
             </core-header-panel>
             
             <div id="app-header-container" tool></div>
             
             <div id="app-container"></div>
-
+            
         </core-scaffold>
 
        
@@ -301,6 +297,15 @@
         </script>
         <!-- End Notes List template-->
 
+        <!-- Your Notes template -->
+        <script id="app-your-notes-template" type=“x-text/handlebars”>
+            <div id="app-your-notes">
+                <h3>Your Notes</h3>
+                <button id="app-get-your-notes-btn" type="button" class="pure-button pure-button-primary">click for your notes</button>
+            </div>
+        </script>
+        <!-- End Your Notes template -->
+
         <!-- Notes List content template-->
         <script id="app-notes-list-content-template" type=“x-text/handlebars”>
             <ul id="notes-list">
@@ -389,6 +394,8 @@
         <script src="scripts/feature_modules/app.login_modal.js"                ></script>
         <script src="scripts/feature_modules/app.notes_list.js"                 ></script>
         <script src="scripts/feature_modules/app.alert_modal.js"                ></script>
+        <script src="scripts/feature_modules/app.your_notes.js"                 ></script>
+
         <script src="scripts/app.shell.js"                                      ></script>
         <!-- endbuild -->
 

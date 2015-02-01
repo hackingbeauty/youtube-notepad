@@ -3,10 +3,6 @@
  * General/universal styles
 */
 
-// * {
-//   border: 1px solid red !important;
-// }
-
 html,
 body {
   height: 100%;
@@ -23,6 +19,10 @@ h1 {
   margin:0 ;
   font-size:18px;
   color: black;
+}
+
+h3 {
+  color: white;
 }
 
 li {

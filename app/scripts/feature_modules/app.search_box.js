@@ -30,7 +30,6 @@ app.search_box = (function () {
 
     onSearchBoxKeyPress,
     onSearchBoxEnter,
-    onNotesLinkClick,
     onSearchItemSelect,
     closeSearchBox,
 
@@ -174,15 +173,6 @@ app.search_box = (function () {
     });
   };
 
-  onNotesLinkClick = function(){
-    jqueryMap.$container.on('click', '#notes-link', function( evt ){
-      $.uriAnchor.setAnchor({
-        notes : 'opened',
-      });
-      evt.preventDefault();
-    });
-  };
-
   onSearchItemSelect = function(){
     var searchTerm;
     jqueryMap.$searchResultsBox.on('click','li', function(){
@@ -233,7 +223,6 @@ app.search_box = (function () {
     setJqueryMap();
     onSearchBoxKeyPress();
     onSearchBoxEnter();
-    onNotesLinkClick();
     onSearchItemSelect();
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals', closeSearchBox );
     return true;

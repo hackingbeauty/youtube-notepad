@@ -50,7 +50,8 @@ app.shell = (function () {
       $shellBody        : $container.find('#app-shell-body'),
       $videoForm        : $container.find('#app-video-form'),
       $saveNotesBtn     : $container.find('#save-notes'),
-      $headerContainer  : $('#app-header-container')
+      $headerContainer  : $('#app-header-container'),
+      $yourNotes        : $('#app-your-notes-module-container')
     };
   };
   // End DOM method /setJqueryMap/
@@ -163,6 +164,7 @@ app.shell = (function () {
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.note_input.initModule         ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
+    app.your_notes.initModule         ( jqueryMap.$yourNotes );
 
     closeModalsOnClick();
   

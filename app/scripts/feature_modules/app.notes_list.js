@@ -66,7 +66,6 @@ app.notes_list_modal = (function () {
             results : notes
           })
         );
-        jqueryMap.$searchNotesInput.focus();
       });
     }
   };
