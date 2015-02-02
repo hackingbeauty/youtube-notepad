@@ -36,8 +36,8 @@ app.alert_modal = (function () {
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-modal-alert');
-    jqueryMap = { 
-      $container : $container 
+    jqueryMap = {
+      $container : $container
     };
   };
   // End DOM method /setJqueryMap/

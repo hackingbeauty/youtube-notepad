@@ -54,8 +54,7 @@
               </core-toolbar>
               <core-menu>
                 <div id="app-your-notes-module-container" class="module"></div>
-                <div id="app-your-notes-module-container" class="module">
-        
+                <div id="app-your-tags-module-container" class="module">
                     <h3>Your Tags<h3>
                 </div>
               </core-menu>
@@ -296,11 +295,20 @@
 
         <!-- Notes List template-->
         <script id="app-notes-list-modal-template" type=“x-text/handlebars”>
-            <div id="app-notes-list">
-                <div id="app-notes-list-body">
-                    <!--  notes content template here -->
-                </div>
-            </div>
+            <div class="modal fade" id="app-notes-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="app-notes-list-body">
+                                <!--  notes content template here -->
+                            </div>
+                        </div><!-- .modal-body -->
+                    </div><!-- .modal-content -->
+                </div><!-- .modal-dialog -->
+            </div><!-- .modal -->
         </script>
         <!-- End Notes List template-->
 
@@ -335,8 +343,8 @@
                 <div class="row">
                     {{#if searchQueryResults}}
                         {{#each results}}
-                            <div class="col-lg-2">
-                                <li class="note-item module rounded">
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                                <li class="note-item">
                                     <h3>{{ snippet.title }}</h3>
                                     <img src="http://img.youtube.com/vi/{{id.videoId}}/1.jpg" alt="Video id {{id.videoId}}" />
                                     <br />
@@ -346,19 +354,6 @@
                                     </button>
                                 </li>
                             </div>
-                        {{/each}}
-                    {{ else }}
-                        {{#each results}}
-                            <li  data-video-id="{{ @key }}" class="note-item module rounded col-lg-2">
-                                <i class="delete-icon delete-note fa fa-remove"></i>
-                                <h3>{{ title }}</h3>
-                                <img src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" />
-                                <br />
-                                <button data-video-id= "{{@key}}" class="load-note-btn pure-button pure-button-primary">
-                                    <strong>Load Notes</strong>
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </li>
                         {{/each}}
                     {{/if}}
                 </div>

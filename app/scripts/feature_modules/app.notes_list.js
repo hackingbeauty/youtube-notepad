@@ -56,8 +56,8 @@ app.notes_list_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   
   showSearchResults = function( evt, searchResults ){
-    jqueryMap.$container.css('left','0%');
-    jqueryMap.$container.css('overflowY','auto');
+
+    jqueryMap.$container.modal();
     jqueryMap.$body.append(
       configMap.content_html({
         searchQueryResults  : true,
@@ -67,9 +67,9 @@ app.notes_list_modal = (function () {
   };
 
   closeModal = function(){
-    jqueryMap.$container.css('left','-101%');
-    jqueryMap.$container.css('overflow','hidden');
     jqueryMap.$body.empty();
+    jqueryMap.$container.modal('hide');
+
   };
 
   onLoadNoteClick = function(){
