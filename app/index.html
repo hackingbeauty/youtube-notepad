@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="styles/vendor/bootstrap-checkbox.css"  type="text/css"> 
         <link rel="stylesheet" href="styles/vendor/bootstrap-social.css"    type="text/css"> 
         <link rel="stylesheet" href="styles/vendor/pure-min.css"            type="text/css">
+        <link rel="stylesheet" href="styles/vendor/bootstrap-tokenfield.css"type="text/css">
         <link rel="stylesheet" href="styles/app.buttons.css"                type="text/css">
         <link rel="stylesheet" href="styles/app.css"                        type="text/css">
         <link rel="stylesheet" href="styles/app.header.css"                 type="text/css">
@@ -55,7 +56,7 @@
               <core-menu>
                 <div id="app-your-notes-module-container" class="module"></div>
                 <div id="app-your-tags-module-container" class="module">
-                    <h3>Your Tags<h3>
+                    <h2>Your Tags<h2>
                 </div>
               </core-menu>
             </core-header-panel>
@@ -164,7 +165,7 @@
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                 <div id="app-notepad">
                     <div id="app-notepad-header">
-                        <h3>Notes</h3>
+                        <h2>Notes</h2>
                     </div>
                     <div id="app-notes-container">
                         <ul id="notes-list" data-video-id="{{ videoID }}">
@@ -363,8 +364,9 @@
 
         <!-- App Tag Notes template-->
         <script id="app-tag-notes-template" type=“x-text/handlebars”>
-            <div id="app-tag-notes" class="module">
-                tag your notes
+            <div id="app-tag-notes">
+                <label><h2>Tags:<h2></label>
+                <input type="text" id="app-tag-input" value="red,green,blue" placeholder="Tag"/>
             </div>
         </script>
         <!-- End App Tag Notes template-->

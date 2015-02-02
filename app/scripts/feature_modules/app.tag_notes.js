@@ -75,8 +75,16 @@ app.tag_notes = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
-    $('#app-video-control-panel').after( configMap.main_html );
+    $('#app-note-input').prepend( configMap.main_html );
+    // app-tag-input
     setJqueryMap();
+    $('#app-tag-input').tokenfield({
+      autocomplete: {
+        source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
+        delay: 100
+      },
+      showAutocompleteOnFocus: true
+    });
     return true;
   };
   // End public method /initModule/
