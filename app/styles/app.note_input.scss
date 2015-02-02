@@ -11,9 +11,13 @@
 
 	#new-note-input {
 		font-size: 22px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
 	}
 
 	#new-note-btn {
 		white-space: normal;
+		border-top-left-radius: 0px !important;
+		border-bottom-left-radius: 0px !important;
 	}
 }
