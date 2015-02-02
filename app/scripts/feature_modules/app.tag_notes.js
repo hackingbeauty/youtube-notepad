@@ -35,7 +35,10 @@ app.tag_notes = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-tag-notes');
 
-    jqueryMap = { $container : $container };
+    jqueryMap = {
+      $container : $container,
+      $noteInput : $container.find('#app-tag-input')
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
@@ -78,7 +81,8 @@ app.tag_notes = (function () {
     $('#app-note-input').prepend( configMap.main_html );
     // app-tag-input
     setJqueryMap();
-    $('#app-tag-input').tokenfield({
+
+    jqueryMap.$noteInput.tokenfield({
       autocomplete: {
         source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
         delay: 100
