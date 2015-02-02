@@ -170,8 +170,8 @@ app.model.note = (function () {
   };
 
   initModule = function(){
-    db = TAFFY();
-    db.store('videos');
+    // db = TAFFY();
+    // db.store('videos');
   };
 
   return {
