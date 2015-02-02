@@ -165,6 +165,7 @@ app.shell = (function () {
     app.note_input.initModule         ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
     app.your_notes.initModule         ( jqueryMap.$yourNotes );
+    app.tag_notes.initModule          ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   
