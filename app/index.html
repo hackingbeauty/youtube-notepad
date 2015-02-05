@@ -20,11 +20,21 @@
     <!-- endbuild-->
   </head>
   <body unresolved>
-    <div class="hero-unit">
-      <yo-greeting></yo-greeting>
-      <p>You now have</p>
-      <yo-list></yo-list>
-    </div>
+    
+    <core-scaffold>
+        <core-header-panel navigation flex>
+          <core-toolbar>
+            <h1>Youtube Notepad</h1>
+          </core-toolbar>
+          <core-menu>
+            <div id="app-your-notes-module-container" class="module"></div>
+            <div id="app-your-tags-module-container" class="module">
+            </div>
+          </core-menu>
+        </core-header-panel>
+        <div id="app-header-container" tool></div>
+        <div id="app-container"></div>
+    </core-scaffold>
 
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
