@@ -1,0 +1,51 @@
+#app-your-notes-module-container {
+
+	#app-your-notes {
+
+		h2.heading {
+			font-size: 15px !important;
+		}
+
+		ul#app-your-notes-list {
+			transition: all .5s ease;
+		}
+
+		#app-get-your-notes-link {
+			cursor: pointer;
+		}
+
+		.note-item {
+			text-align:  center;
+			position: relative;
+			padding: 10px;
+			border-top: 1px solid #171d22;
+
+			&:last-child {
+				border-bottom: none;
+			}
+		
+			h3 {
+				font-size: 14px !important;
+				padding:0 5px;
+				margin-bottom: 10px;
+			}
+
+			.load-note {
+				cursor: pointer;
+				&:hover {
+					border: 1px solid white;
+				}
+			}
+			.delete-icon {
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				cursor: pointer;
+			}
+		}
+
+
+	}
+
+}
+

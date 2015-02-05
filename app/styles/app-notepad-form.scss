@@ -1,0 +1,142 @@
+/*
+ * spa.chat.css
+ * Chat feature styles
+*/
+
+#app-notepad {
+
+  overflow:hidden;
+
+  .spa-chat {
+    position      : absolute;
+    bottom        : 0;
+    right         : 0;
+    width         : 49em;
+    height        : 2em;
+    background    : #fff;
+    border-radius : 0.5em 0 0 0;
+    border-style  : solid;
+    border-width  : thin 0 0 thin;
+    border-color  : #888;
+    box-shadow    : 0 0 0.75em 0 #888;
+    z-index       : 1;
+    transition    : 0.2s;
+
+    #app-notepad-time-head { /* hiding for now */
+      display: none;
+    }
+
+    #save-notes-btn,
+    #delete-notes-btn {
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    #app-notes-container {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 559px;
+      width: 47.5em;
+      background: white;
+
+      ul#notes-list {
+        min-height: 100%;
+        padding: 0 0 20px 0;
+        background-color: #fff;
+        position: relative;
+        margin-top: 0px;
+
+        &:before {
+          content: "";
+          display: block;
+          height: 100% !important;
+          width: 0;
+          z-index: 99;
+          pointer-events: none;
+          position: absolute;
+          left: 70px;
+          top: 0;
+          border-left: 4px double #FAD1D7;
+        }
+
+        .note {
+          width:100%;
+          height: 34px;
+          font-size:15px;
+          clear: both;
+          overflow: hidden;
+          position: relative;
+          border-bottom: 1px solid #eee;
+
+          .remove {
+            position: absolute;
+            right: 4px;
+            top: 13px;
+            &:hover {
+              color: red;
+              cursor: pointer;
+            }
+          }
+
+          .video-time,
+          .recorded-video-time {
+            height: 36px;
+            display: inline-block;
+            float:left;
+            text-align: center;
+            color: #0078e7;
+            padding-top:7px;
+            padding-left: 19px;
+            margin-right: 20px;
+          }
+
+          .video-time{
+            padding-top: 23px;
+            width: 70px;
+            display: block;
+            height: 50px;
+          }
+
+          .text {
+            height: 42px;
+            position: relative;
+            left: 2px;
+            display: block;
+            word-break: break-all;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 80%;
+            padding-top:9px;
+          }
+
+          .text[contenteditable="true"]:focus{
+            outline: none;
+            background: rgba(255, 230, 0, 0.5)
+          }
+
+          input[type='text']{
+            border: none;
+            border-top: 2px solid #eee;
+            padding-left: 2px;
+            height:30px;
+            width: 85%;
+            padding-top:17px;
+            margin-top:13px;
+            margin-left: 75px;
+            &:focus {
+              outline: 0;
+            }
+          }
+        }
+      }
+    }
+
+    form#app-get-video-form {
+      input#app-notepad-enter-btn[type="submit"] {
+        width: 100%;
+      }
+    }
+
+  }
+}
+

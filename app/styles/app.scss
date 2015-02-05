@@ -1,0 +1,123 @@
+/*
+ * app.css
+ * General/universal styles
+*/
+
+html,
+body {
+  height: 100%;
+
+}
+
+html { overflow-y:scroll; }
+
+body {
+  position: relative;
+}
+
+h1 {
+  margin:0 ;
+  font-size:18px;
+  color: black;
+}
+
+h2 {
+  color: white;
+  font-size: 16px;
+}
+
+li {
+  list-style-type:none;
+}
+
+dl, menu, ul, ol {
+  margin: 0 0;
+}
+
+img,
+embed,
+object,
+video {
+  max-width: 100%;
+}
+
+
+.beta{
+  color: orange;
+}
+
+.video-time,
+.recorded-video-time {
+  color: blue;
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.rounded {
+	border-radius: 5px;
+}
+
+.module {
+	padding: 20px;
+  background: #1d262c;
+	border: 1px solid #171d22;
+  clear: both;
+  h2, h3 {
+    margin: 0;
+  }
+}
+
+.selected {
+  background: green !important;
+}
+
+
+.video-container {
+	border: 1px solid #e3e3e3;
+}
+
+.video {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  margin: 20px 0;
+  background: red;
+  border-radius: 50% / 10%;
+  color: white;
+  text-align: center;
+  text-indent: .1em;
+}
+
+.video:before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -5%;
+  left: -5%;
+  background: inherit;
+  border-radius: 5% / 50%;
+}
+
+.visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.delete-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px 10px 5px 5px;
+}
+
+.label {
+  font-size: 16px;
+}
+
+core-toolbar {
+  background-color: #526E9C;
+  h1 {
+    color: white;
+  }
+}

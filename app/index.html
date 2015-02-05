@@ -8,7 +8,27 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/vendor/bootstrap.css"           type="text/css">
+    <link rel="stylesheet" href="styles/vendor/bootstrap_overrides.css" type="text/css">
+    <link rel="stylesheet" href="styles/vendor/bootstrap-checkbox.css"  type="text/css"> 
+    <link rel="stylesheet" href="styles/vendor/bootstrap-social.css"    type="text/css"> 
+    <link rel="stylesheet" href="styles/vendor/pure-min.css"            type="text/css">
+    <link rel="stylesheet" href="styles/vendor/jquery.tagit.css"        type="text/css">
+    <link rel="stylesheet" href="styles/app.buttons.css"                type="text/css">
+    <link rel="stylesheet" href="styles/app.css"                        type="text/css">
+    <link rel="stylesheet" href="styles/app-header.css"                 type="text/css">
+    <link rel="stylesheet" href="styles/app-shell.css"                  type="text/css">
+    <link rel="stylesheet" href="styles/app-modal.css"                  type="text/css"> 
+    <link rel="stylesheet" href="styles/app-video-control-panel.css"    type="text/css"> 
+    <link rel="stylesheet" href="styles/app-notepad.css"                type="text/css"> 
+    <link rel="stylesheet" href="styles/app-note-input.css"             type="text/css"> 
+    <link rel="stylesheet" href="styles/app-login-modal.css"            type="text/css"> 
+    <link rel="stylesheet" href="styles/app-alert-modal.css"            type="text/css"> 
+    <link rel="stylesheet" href="styles/app-notes-list-modal.css"       type="text/css"> 
+    <link rel="stylesheet" href="styles/app-search-box.css"             type="text/css">
+    <link rel="stylesheet" href="styles/app-your-notes.css"             type="text/css"> 
+    <link rel="stylesheet" href="styles/app-your-tags.css"              type="text/css"> 
+    <link rel="stylesheet" href="styles/app-tag-notes.css"              type="text/css">
     <!-- endbuild-->
 
     <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
@@ -19,9 +39,13 @@
     <link rel="import" href="elements/elements.html">
     <!-- endbuild-->
   </head>
-  <body unresolved>
-    
+  <body fullbleed unresolved>
+     <!--[if lt IE 10]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
     <core-scaffold>
+
         <core-header-panel navigation flex>
           <core-toolbar>
             <h1>Youtube Notepad</h1>
@@ -32,12 +56,403 @@
             </div>
           </core-menu>
         </core-header-panel>
+        
         <div id="app-header-container" tool></div>
+        
         <div id="app-container"></div>
+        
     </core-scaffold>
 
-    <!-- build:js scripts/app.js -->
-    <script src="scripts/app.js"></script>
-    <!-- endbuild-->
+   
+    <!-- Shell template -->
+    <script id="app-shell-template" type=“x-text/handlebars”>
+        <div id="app-shell" class="container-fluid">
+            <div class="row">
+                <div id="app-shell-body"></div>
+            </div>
+        </div><!-- #app-shell -->
+    </script>
+    <!-- End Shell template -->
+
+    <!-- Header template -->
+    <script id="app-header-template" type=“x-text/handlebars”>
+        <div id="app-header">
+            <ul id="app-authentication-buttons" class="pull-right"></ul>
+        </div><!-- #app-header -->
+    </script>
+    <!-- End Header template -->
+
+    <!-- Search Results template -->
+    <script id="app-search-results-template" type=“x-text/handlebars”>
+        <ul id="app-search-results-list">
+            {{#each searchResults}}
+                <li>{{ this }}</li>
+            {{/each}}   
+        </ul>
+    </script>
+    <!-- End Search Results template -->
+
+    <!-- Authentication buttons template -->
+    <script id="app-authentication-buttons-template" type=“x-text/handlebars”>
+        {{#if userSignedIn}} 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img id="user-image" src="{{ userPhoto }}" alt="{{ displayName }}" />
+                {{ firstName }} <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
+                <li><a id="sign-out" href="#">Sign Out</a></li>
+              </ul>
+            </li>
+        {{ else }}
+            <li>
+                <a href="#">
+                    <button id="sign-in" class="pure-button pure-button-primary button-success">
+                        <i class="fa fa-sign-in"></i>
+                        Sign In
+                    </button>
+                </a>
+            </li>
+        {{/if}}
+    </script>
+    <!-- End Authentication buttons template -->
+
+    <!-- Search Box template-->
+    <script id="app-search-box-template" type=“x-text/handlebars”>
+        <div id="app-search-box">
+           <input id="app-search-input" class="search-box form-control" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
+            <!--<i class="fa fa-search"></i>-->
+            <div id="app-search-results-box"></div>
+        </div>
+    </script>
+    <!-- End Search Box template-->
+
+    <!-- Video control panel template-->
+    <script id="app-video-control-panel-template" type=“x-text/handlebars”>
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+            <div id="app-video-control-panel" class="module">
+                <div id="app-video-control-panel-container" class="">
+                    <div id="app-video-iframe"></div>
+                </div>
+                <!--
+                <div id="app-video-full-screen">
+                    <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>
+                </div>
+                -->
+                <div id="app-video-speed-controls">
+                    <span class="label">Speed:</span>
+                    <button class="pure-button pure-button-primary" data-speed="0.25">0.25</button>
+                    <button class="pure-button pure-button-primary" data-speed="0.5">0.5</button>
+                    <button class="pure-button pure-button-primary selected" data-speed="1">Normal</button>
+                    <button class="pure-button pure-button-primary" data-speed="1.25">1.25</button>
+                    <button class="pure-button pure-button-primary" data-speed="1.5">1.5</button>
+                    <button class="pure-button pure-button-primary" data-speed="2">2.0</button>
+                </div>
+            </div><!-- #app-control-panel -->
+        </div><!-- .col-xx-xx -->
+    </script>
+    <!-- End Control panel template-->
+
+    <!-- Notepad template-->
+    <script id="app-notepad-template" type=“x-text/handlebars”>
+        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <div id="app-notepad">
+                <div id="app-notes-container" class="module">
+                    <div id="app-notepad-header">
+                        <h2>Notes</h2>
+                    </div>
+                    <ul id="notes-list" data-video-id="{{ videoID }}">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- End Video form template-->
+
+    <!-- Note Item Template -->
+    <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
+        <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
+            <span class="time recorded-video-time pure-button pure-button-primary">{{ startTime }}</span>
+            <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
+            <!--<input class="remove checkbox" type="checkbox" />-->
+        </li>
+    </script>
+    <!-- End Note Item Template -->
+
+    <!-- Notes List Template -->
+    <script id="app-notepad-notes-template" type=“x-text/handlebars”>
+        {{#each notes}}
+           {{> note this}}
+        {{/each}}
+    </script>
+    <!-- End Notes List Template -->
+
+    <!-- New Note Item Template -->
+    <script id="app-notepad-new-note-item-template" type=“x-text/handlebars”>
+        <li class="note">
+            <span class="time video-time"></span>
+            <input id="new-note-input" data-start-time="" type="text" 
+              placeholder="" autofocus="autofocus" />
+        </li>
+    </script>
+    <!-- End New Note Item Template -->
+
+    <!-- Note Input template-->
+    <script id="app-note-input-template" type=“x-text/handlebars”>
+        <div id="app-note-input" class="module">
+                <div class="col-lg-10">
+                    <input id="new-note-input" class="form-control" type="text" placeholder="Enter a Note"/>
+                </div>
+                <div class="col-lg-2">
+                    <button id="new-note-btn" class="pure-button pure-button-primary" >Create Note</button>
+                </div>
+        </div><!-- #app-note-input -->
+    </script>
+    <!-- End Users template-->
+
+    <!-- Login Modal template-->
+    <script id="app-login-modal-template" type=“x-text/handlebars”>
+        <div class="modal fade" id="app-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Sign In to save your video notes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul id="app-provider-list" class="center-block">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a data-provider="facebook" class="btn btn-block btn-social btn-facebook">
+                                                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a  data-provider="twitter" class="btn btn-block btn-social btn-twitter">
+                                                    <i class="fa fa-twitter"></i> Sign in with Twitter
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a data-provider="google" class="btn btn-block btn-social btn-google-plus">
+                                                    <i class="fa fa-google-plus"></i> Sign in with Google
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- End Login Modal template-->
+
+    <!-- Alert Modal template-->
+    <script id="app-alert-modal-template" type=“x-text/handlebars”>
+        <div class="modal fade" id="app-modal-alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure you want to delete these notes?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-xs">
+                                <button type="button" class="pure-button pure-button-primary" data-dismiss="modal">Cancel</button>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-xs">
+                                <button type="button" data-modal-action="delete-notes" class="btn-main-action pure-button pure-button-primary button-error">Delete Notes</button>
+                            </div>
+                        </div><!-- .row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- End Alert Modal template-->
+
+    <!-- Notes List template-->
+    <script id="app-notes-list-modal-template" type=“x-text/handlebars”>
+        <div class="modal fade" id="app-notes-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="app-notes-list-body">
+                            <!--  notes content template here -->
+                        </div>
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
+    </script>
+    <!-- End Notes List template-->
+
+    <!-- Your Notes template -->
+    <script id="app-your-notes-template" type=“x-text/handlebars”>
+        <div id="app-your-notes">
+            <h2 class="heading"><a id="app-get-your-notes-link">Your Notes</a></h2>
+            <div id="app-your-notes-body"></div>
+        </div>
+    </script>
+    <!-- End Your Notes template -->
+
+    <!-- Your Notes Body template -->
+    <script id="app-your-notes-body-template" type=“x-text/handlebars”>
+        <ul id="app-your-notes-list">
+            <div class="row">
+                {{#each results}}
+                    <li  data-video-id="{{ @key }}" class="note-item col-lg-12">
+                        <i class="delete-icon delete-note fa fa-remove"></i>
+                        <h3>{{ title }}</h3>
+                        <img data-video-id= "{{@key}}" src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" class="load-note rounded" />
+                    </li>
+                {{/each}}
+            </div>
+        </ul>
+    </script>
+    <!-- End Your Notes Body template -->
+
+    <!-- Your Tags template -->
+    <script id="app-your-tags-template" type=“x-text/handlebars”>
+        <div id="app-your-tags">
+            <h2 class="heading"><a id="app-get-your-tags-link">Your Tags</a></h2>
+            <div id="app-your-tags-body"></div>
+        </div>
+    </script>
+    <!-- End Your Tags template -->
+
+    <!-- Your Tags Body template -->
+    <script id="app-your-tags-body-template" type=“x-text/handlebars”>
+        <ul id="app-your-tags-list">
+            <div class="row">
+                {{#each videoTags}}
+                    <li  data-video-tag="{{ this }}" class="note-item col-lg-12">
+                        {{ this }}
+                    </li>
+                {{/each}}
+            </div>
+        </ul>
+    </script>
+    <!-- End Your Tags Body template -->
+
+    <!-- Notes List content template-->
+    <script id="app-notes-list-content-template" type=“x-text/handlebars”>
+        <ul id="notes-list">
+            <div class="row">
+                {{#if searchQueryResults}}
+                    {{#each results}}
+                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                            <li class="note-item">
+                                <h3>{{ snippet.title }}</h3>
+                                <img src="http://img.youtube.com/vi/{{id.videoId}}/1.jpg" alt="Video id {{id.videoId}}" />
+                                <br />
+                                <button data-video-id= "{{id.videoId}}" class="load-note-btn pure-button pure-button-primary">
+                                    <strong>Take notes</strong>
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </li>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </ul>
+    </script>
+    <!-- End Notes List content template-->
+
+    <!-- App Tag Notes template-->
+    <script id="app-tag-notes-template" type=“x-text/handlebars”>
+        <div id="app-tag-notes">
+            <span class="label">Tags:</span>
+            <input type="text" id="app-tag-input" />
+        </div>
+    </script>
+    <!-- End App Tag Notes template-->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+   <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-54778128-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <script src="bower_components/jquery/dist/jquery.js"                             ></script>
+    <script src="bower_components/firebase/firebase.js"                              ></script>
+    <script src="bower_components/firebase-simple-login/firebase-simple-login.js"    ></script>
+    <script src="scripts/vendor/handlebars-v1.0.3.js"                                ></script>
+    <script src="scripts/vendor/jquery.event.gevent-0.1.9.js"                        ></script>
+    <script src="scripts/vendor/taffydb.js"                                          ></script>
+    <script src="scripts/vendor/jquery.uri-anchor.js"                                ></script>
+    <script src="scripts/vendor/bootstrap.js"                                        ></script>
+    <script src="scripts/vendor/jquery.ui.js"                                        ></script>
+    <script src="scripts/vendor/jquery.tag-it.js"                                    ></script>
+    <!-- endbuild -->
+
+    <!-- Firebase -->
+    <script>
+        var firebaseRef = new Firebase('https://intense-fire-7738.firebaseio.com/');
+    </script>
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"                                           ></script>
+    <script src="scripts/app.js"                                            ></script>
+    <script src="scripts/config/app.config_real.js"                         ></script>
+    <script src="scripts/app.data.js"                                       ></script>
+    <script src="scripts/utilities/app.sound.js"                            ></script>
+    <script src="scripts/utilities/app.util.js"                             ></script>
+    <script src="scripts/utilities/app.handlebars.helper.js"                ></script>
+    <script src="scripts/models/app.model.js"                               ></script>
+    <script src="scripts/models/app.model.user.js"                          ></script>
+    <script src="scripts/models/app.model.video.js"                         ></script>
+    <script src="scripts/models/app.model.player.js"                        ></script>
+    <script src="scripts/models/app.model.note.js"                          ></script>
+    <script src="scripts/models/app.model.tag.js"                           ></script>
+    <script src="scripts/feature_modules/app.header.js"                     ></script>
+    <script src="scripts/feature_modules/app.note_input.js"                 ></script>
+    <script src="scripts/feature_modules/app.notepad.js"                    ></script>
+    <script src="scripts/feature_modules/app.video_control_panel.js"        ></script>
+    <script src="scripts/feature_modules/app.search_box.js"                 ></script>
+    <script src="scripts/feature_modules/app.login_modal.js"                ></script>
+    <script src="scripts/feature_modules/app.notes_list.js"                 ></script>
+    <script src="scripts/feature_modules/app.alert_modal.js"                ></script>
+    <script src="scripts/feature_modules/app.your_notes.js"                 ></script>
+    <script src="scripts/feature_modules/app.your_tags.js"                  ></script>
+    <script src="scripts/feature_modules/app.tag_notes.js"                  ></script>
+    <script src="scripts/app.shell.js"                                      ></script>
+    <!-- endbuild -->
+
+    <script>
+        function initializeApp (){ app.initModule( $('#app-container') ); }     
+    </script>
+
+    <script src="https://www.youtube.com/iframe_api"                        ></script>
+    <script src="https://apis.google.com/js/client.js?onload=initializeApp" ></script>
+
   </body>
 </html>

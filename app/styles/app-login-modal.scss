@@ -1,0 +1,32 @@
+/*
+ * app.modal_login.css
+ * Login modal module styles
+*/
+
+#app-login-modal {
+
+	h4 {
+		color: white;
+		font-size: 24px;
+		text-align: center;
+		
+	}
+
+	.modal-header {
+		border-bottom: none;
+	}
+
+	.modal-content {
+		background: #3b4450;
+	}
+
+	ul#app-provider-list {
+		li {
+			margin-bottom: 20px;
+		}
+	}
+
+	#app-marketing-sidebar {
+		font-size: 30px;
+	}
+}

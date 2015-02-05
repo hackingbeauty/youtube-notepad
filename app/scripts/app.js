@@ -1,11 +1,23 @@
-(function (document) {
+/*
+ * app.js
+ * Root namespace module
+*/
+
+/*jslint           browser : true,   continue : true,
+  devel  : true,    indent : 2,       maxerr  : 50,
+  newcap : true,     nomen : true,   plusplus : true,
+  regexp : true,    sloppy : true,       vars : false,
+  white  : true
+*/
+/*global $, app */
+
+var app = (function () {
   'use strict';
+  var initModule = function ( $container ) {
+    app.data.initModule();
+    app.model.initModule();
+    app.shell.initModule( $container );
+  };
 
-  document.addEventListener('polymer-ready', function () {
-    // Perform some behaviour
-    console.log('Polymer is ready to rock!');
-  });
-
-// wrap document so it plays nice with other libraries
-// http://www.polymer-project.org/platform/shadow-dom.html#wrappers
-})(wrap(document));
+  return { initModule: initModule };
+}());
