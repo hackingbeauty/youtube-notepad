@@ -182,12 +182,22 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        dirs: ['<%= yeoman.dist %>'],
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/styles', '<%= yeoman.dist %>/images'],
+
         blockReplacements: {
+          css: function (block) {
+            return '<link rel="stylesheet" href="../' + block.dest + '"/>';
+          },
           vulcanized: function (block) {
             return '<link rel="import" href="' + block.dest + '">';
           }
         }
+      }
+    },
+    concat: {
+      css: {
+        src: '<%= yeoman.app %>/styles/{,*/}*.css',
+        dest: '<%= yeoman.dist %>'
       }
     },
     vulcanize: {
