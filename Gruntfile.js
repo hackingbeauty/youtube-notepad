@@ -67,7 +67,7 @@ module.exports = function (grunt) {
     sass: {
       options: {
         includePaths: ['bower_components']
-        },
+      },
       dist: {
         options: {
           style: 'compressed'
@@ -185,7 +185,7 @@ module.exports = function (grunt) {
         dirs: ['<%= yeoman.dist %>'],
         blockReplacements: {
           css: function (block) {
-            return '<link rel="stylesheet" href="../' + block.dest + '"/>';
+            return '<link rel="stylesheet" href="' + block.dest + '"/>';
           },
           vulcanized: function (block) {
             return '<link rel="import" href="' + block.dest + '">';
