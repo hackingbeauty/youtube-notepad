@@ -18,12 +18,13 @@ core-toolbar {
 
 	  core-icon-button  {
 	    position:relative;
-	    top: -11px;
+	    top: -13px;
 	    color: white;
 	  }
 	  h1 {
 	    top: -12px;
 	  }
+
 	  #app-header-container{ 
 		width: 100%; 
 
@@ -37,8 +38,6 @@ core-toolbar {
 			#user-image {
 				width: 30px;
 				height: 30px;
-				margin-right: 10px;
-				margin-top: -4px;
 				border-radius: 490px;
 			}
 		}
