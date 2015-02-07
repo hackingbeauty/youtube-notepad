@@ -13,6 +13,7 @@ html { overflow-y:scroll; }
 
 body {
   position: relative;
+  background: white;
 }
 
 h2,h3  {
@@ -135,4 +136,8 @@ video {
 
 .caret {
   color: white;
+}
+
+core-header-panel#main-section {
+  background: #1d262c;
 }
