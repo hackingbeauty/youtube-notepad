@@ -49,9 +49,9 @@ video {
 }
 
 .heading{
-  background: #070a0b;
+  background: #2a3740;
   padding: 10px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #0a0d0f;
   h2 {
     color: white;
     text-align:center;
@@ -81,6 +81,8 @@ video {
 	padding: 15px;
   background: #1d262c;
 	border: 1px solid #171d22;
+  border-top: 1px solid #364752;
+  border-bottom: 1px solid #0a0d0f;
   clear: both;
   h2, h3 {
     margin: 0;
