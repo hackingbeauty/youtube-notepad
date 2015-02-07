@@ -3,24 +3,42 @@
  * Header feature module styles
 */
 
-#app-header-container{ 
-	width: 100%; 
+core-toolbar {
+  background-color: #01c461;
+  height: 40px;
+  
+  h1 {
+    color : white;
+  }
 
-	#app-header {
+  h1,
+  ul#app-authentication-buttons,
 
-		#sign-in {
-			margin-top: -9px;
-			font-size: 14px;
+	  core-icon-button  {
+	    position:relative;
+	    top: -11px;
+	    color: white;
+	  }
+	  h1 {
+	    top: -12px;
+	  }
+	  #app-header-container{ 
+		width: 100%; 
+
+		#app-header {
+
+			#sign-in {
+				margin-top: -9px;
+				font-size: 14px;
+			}
+
+			#user-image {
+				width: 30px;
+				height: 30px;
+				margin-right: 10px;
+				margin-top: -4px;
+				border-radius: 490px;
+			}
 		}
-
-		#user-image {
-			width: 30px;
-			height: 30px;
-			margin-right: 10px;
-			margin-top: -4px;
-		}
-
 	}
-
 }
-

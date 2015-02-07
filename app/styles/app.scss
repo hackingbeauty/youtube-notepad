@@ -41,9 +41,13 @@ video {
   max-width: 100%;
 }
 
+.heading{
+
+}
 
 .beta{
   color: orange;
+  font-weight: bold;
 }
 
 .video-time,
@@ -112,25 +116,6 @@ video {
 
 .label {
   font-size: 16px;
-}
-
-core-toolbar {
-  // background-color: #526E9C;
-  background-color: #01c461;
-  height: 40px;
-  h1 {
-    color : white;
-  }
-  h1,
-  ul#app-authentication-buttons,
-  core-icon-button  {
-    position:relative;
-    top: -11px;
-  }
-}
-
-core-icon-button {
-  color: white;
 }
 
 .caret {
