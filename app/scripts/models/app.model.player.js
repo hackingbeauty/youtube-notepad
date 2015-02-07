@@ -7,18 +7,15 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase: false
 */
-/*global TAFFY, $, app */
+/*global $, app */
 
 app.model.player = (function () {
   'use strict';
 
   //---------------- BEGIN MODEL SCOPE VARIABLES --------------
   var
-    configMap = { },
-    stateMap  = { },
-    isFakeData = false,
     videoTime = '',
 
     create_video_script,
@@ -52,7 +49,7 @@ app.model.player = (function () {
     play_video();
   };
 
-  on_player_state_change = function( state, target ){
+  on_player_state_change = function( state ){
     var videoURL,
         videoIDMatch,
         videoID;
@@ -97,9 +94,9 @@ app.model.player = (function () {
       date = new Date( Math.floor( window.player.getCurrentTime() ) * 1000 );
       minutes = date.getUTCMinutes();
       seconds = date.getUTCSeconds() < 10 ? '0' + date.getUTCSeconds() : date.getUTCSeconds();
-      videoTime = minutes + ":" + seconds;
+      videoTime = minutes + ':' + seconds;
     } else {
-      videoTime = "0:00";
+      videoTime = '0:00';
     }
     
     return videoTime;
@@ -107,8 +104,8 @@ app.model.player = (function () {
 
   seek_time = function( time ){ // WARNING: NOT TAKING INTO ACCOUNT HOURS IF VIDEO LENGTH IS IN HOURS...
     var 
-      minutesInSeconds = parseInt( time.split(":")[0] ) * 60,
-      seconds = parseInt( time.split(":")[1] ),
+      minutesInSeconds = parseInt( time.split(':')[0], 10 ) * 60,
+      seconds = parseInt( time.split(':')[1], 10 ),
       totalSeconds = minutesInSeconds + seconds;
     
     if(window.player){
