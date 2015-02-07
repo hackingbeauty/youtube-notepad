@@ -122,15 +122,6 @@
                     <button class="pure-button pure-button-primary" id="full-screen-mode-btn">Full Screen Mode</button>
                 </div>
                 -->
-                <div id="app-video-speed-controls">
-                    <span class="label">Speed:</span>
-                    <button class="pure-button pure-button-primary" data-speed="0.25">0.25</button>
-                    <button class="pure-button pure-button-primary" data-speed="0.5">0.5</button>
-                    <button class="pure-button pure-button-primary selected" data-speed="1">Normal</button>
-                    <button class="pure-button pure-button-primary" data-speed="1.25">1.25</button>
-                    <button class="pure-button pure-button-primary" data-speed="1.5">1.5</button>
-                    <button class="pure-button pure-button-primary" data-speed="2">2.0</button>
-                </div>
             </div><!-- #app-control-panel -->
         </div><!-- .col-xx-xx -->
     </script>
@@ -187,7 +178,7 @@
                     <input id="new-note-input" class="form-control" type="text" placeholder="Enter a Note"/>
                 </div>
                 <div class="col-lg-2">
-                    <button id="new-note-btn" class="pure-button pure-button-primary" >Create Note</button>
+                    <button id="new-note-btn" class="pure-button pure-button-primary">Create</button>
                 </div>
         </div><!-- #app-note-input -->
     </script>
@@ -363,9 +354,23 @@
 
     <!-- App Tag Notes template-->
     <script id="app-tag-notes-template" type=“x-text/handlebars”>
-        <div id="app-tag-notes">
+        <div id="app-tag-notes" class="module">
             <span class="label">Tags:</span>
             <input type="text" id="app-tag-input" />
+        </div>
+    </script>
+    <!-- End App Tag Notes template-->
+
+    <!-- App Speed Controls template-->
+    <script id="app-speed-controls-template" type=“x-text/handlebars”>
+        <div id="app-speed-controls" class="module">
+            <span class="label">Speed:</span>
+            <button class="pure-button pure-button-primary" data-speed="0.25">0.25</button>
+            <button class="pure-button pure-button-primary" data-speed="0.5">0.5</button>
+            <button class="pure-button pure-button-primary selected" data-speed="1">Normal</button>
+            <button class="pure-button pure-button-primary" data-speed="1.25">1.25</button>
+            <button class="pure-button pure-button-primary" data-speed="1.5">1.5</button>
+            <button class="pure-button pure-button-primary" data-speed="2">2.0</button>
         </div>
     </script>
     <!-- End App Tag Notes template-->
@@ -424,6 +429,7 @@
     <script src="scripts/feature_modules/app.your_notes.js"                 ></script>
     <script src="scripts/feature_modules/app.your_tags.js"                  ></script>
     <script src="scripts/feature_modules/app.tag_notes.js"                  ></script>
+    <script src="scripts/feature_modules/app.speed_controls.js"             ></script>
     <script src="scripts/app.shell.js"                                      ></script>
     <!-- endbuild -->
 

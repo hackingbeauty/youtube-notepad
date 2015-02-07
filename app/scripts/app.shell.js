@@ -6,11 +6,11 @@
  * Copyright (c) 2011-2012 Manning Publications Co.
 */
 
-/*jslint         browser : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
+/*jslint         browser    : true, continue : true,
+  devel  : true, indent     : 2,    maxerr   : 50,
+  newcap : true, nomen      : true, plusplus : true,
+  regexp : true, sloppy     : true, vars     : false,
+  white  : true, camelCase  : false
 */
 
 /*global $, app, Handlebars, unescape */
@@ -76,8 +76,6 @@ app.shell = (function () {
   parseRoute = function(){
     var
       routeHash = window.location.hash.substr(2),
-      routes    = routeHash.split('&'),
-      routeVal,
       videoID,
       url,
       searchTerm;
@@ -166,6 +164,7 @@ app.shell = (function () {
     app.your_notes.initModule         ( jqueryMap.$yourNotes );
     app.your_tags.initModule          ( jqueryMap.$yourTags );
     app.note_input.initModule         ( jqueryMap.$shellBody );
+    app.speed_controls.initModule     ( jqueryMap.$shellBody );
     app.tag_notes.initModule          ( jqueryMap.$shellBody );
 
     closeModalsOnClick();

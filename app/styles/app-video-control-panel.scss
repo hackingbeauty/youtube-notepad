@@ -8,21 +8,9 @@
 	text-align: left;
 	overflow: hidden;
 
-
 	#app-video-full-screen {
 		float: left;
 	}
-
-	#app-video-speed-controls {
-		width: 100%;
-		margin: 20px 0;
-
-      .label {
-      	color: white;
-      	font-size: 16px;
-      	margin-right: 5px;
-      }
-    }
 
 	#app-video-control-panel-container {
 		background: black;
@@ -43,16 +31,4 @@
 		display:none;
 	}
 
-}
-
-@media only screen and (max-width: 764px){
-
-	#app-video-speed-controls {
-		button {
-			display: block;
-			width: 100%;
-			margin-top: 10px;
-		}
-	}
-	
 }

@@ -3,11 +3,11 @@
  * App Tag Notes feature module
 */
 
-/*jslint         browser : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
+/*jslint         browser    : true, continue : true,
+  devel  : true, indent     : 2,    maxerr   : 50,
+  newcap : true, nomen      : true, plusplus : true,
+  regexp : true, sloppy     : true, vars     : false,
+  white  : true, camelcase  : false
 */
 
 /*global $, app, Handlebars */
@@ -55,6 +55,10 @@ app.tag_notes = (function () {
     videoTags = app.model.tag.get_all_by_video_id( videoID, function( videoTags ){
 
       app.model.tag.get_all( function( allUserTags ){ // Getting allUserTags for auto-suggest
+
+        $('#app-speed-controls').after( configMap.main_html );
+        
+        setJqueryMap();
 
         jqueryMap.$tagInput.val( videoTags );
 
@@ -112,9 +116,7 @@ app.tag_notes = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
-    $('#app-video-speed-controls').after( configMap.main_html );
-    setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-get-video-tags', onGetVideoTags );
+    $.gevent.subscribe( $('body'), 'app-get-video-tags', onGetVideoTags );
     return true;
   };
   // End public method /initModule/

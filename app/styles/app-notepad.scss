@@ -4,7 +4,7 @@
 */
 
 #app-notepad {	
-	height: 87vh;
+	height: 83.4vh;
 
 	#app-notepad-header,
 	#app-notepad-footer {
@@ -52,11 +52,9 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		height: 100%;
-			border-bottom: none !important;
-
 
 		ul#notes-list {
-			min-height: 100%;
+			min-height: 95%;
 			background-color: #fff;
 			position: relative;
 			margin-top: 0px;
