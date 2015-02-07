@@ -6,22 +6,6 @@
 #app-notepad {	
 	height: 680px;
 
-	#app-notepad-header,
-	#app-notepad-footer {
-		background: #1d262c;
-		color:white;
-		font-weight: bold;
-		position: relative;
-		h2 {
-			text-align:center;
-			color: inherit
-		}
-	}
-
-	#app-notepad-header{
-		margin-top: -5px;
-		margin-bottom: 15px;
-	}
 
 	#app-notepad-controls {
 		padding:0 20px;

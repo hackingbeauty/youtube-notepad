@@ -33,7 +33,7 @@
           </div>
         </core-toolbar>
         <div> 
-            <div id="app-your-tags-module-container" class="module"></div>
+            <div id="app-your-tags-module-container"></div>
         </div>
       </core-header-panel>
       <core-header-panel main>
@@ -42,7 +42,6 @@
           <div id="app-header-container" tool></div>
         </core-toolbar>
         <div>
-            
             <div id="app-container"></div>
         </div>
       </core-header-panel>
@@ -97,7 +96,7 @@
                 <a href="#">
                     <button id="sign-in" class="pure-button pure-button-primary">
                         <i class="fa fa-sign-in"></i>
-                        Sign In
+                        Sync with Google Drive
                     </button>
                 </a>
             </li>
@@ -136,10 +135,10 @@
     <script id="app-notepad-template" type=“x-text/handlebars”>
         <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
             <div id="app-notepad">
+                <div id="app-notepad-header" class="heading">
+                    <h2>Notes</h2>
+                </div>
                 <div id="app-notes-container" class="module">
-                    <div id="app-notepad-header">
-                        <h2>Notes</h2>
-                    </div>
                     <ul id="notes-list" data-video-id="{{ videoID }}">
                     </ul>
                 </div>
@@ -196,7 +195,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Sign In to save your video notes</h4>
+                        <h4 class="modal-title" id="myModalLabel">Synchronize your video notes with Google Drive</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -313,7 +312,9 @@
     <!-- Your Tags template -->
     <script id="app-your-tags-template" type=“x-text/handlebars”>
         <div id="app-your-tags">
-            <h2 class="heading"><a id="app-get-your-tags-link">Your Tags</a></h2>
+            <div class="heading">
+                <h2><a id="app-get-your-tags-link">Your Tags</a></h2>
+            </div>
             <div id="app-your-tags-body"></div>
         </div>
     </script>
@@ -321,14 +322,12 @@
 
     <!-- Your Tags Body template -->
     <script id="app-your-tags-body-template" type=“x-text/handlebars”>
-        <ul id="app-your-tags-list">
-            <div class="row">
-                {{#each videoTags}}
-                    <li  data-video-tag="{{ this }}" class="note-item col-lg-12">
-                        {{ this }}
-                    </li>
-                {{/each}}
-            </div>
+        <ul id="app-your-tags-list" class="module">
+            {{#each videoTags}}
+                <li  data-video-tag="{{ this }}" class="note-item">
+                    <h3>{{ this }}</h3>
+                </li>
+            {{/each}}
         </ul>
     </script>
     <!-- End Your Tags Body template -->

@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase: false
 */
 
 /*global $, app, Handlebars */
@@ -27,11 +27,6 @@ app.header = (function () {
     signInBtnClick,
     signOutBtnClick,
     showAuthButtons,
-    onNotesLinkClick,
-
-    _populateDropDown,
-    _isURL,
-    _checkAndInsertVideo,
 
     setJqueryMap,
     configModule,

@@ -15,15 +15,20 @@ body {
   position: relative;
 }
 
-h1 {
-  margin:0 ;
-  font-size:18px;
-  color: black;
+h2,h3  {
+  color: white;
 }
 
 h2 {
-  color: white;
-  font-size: 16px;
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 li {
@@ -31,7 +36,8 @@ li {
 }
 
 dl, menu, ul, ol {
-  margin: 0 0;
+  margin:0;
+  padding:0;
 }
 
 img,
@@ -42,7 +48,16 @@ video {
 }
 
 .heading{
-
+  background: #070a0b;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  h2 {
+    color: white;
+    text-align:center;
+    a {
+      color: inherit;
+    }
+  }
 }
 
 .beta{
