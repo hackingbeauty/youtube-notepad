@@ -115,8 +115,24 @@ video {
 }
 
 core-toolbar {
-  background-color: #526E9C;
+  // background-color: #526E9C;
+  background-color: #01c461;
+  height: 40px;
   h1 {
-    color: white;
+    color : white;
   }
+  h1,
+  ul#app-authentication-buttons,
+  core-icon-button  {
+    position:relative;
+    top: -11px;
+  }
+}
+
+core-icon-button {
+  color: white;
+}
+
+.caret {
+  color: white;
 }

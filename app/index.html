@@ -24,26 +24,31 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <core-scaffold>
+    <!-- Main Scaffold -->
+    <core-drawer-panel>
+      <core-header-panel drawer>
+        <core-toolbar>
+          <div>
+              <h1>Youtube Notepad</h1>
+          </div>
+        </core-toolbar>
+        <div> 
+            <div id="app-your-tags-module-container" class="module"></div>
+        </div>
+      </core-header-panel>
+      <core-header-panel main>
+        <core-toolbar>
+          <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
+          <div id="app-header-container" tool></div>
+        </core-toolbar>
+        <div>
+            
+            <div id="app-container"></div>
+        </div>
+      </core-header-panel>
+    </core-drawer-panel>
+    <!-- End Main Scaffold -->
 
-        <core-header-panel navigation flex>
-          <core-toolbar>
-            <h1>Youtube Notepad</h1>
-          </core-toolbar>
-          <core-menu>
-            <div id="app-your-notes-module-container" class="module"></div>
-            <div id="app-your-tags-module-container" class="module">
-            </div>
-          </core-menu>
-        </core-header-panel>
-        
-        <div id="app-header-container" tool></div>
-        
-        <div id="app-container"></div>
-        
-    </core-scaffold>
-
-   
     <!-- Shell template -->
     <script id="app-shell-template" type=“x-text/handlebars”>
         <div id="app-shell" class="container-fluid">
@@ -175,7 +180,7 @@
     <script id="app-note-input-template" type=“x-text/handlebars”>
         <div id="app-note-input" class="module">
                 <div class="col-lg-10">
-                    <input id="new-note-input" class="form-control" type="text" placeholder="Enter a Note"/>
+                    <input id="new-note-input" class="form-control" type="text" x-webkit-speech placeholder="Enter a Note"/>
                 </div>
                 <div class="col-lg-2">
                     <button id="new-note-btn" class="pure-button pure-button-primary">Create</button>
