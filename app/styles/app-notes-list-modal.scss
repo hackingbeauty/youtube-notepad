@@ -5,44 +5,20 @@
 
 #app-notes-list {
 
-	// display: none;
-	// position: fixed;
-	// top: 9%;
-	// left: 5%;
-	// height: 80%;
-	// width: 90%;
-
-	// overflow-y: auto;
-
-	// background: #2b313a;
-	// width:100%;
-	// height: 100%;
-	// position: absolute;
-	// top: 0px;
-	// left: -100%;
-	// z-index: 100;
-	transition: all .5s ease;
-	// overflow: hidden;
-
-	#app-search-notes{
-		width: 100%;
-		position:relative;
-		margin-bottom: 30px;
-		margin-top :20px;
-		i {
-			position: absolute;
-			right:10px;
-			top:11px;
+	.modal-header {
+		.close{
+			margin-top: -10px;
 		}
 	}
+
 
 	ul#notes-list{
 		clear: both;
 		.note-item {
-			margin-bottom: 20px;
 			text-align:center;
-			height: 230px;
+			height: 180px;
 			position: relative;
+			margin-bottom: 10px;
 			i.delete-note {
 				position: absolute;
 				top: 0px;
@@ -54,7 +30,7 @@
 				height: 30px;
 				overflow: hidden;
 				width: 100%;
-				color: white;
+				color: black;
 			}
 			button {
 				margin-top: 10px;
