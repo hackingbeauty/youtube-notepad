@@ -335,8 +335,8 @@
     <script id="app-your-tags-body-item-template" type=“x-text/handlebars”>
         {{#each videos}}
             <div class="content">
-                <img src="" alt="" />
-                <h4>this is where the content will go{{this}}<h4>
+                <img src="{{ this.thumbnails.default.url }}" alt="" />
+                <h4>{{ title }}<h4>
             </div>
         {{/each}}
     </script>
