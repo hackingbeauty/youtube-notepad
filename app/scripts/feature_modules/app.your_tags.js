@@ -64,24 +64,23 @@ app.your_tags = (function () {
   };
 
   _onNoteItemClick = function( ){
-    var tag, noteItem, noteItemInfo;
+    var tag, tagItem, tagItemInfo;
 
     setJqueryMap();
 
-    jqueryMap.$list.on('click', '.note-item', function( ){
+    jqueryMap.$list.on('click', '.tag-item', function( ){
       tag = $(this).find('h3').html();
-      noteItem = this;
+      tagItem = this;
 
       app.model.tag.get_all_by_tag( tag , function( videos ){
-        noteItemInfo = noteItem.querySelector('.note-item-info');
-        $(noteItemInfo).empty();
-        $(noteItemInfo).css('height','100%');
-        $(noteItemInfo).append(
+        tagItemInfo = tagItem.querySelector('.tag-item-info');
+        $(tagItemInfo).empty();
+        $(tagItemInfo).append(
           configMap.item_html({
             videos: videos
           })
         );
-        noteItem.querySelector('.note-item-info').toggle();
+        tagItemInfo.toggle();
         console.log('videos: ', videos);
       });
 
@@ -120,6 +119,7 @@ app.your_tags = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
     return true;
   };

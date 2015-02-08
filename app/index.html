@@ -322,9 +322,9 @@
     <script id="app-your-tags-body-template" type=“x-text/handlebars”>
         <ul id="app-your-tags-list" class="module">
             {{#each videoTags}}
-                <li  data-video-tag="{{ this }}" class="note-item">
+                <li data-video-tag="{{ this }}" class="tag-item">
                     <h3>{{ this }}</h3>
-                    <core-collapse class="note-item-info"></core-collapse>
+                    <core-collapse class="tag-item-info"></core-collapse>
                 </li>
             {{/each}}
         </ul>
