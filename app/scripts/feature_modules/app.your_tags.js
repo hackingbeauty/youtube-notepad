@@ -75,6 +75,7 @@ app.your_tags = (function () {
       app.model.tag.get_all_by_tag( tag , function( videos ){
         noteItemInfo = noteItem.querySelector('.note-item-info');
         $(noteItemInfo).empty();
+        $(noteItemInfo).css('height','100%');
         $(noteItemInfo).append(
           configMap.item_html({
             videos: videos

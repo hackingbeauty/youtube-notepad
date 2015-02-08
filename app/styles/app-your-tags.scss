@@ -16,12 +16,20 @@
 			display: table-cell;
 			vertical-align: middle;
 			height: inherit;
+			font-size:15px;
 		}
-		.content {
-			h4 {
-				color: white;
+		.note-item-info {
+			// transition: all .5s ease;
+			.content {
+				margin-top: 15px;
+				h4 {
+					color: white;
+					font-size: 12px;
+					margin-bottom: 10px;
+				}
 			}
 		}
+	
 	}
 
 }
