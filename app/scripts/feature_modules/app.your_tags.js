@@ -49,7 +49,7 @@ app.your_tags = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetAllUserTags = function( evt, authStatus){
-    var videoTags;
+    var videoTags;;
     if(authStatus === 'signed-in'){
       videoTags = app.model.tag.get_all( function( tags ){
         jqueryMap.$container.append(
@@ -63,9 +63,19 @@ app.your_tags = (function () {
   };
 
   _onNoteItemClick = function( ){
+    var tag, noteItem;
+
     setJqueryMap();
+
     jqueryMap.$list.on('click', '.note-item', function( ){
-      this.querySelector('.note-item-info').toggle();
+      tag = $(this).find('h3').html();
+      noteItem = this;
+
+      app.model.tag.get_all_by_tag( tag , function( videos ){
+        noteItem.querySelector('.note-item-info').toggle();
+        console.log('videos: ', videos);
+      });
+
     });
   };
   //-------------------- END EVENT HANDLERS --------------------

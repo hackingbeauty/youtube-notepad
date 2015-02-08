@@ -7,20 +7,19 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase : false
 */
-/* global TAFFY, $, app, Firebase */
+/* global $, app, Firebase */
 
 app.model.tag = (function () {
   'use strict';
   var
-    configMap = { },
-    stateMap  = { },
 
     add_tag,
     remove_tag,
     get_all,
     get_all_by_video_id,
+    get_all_by_tag,
 
     initModule;
 
@@ -99,15 +98,37 @@ app.model.tag = (function () {
     }
   };
 
+  get_all_by_tag = function( tag, callback ){
+    var
+      tagsRef,
+      userUID = app.model.user.get_user().uid,
+      listOfVideosArr = [];
+
+    tagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/tags/' + tag + '/' );
+    tagsRef.once('value', function( data ){
+      var listOfVideosObj = data.val(), key;
+
+      for(key in listOfVideosObj){
+        listOfVideosArr.push( key);
+      }
+
+      console.log('listOfVideos array is: ', listOfVideosArr);
+
+    });
+
+    callback();
+  };
+
   initModule = function(){
 
   };
 
   return {
-    add_tag           : add_tag,
-    remove_tag        : remove_tag,
-    get_all           : get_all,
+    add_tag             : add_tag,
+    remove_tag          : remove_tag,
+    get_all             : get_all,
     get_all_by_video_id : get_all_by_video_id,
+    get_all_by_tag    : get_all_by_tag,
     initModule        : initModule
   };
 
