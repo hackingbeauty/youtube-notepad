@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase : false
 */
 
 /*global $, app, Handlebars */
@@ -25,6 +25,7 @@ app.your_tags = (function () {
     jqueryMap = {},
 
     onGetAllUserTags,
+    _onNoteItemClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -39,7 +40,8 @@ app.your_tags = (function () {
     var $container = stateMap.$append_target.find('#app-your-tags');
 
     jqueryMap = {
-      $container : $container
+      $container : $container,
+      $list      : $container.find('#app-your-tags-list')
     };
   };
   // End DOM method /setJqueryMap/
@@ -48,7 +50,6 @@ app.your_tags = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetAllUserTags = function( evt, authStatus){
     var videoTags;
-
     if(authStatus === 'signed-in'){
       videoTags = app.model.tag.get_all( function( tags ){
         jqueryMap.$container.append(
@@ -56,8 +57,16 @@ app.your_tags = (function () {
             videoTags: tags
           })
         );
+        _onNoteItemClick();
       });
     }
+  };
+
+  _onNoteItemClick = function( ){
+    setJqueryMap();
+    jqueryMap.$list.on('click', '.note-item', function( ){
+      this.querySelector('.note-item-info').toggle();
+    });
   };
   //-------------------- END EVENT HANDLERS --------------------
 
