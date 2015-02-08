@@ -20,6 +20,7 @@ app.your_tags = (function () {
     configMap = {
       main_html : Handlebars.compile($('#app-your-tags-template').html()),
       body_html : Handlebars.compile($('#app-your-tags-body-template').html()),
+      item_html : Handlebars.compile($('#app-your-tags-body-item-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -49,7 +50,7 @@ app.your_tags = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetAllUserTags = function( evt, authStatus){
-    var videoTags;;
+    var videoTags;
     if(authStatus === 'signed-in'){
       videoTags = app.model.tag.get_all( function( tags ){
         jqueryMap.$container.append(
@@ -63,7 +64,7 @@ app.your_tags = (function () {
   };
 
   _onNoteItemClick = function( ){
-    var tag, noteItem;
+    var tag, noteItem, noteItemInfo;
 
     setJqueryMap();
 
@@ -72,6 +73,12 @@ app.your_tags = (function () {
       noteItem = this;
 
       app.model.tag.get_all_by_tag( tag , function( videos ){
+        noteItemInfo = noteItem.querySelector('.note-item-info');
+        $(noteItemInfo).append(
+          configMap.item_html({
+            videos: videos
+          })
+        );
         noteItem.querySelector('.note-item-info').toggle();
         console.log('videos: ', videos);
       });

@@ -324,15 +324,23 @@
             {{#each videoTags}}
                 <li  data-video-tag="{{ this }}" class="note-item">
                     <h3>{{ this }}</h3>
-                    <core-collapse class="note-item-info">
-                        blahblahblah
-                    </core-collapse>
-
+                    <core-collapse class="note-item-info"></core-collapse>
                 </li>
             {{/each}}
         </ul>
     </script>
     <!-- End Your Tags Body template -->
+
+    <!-- Your Tags Body Item template -->
+    <script id="app-your-tags-body-item-template" type=“x-text/handlebars”>
+        {{#each videos}}
+            <div class="content">
+                <img src="" alt="" />
+                <h4>this is where the content will go{{this}}<h4>
+            </div>
+        {{/each}}
+    </script>
+    <!-- Your Tags Body Item template -->
 
     <!-- Notes List content template-->
     <script id="app-notes-list-content-template" type=“x-text/handlebars”>
