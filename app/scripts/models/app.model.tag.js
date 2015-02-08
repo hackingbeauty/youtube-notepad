@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true, camelcase : false
+  white  : true, camelcase : false, loopfunc : true
 */
 /* global $, app, Firebase */
 
@@ -101,22 +101,41 @@ app.model.tag = (function () {
   get_all_by_tag = function( tag, callback ){
     var
       tagsRef,
-      userUID = app.model.user.get_user().uid,
-      listOfVideosArr = [];
+      userUID = app.model.user.get_user().uid;
 
-    tagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/tags/' + tag + '/' );
-    tagsRef.once('value', function( data ){
-      var listOfVideosObj = data.val(), key;
+    tagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID);
+    tagsRef.child('/tags/' + tag + '/').once('value', function( data ){
+      var 
+        listOfVideosObj = data.val(), 
+        listOfVideosKeysArr = [],
+        listOfVideosArr = [],
+        key, 
+        videoID,
+        videoObj,
+        i;
 
       for(key in listOfVideosObj){
-        listOfVideosArr.push( key);
+        listOfVideosKeysArr.push(key);
       }
 
-      console.log('listOfVideos array is: ', listOfVideosArr);
+      for(i=0; i< listOfVideosKeysArr.length; i++){
+        videoID = listOfVideosKeysArr[i];
+        
+        (function( i, videoID ){
+          tagsRef.child('/videos/' + videoID).once('value' , function( data ){
+            videoObj = data.val();
+            listOfVideosArr.push( videoObj );
 
+            if( i === listOfVideosKeysArr.length - 1 ){  
+              callback( listOfVideosArr );
+              console.log('listOfVideosArr : ', listOfVideosArr );
+            }
+
+          });
+        }( i, videoID ));
+      }
     });
 
-    callback();
   };
 
   initModule = function(){
