@@ -10,7 +10,7 @@
 	white  : true, camelcase : false
 */
 
-/* global $, app, gapi  */
+/* global $, app, gapi, Firebase */
 
 app.model.video = (function () {
 	'use strict';
@@ -56,10 +56,16 @@ app.model.video = (function () {
 	};
 
 	set_video_data = function( videoID ){
-		var url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet';
+		var 
+			userUID = app.model.user.get_user().uid,
+			videoRef,
+			url = 'https://www.googleapis.com/youtube/v3/videos?id='+videoID+'&key='+ app.config.get_api_key() +'&part=snippet';
 
 		$.getJSON( url, function( data ){
 			videoData = data.items[0].snippet;
+			console.log('YUMMERS THE VIDEO DATA IS: ', videoData);
+			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+			videoRef.set( videoData );
 		});
 	};
 
