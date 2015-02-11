@@ -55,7 +55,7 @@ app.tag_notes = (function () {
       app.model.tag.get_all( function( allUserTags ){ // Getting allUserTags for auto-suggest
 
         if( $('.tagit').length > 0){ //Hack: if tagit was already added to DOM, clear the previous video's tags
-          jqueryMap.$tagInput.tagit('clearAndReloadTags', videoTags );
+          jqueryMap.$tagInput.tagit('clearAndReload', videoTags );
         }
 
         jqueryMap.$tagInput.val( videoTags );

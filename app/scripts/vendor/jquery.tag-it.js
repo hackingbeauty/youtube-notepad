@@ -586,7 +586,7 @@
             });
         },
 
-        clearAndReloadTags: function( tags ){
+        clearAndReload: function( tags ){
             var count = tags.length;
             this.removeAll();
             for(var i = 0; i < tags.length; i++){
