@@ -80,7 +80,7 @@ app.notes_list_modal = (function () {
       closeModal();
       delete anchorMap['notes'];
       delete anchorMap['search'];
-      $.uriAnchor.setAnchor( $.extend( { video_id : videoID }, { notepad: 'opened' } ));
+      $.uriAnchor.setAnchor( { video_id : videoID } );
     });
   };
 

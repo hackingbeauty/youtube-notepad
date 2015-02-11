@@ -48,15 +48,16 @@ app.tag_notes = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetVideoTags = function( evt, videoID ){
-    var
-      tag,
-      videoTags;
+    var tag;
 
-    videoTags = app.model.tag.get_all_by_video_id( videoID, function( videoTags ){
+    app.model.tag.get_all_by_video_id( videoID, function( videoTags ){
 
       app.model.tag.get_all( function( allUserTags ){ // Getting allUserTags for auto-suggest
 
-        jqueryMap.$tagInput.val('');
+        if( $('.tagit').length > 0){
+          alert('already there');
+          jqueryMap.$tagInput.tagit('clearAndReloadTags', videoTags );
+        }
 
         jqueryMap.$tagInput.val( videoTags );
 
@@ -73,8 +74,9 @@ app.tag_notes = (function () {
             app.model.tag.remove_tag( tag );
           },
           allowSpaces: true,
-          tagLimit: 30,
-          placeholderText: 'Enter a Tag'
+          tagLimit: 5,
+          placeholderText: 'Enter a Tag',
+          fieldName : 'skills'
         });
 
         jqueryMap.$container.css('opacity','1');

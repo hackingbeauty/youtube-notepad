@@ -584,6 +584,14 @@
             this._tags().each(function(index, tag) {
                 that.removeTag(tag, false);
             });
+        },
+
+        clearAndReloadTags: function( tags ){
+            var count = tags.length
+            this.removeAll();
+            for(var i = 0; i < tags.length; i++){
+                this.createTag( tags[i] );
+            }
         }
 
     });
