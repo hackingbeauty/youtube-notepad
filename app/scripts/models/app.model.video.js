@@ -63,8 +63,7 @@ app.model.video = (function () {
 
 		$.getJSON( url, function( data ){
 			videoData = data.items[0].snippet;
-			console.log('YUMMERS THE VIDEO DATA IS: ', videoData);
-			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/metaData/' );
 			videoRef.set( videoData );
 		});
 	};
