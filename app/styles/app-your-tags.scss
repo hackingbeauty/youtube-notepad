@@ -6,6 +6,17 @@
 		}
 	}
 
+	#no-tags-msg{
+		height: 100px;
+		color: white;
+		font-size: 18px;
+		display:table-cell;
+		vertical-align: middle;
+		width: 100%;
+		text-align: center;
+		padding-left:14px;
+	}
+
 	.tag-item {
 		padding: 15px;
 		border-top: 1px solid #364752;

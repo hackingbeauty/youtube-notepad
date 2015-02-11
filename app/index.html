@@ -321,12 +321,16 @@
     <!-- Your Tags Body template -->
     <script id="app-your-tags-body-template" type=“x-text/handlebars”>
         <ul id="app-your-tags-list" class="module">
-            {{#each videoTags}}
-                <li data-video-tag="{{ this }}" class="tag-item">
-                    <h3>{{ this }}</h3>
-                    <core-collapse class="tag-item-info"></core-collapse>
-                </li>
-            {{/each}}
+            {{#if videoTags}}
+                {{#each videoTags}}
+                    <li data-video-tag="{{ this }}" class="tag-item">
+                        <h3>{{ this }}</h3>
+                        <core-collapse class="tag-item-info"></core-collapse>
+                    </li>
+                {{/each}}
+            {{ else }}
+                <li id="no-tags-msg">You have <strong>0</strong> tags</li>
+            {{/if}}
         </ul>
     </script>
     <!-- End Your Tags Body template -->
