@@ -7,17 +7,16 @@
 	devel  : true, indent  : 2,    maxerr   : 50,
 	newcap : true, nomen   : true, plusplus : true,
 	regexp : true, sloppy  : true, vars     : false,
-	white  : true
+	white  : true, camelcase : false
 */
 
-/*global TAFFY, $, app */
+/*global $, app, gapi  */
 
 app.model.video = (function () {
 	'use strict';
 
 	//---------------- BEGIN MODEL SCOPE VARIABLES --------------
 	var
-		stateMap  = { },
 		videoID = '',
 		videoData,
 
@@ -25,8 +24,6 @@ app.model.video = (function () {
 		check_video,
 		set_video_id,
 		get_video_id,
-		get_current_video,
-		set_current_video,
 		get_video_id_from_url,
 		get_video_data,
 		set_video_data,
@@ -85,14 +82,14 @@ app.model.video = (function () {
 		
 		if( urlMatch && urlMatch.length > 0 ){
 			videoID = urlMatch[0].replace('v=','').split('&')[0];
-		  	return videoID;
+			return videoID;
 		} else {
-		  return false;
+			return false;
 		}
 	};
 
 	get_results = function( searchTerm ){
-		var request, resultsFound;
+		var request;
 		request = gapi.client.youtube.search.list({ part : 'snippet, id', q : searchTerm, maxResults: 25 });
 		request.execute(function(response) {
 			$.gevent.publish( 'app-video-search-results', [ response.result.items ] );
@@ -104,9 +101,9 @@ app.model.video = (function () {
 	_authorize = function( initAppCallback ) {
 		gapi.auth.authorize({
 			client_id	: app.config.get_client_id(),
-			scope 		: 'https://www.googleapis.com/auth/youtube',
-			immediate 	: true      
-		}, function( resp ){
+			scope		: 'https://www.googleapis.com/auth/youtube',
+			immediate	: true      
+		}, function( ){
 			gapi.client.load('youtube', 'v3', initAppCallback); //Load Youtube client library
 			$.gevent.publish( 'app-youtube-authorized', [ ] );
 		});
@@ -115,15 +112,15 @@ app.model.video = (function () {
 	//------------------- END PRIVATE FUNCTIONS ------------------
 
 	return {
-		initModule          	: initModule,
-		load_library         	: load_library,
-		check_video         	: check_video,
-		get_video_data 			: get_video_data,
-		set_video_data 			: set_video_data,
-		set_video_id 			: set_video_id,
-		get_video_id  			: get_video_id,
-		get_video_id_from_url 	: get_video_id_from_url,
-		get_results 			: get_results
+		initModule				: initModule,
+		load_library			: load_library,
+		check_video				: check_video,
+		get_video_data			: get_video_data,
+		set_video_data			: set_video_data,
+		set_video_id			: set_video_id,
+		get_video_id			: get_video_id,
+		get_video_id_from_url	: get_video_id_from_url,
+		get_results				: get_results
 	};
 
 }());
