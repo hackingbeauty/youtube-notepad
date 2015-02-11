@@ -1,5 +1,12 @@
 #app-your-tags {
 
+	core-icon {
+		color: white;
+		position: absolute;
+		right: 5px;
+		top: 10px;
+	}
+
 	ul#app-your-tags-list {
 		&.module{
 			padding:0;
@@ -27,6 +34,7 @@
 		border-bottom: 1px solid #0a0d0f;
 		cursor: pointer;
 		text-transform: capitalize;
+		position: relative;
 		h3 {
 			display: table-cell;
 			vertical-align: middle;
