@@ -56,9 +56,7 @@ app.tag_notes = (function () {
 
       app.model.tag.get_all( function( allUserTags ){ // Getting allUserTags for auto-suggest
 
-        $('#app-speed-controls').after( configMap.main_html );
-        
-        setJqueryMap();
+        jqueryMap.$tagInput.val('');
 
         jqueryMap.$tagInput.val( videoTags );
 
@@ -116,6 +114,8 @@ app.tag_notes = (function () {
   //
   initModule = function ( $append_target ) {
     stateMap.$append_target = $append_target;
+    $('#app-speed-controls').after( configMap.main_html );    
+    setJqueryMap();
     $.gevent.subscribe( $('body'), 'app-get-video-tags', onGetVideoTags );
     return true;
   };
