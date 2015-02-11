@@ -7,17 +7,13 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase : false, sub: true
 */
-/*global TAFFY, $, app, Firebase */
+/*global TAFFY, app, Firebase */
 
 app.model.note = (function () {
   'use strict';
   var
-    configMap = { },
-    stateMap  = { },
-
-  isFakeData = false,
   db,
 
   create,
@@ -28,7 +24,6 @@ app.model.note = (function () {
   set_start_time,
   get_start_time,
   get_by_id,
-  save_all_notes,
   get_saved_notes,
   delete_notes,
   delete_video,
@@ -38,10 +33,9 @@ app.model.note = (function () {
     var
       videoStartTime = startTime,
       endTime = app.model.player.get_current_time(),
-      videoData = app.model.video.get_video_data(),
       videoID = app.model.video.get_video_id(),
       userUID = app.model.user.get_user().uid,
-      videosRef, notesRef, videosNotesRef, noteID, noteObj;
+      videosNotesRef, noteID, noteObj;
 
     note = db.insert({
       videoID     : videoID,
@@ -88,15 +82,15 @@ app.model.note = (function () {
 
     videoNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/' + videoID + '/notes/');
     videoNotesRef.once('value', function( data) {
-      var dataObjects = data.val();
+      var dataObjects = data.val(), key;
 
-      for(var key in dataObjects){
+      for(key in dataObjects){
         notes.push( dataObjects[key] );
       }
 
       // Sort descending
       notes.sort(function(a,b){
-        return parseInt(b.startTime) - parseInt(a.startTime);
+        return parseInt(b.startTime, 10) - parseInt(a.startTime, 10);
       });
 
       callback( notes );
@@ -105,7 +99,7 @@ app.model.note = (function () {
 
   get_by_id = function( note ){
     return note.first();
-  }
+  };
 
   receive = function(){
     firebaseRef.on('child_added', function(snapshot){
@@ -120,23 +114,6 @@ app.model.note = (function () {
 
     startTime =  currentTime !== '' ? currentTime : '0:00';
     return startTime;
-  };
-
-  save_all_notes = function(){
-    var noteID,
-        notesRef,
-        videosRef,
-        videosNotesRef,
-        notes = app.model.note.get_all_by_video_id( videoID );
-
-    // for(var i = 0; i < notes.length; i++){
-    //   noteID = get_id( notes[i] );
-    //   notesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/notes/' + noteID);
-    //   notesRef.set( notes[i] ); 
-
-    //   videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/' + noteID);
-    //   videosNotesRef.set( notes[i] );
-    // }
   };
 
   get_saved_notes = function( callback ){
@@ -154,9 +131,10 @@ app.model.note = (function () {
     var
       userUID = app.model.user.get_user().uid,
       videoID = app.model.video.get_video_id(),
-      videosNotesRef;
+      videosNotesRef, noteID, i;
 
-    for(var i = 0; i < notes.length; i++){
+    for(i = 0; i < notes.length; i++){
+      noteID = notes[i];
 
       videosNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/notes/' + noteID);
       videosNotesRef.remove();
@@ -166,8 +144,8 @@ app.model.note = (function () {
   };
 
   delete_video = function( videoID ){
-    var userUID = app.model.user.get_user().uid;
-    var videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
+    var userUID = app.model.user.get_user().uid, videoRef; 
+    videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID);
     videoRef.remove();
   };
 
@@ -184,7 +162,6 @@ app.model.note = (function () {
     get_all_by_video_id   : get_all_by_video_id,
     set_start_time        : set_start_time,
     get_start_time        : get_start_time,
-    save_all_notes        : save_all_notes,
     get_saved_notes       : get_saved_notes,
     delete_notes          : delete_notes,
     delete_video          : delete_video,

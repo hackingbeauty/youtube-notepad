@@ -3,14 +3,14 @@
  * Video model
  */
 
-/*jslint         browser : true, continue : true,
+/* jslint         browser : true, continue : true,
 	devel  : true, indent  : 2,    maxerr   : 50,
 	newcap : true, nomen   : true, plusplus : true,
 	regexp : true, sloppy  : true, vars     : false,
 	white  : true, camelcase : false
 */
 
-/*global $, app, gapi  */
+/* global $, app, gapi  */
 
 app.model.video = (function () {
 	'use strict';
