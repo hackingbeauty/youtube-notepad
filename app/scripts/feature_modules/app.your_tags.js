@@ -50,19 +50,15 @@ app.your_tags = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  onGetAllUserTags = function( evt, authStatus){
-    var videoTags;
-    if(authStatus === 'signed-in'){
-      videoTags = app.model.tag.get_all( function( tags ){
-
-        jqueryMap.$container.append(
-          configMap.body_html({
-            videoTags: tags
-          })
-        );
-        _onNoteItemClick();
-      });
-    }
+  onGetAllUserTags = function( ){
+    app.model.tag.get_all( function( tags ){
+      jqueryMap.$container.append(
+        configMap.body_html({
+          videoTags: tags
+        })
+      );
+      _onNoteItemClick();
+    });
   };
 
   _onNoteItemClick = function( ){

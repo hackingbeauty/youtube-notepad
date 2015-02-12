@@ -35,6 +35,7 @@ app.model.tag = (function () {
       tagsRef.update({ videoID: currentVideoID });
       videoTagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
       videoTagsRef.update({ videoID: currentVideoID });
+      
     } else {
       $.gevent.publish( 'app-login-modal', [ ] );
     }
@@ -74,6 +75,8 @@ app.model.tag = (function () {
 
         callback( allTags );
       });
+    } else {
+      callback (0);
     }
   };
 
