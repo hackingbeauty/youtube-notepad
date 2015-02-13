@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, sub: true,  camelcase: false
 */
 /*global $, app, Handlebars */
 
@@ -23,7 +23,6 @@ app.notes_list_modal = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    getSavedNotes,
     showSearchResults,
     closeModal,
     onLoadNoteClick,
