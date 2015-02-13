@@ -8,14 +8,33 @@
 (function ($) {
   'use strict';
   // Collection method.
-	$.easyAccordion = function () {
-		alert('yea');
+	$.fn.easyAccordion = function (  ) {
 		return this.each(function (i) {
-			// Do something to each selected element.
 			$(this).html('' + i);
+			new Accordion( $(this) );
 		});
 	};
 
-  // Static method.
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Evento
+		el.on('click', '.link', this.dropdown);
+	};
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = $(e.currentTarget),
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open');
+
+		if (!e.currentTarget.multiple) {
+			$el.parent().parent().find('.submenu').not($next).slideUp().parent().removeClass('open');
+		}
+	};
 
 }(jQuery));
+

@@ -26,7 +26,7 @@ app.your_tags = (function () {
     jqueryMap = {},
 
     onGetAllUserTags,
-    _onNoteItemClick,
+    onTagItemClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -51,50 +51,34 @@ app.your_tags = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetAllUserTags = function( ){
     app.model.tag.get_all( function( tags ){
-      // jqueryMap.$list.append(
-      //   configMap.body_html({
-      //     videoTags: tags
-      //   })
-      // );
+      jqueryMap.$list.append(
+        configMap.body_html({
+          videoTags: tags
+        })
+      );
     });
   };
 
-  _onNoteItemClick = function( ){
-    var tag, tagItem, tagItemInfo;
+  onTagItemClick = function( ){
+    var $submenu, tag, $self;
 
-    setJqueryMap();
-
-    app.model.tag.get_all_by_tag( tag , function( videos ){
-
-
-      // tagItemInfo = tagItem.querySelector('.tag-item-info');
-      // $(tagItemInfo).empty();
-      // $(tagItemInfo).append(
-      //   configMap.item_html({
-      //     videos: videos
-      //   })
-      // );
-      // tagItemInfo.toggle();
-      // console.log('videos: ', videos);
+    jqueryMap.$list.on('click', '.tag-item', function(){
+      $self = $(this);
+      tag = $self.find('h3').html();
+      $submenu = $self.find('.submenu');
+      
+      if($submenu.is(':empty')){
+        app.model.tag.get_all_by_tag( tag , function( videos ){
+          $submenu.append(
+            configMap.item_html({
+              videos: videos
+            })
+          );
+        });
+      }
+   
     });
 
-    // jqueryMap.$list.on('click', '.tag-item', function( ){
-    //   tag = $(this).find('h3').html();
-    //   tagItem = this;
-
-      // app.model.tag.get_all_by_tag( tag , function( videos ){
-      //   tagItemInfo = tagItem.querySelector('.tag-item-info');
-      //   $(tagItemInfo).empty();
-      //   $(tagItemInfo).append(
-      //     configMap.item_html({
-      //       videos: videos
-      //     })
-      //   );
-      //   tagItemInfo.toggle();
-      //   console.log('videos: ', videos);
-      // });
-
-    // });
   };
 
 
@@ -131,7 +115,8 @@ app.your_tags = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.easyAccordion('#app-your-tags-list');
+    $('#app-your-tags-list').easyAccordion();
+    onTagItemClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
     return true;
   };
