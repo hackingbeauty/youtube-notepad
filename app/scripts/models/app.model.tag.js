@@ -127,11 +127,12 @@ app.model.tag = (function () {
         (function( i, videoID ){
           tagsRef.child('/videos/' + videoID).once('value' , function( data ){
             videoObj = data.val();
+            videoObj.videoID = videoID;
+
             listOfVideosArr.push( videoObj );
 
             if( i === listOfVideosKeysArr.length - 1 ){  
               callback( listOfVideosArr );
-              console.log('listOfVideosArr : ', listOfVideosArr );
             }
 
           });

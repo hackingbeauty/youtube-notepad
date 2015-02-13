@@ -27,6 +27,7 @@ app.your_tags = (function () {
 
     onGetAllUserTags,
     onTagItemClick,
+    onNoteItemClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -76,11 +77,18 @@ app.your_tags = (function () {
           );
         });
       }
-   
-    });
 
+    });
   };
 
+  onNoteItemClick = function(){
+    var videoID;
+    jqueryMap.$list.on('click','.note-item', function( evt ){
+      videoID = $(this).data('video-id');
+      $.uriAnchor.setAnchor( { video_id : videoID } );
+      evt.preventDefault();
+    });
+  };
 
   //-------------------- END EVENT HANDLERS --------------------
 
@@ -117,6 +125,7 @@ app.your_tags = (function () {
     setJqueryMap();
     $('#app-your-tags-list').easyAccordion();
     onTagItemClick();
+    onNoteItemClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
     return true;
   };

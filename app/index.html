@@ -342,7 +342,7 @@
     <script id="app-your-tags-body-item-template" type=“x-text/handlebars”>
         {{#each videos}}
             <li class="content">
-                <a class="note-item" href="#">
+                <a class="note-item" href="#" data-video-id={{ this.videoID }}>
                     <h4>{{ metaData.title }}</h4>
                     <img class="tagged-video-item" src="{{ metaData.thumbnails.default.url }}" alt="{{ metaData.title }}" />
                 </a>
