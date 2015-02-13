@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase: false
 */
 
 /*global $, app, Handlebars */
@@ -32,7 +32,6 @@ app.notepad = (function () {
     onNoteEdit,
     refreshNotePad,
     onRecordedTimeClick,
-    onKeyPress,
     onRemoveClick,
     onDeleteNotesBtnClick,
 
@@ -93,10 +92,8 @@ app.notepad = (function () {
   */
   refreshNotePad = function( id ){
     var
-        notes,
-        noteCount,
-        lastNote,
-        currentVideoID  = app.model.video.get_video_id();
+      lastNote,
+      currentVideoID  = app.model.video.get_video_id();
 
     app.model.note.get_all_by_video_id( id, function( notes ){
 
@@ -135,7 +132,7 @@ app.notepad = (function () {
   /*
    *  Purpose: Remove note when clicked
   */
-  onRemoveClick = function( event ){
+  onRemoveClick = function( ){
     var $inputCheckBox;
     jqueryMap.$notesList.on('click', '.remove', function(){
       $inputCheckBox = $(this);
