@@ -10,7 +10,6 @@
   // Collection method.
 	$.fn.easyAccordion = function (  ) {
 		return this.each(function (i) {
-			$(this).html('' + i);
 			new Accordion( $(this) );
 		});
 	};
