@@ -26,7 +26,6 @@ app.your_tags = (function () {
     jqueryMap = {},
 
     onGetAllUserTags,
-    onTaggedVideoClick,
     _onNoteItemClick,
 
     setJqueryMap, configModule, initModule;
@@ -52,12 +51,11 @@ app.your_tags = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   onGetAllUserTags = function( ){
     app.model.tag.get_all( function( tags ){
-      jqueryMap.$container.append(
-        configMap.body_html({
-          videoTags: tags
-        })
-      );
-      _onNoteItemClick();
+      // jqueryMap.$list.append(
+      //   configMap.body_html({
+      //     videoTags: tags
+      //   })
+      // );
     });
   };
 
@@ -66,30 +64,40 @@ app.your_tags = (function () {
 
     setJqueryMap();
 
-    jqueryMap.$list.on('click', '.tag-item', function( ){
-      tag = $(this).find('h3').html();
-      tagItem = this;
+    app.model.tag.get_all_by_tag( tag , function( videos ){
 
-      app.model.tag.get_all_by_tag( tag , function( videos ){
-        tagItemInfo = tagItem.querySelector('.tag-item-info');
-        $(tagItemInfo).empty();
-        $(tagItemInfo).append(
-          configMap.item_html({
-            videos: videos
-          })
-        );
-        tagItemInfo.toggle();
-        console.log('videos: ', videos);
-      });
 
+      // tagItemInfo = tagItem.querySelector('.tag-item-info');
+      // $(tagItemInfo).empty();
+      // $(tagItemInfo).append(
+      //   configMap.item_html({
+      //     videos: videos
+      //   })
+      // );
+      // tagItemInfo.toggle();
+      // console.log('videos: ', videos);
     });
+
+    // jqueryMap.$list.on('click', '.tag-item', function( ){
+    //   tag = $(this).find('h3').html();
+    //   tagItem = this;
+
+      // app.model.tag.get_all_by_tag( tag , function( videos ){
+      //   tagItemInfo = tagItem.querySelector('.tag-item-info');
+      //   $(tagItemInfo).empty();
+      //   $(tagItemInfo).append(
+      //     configMap.item_html({
+      //       videos: videos
+      //     })
+      //   );
+      //   tagItemInfo.toggle();
+      //   console.log('videos: ', videos);
+      // });
+
+    // });
   };
 
-  onTaggedVideoClick = function() {
-    jqueryMap.$list.on('click', 'img.tagged-video-item', function( ){
-      alert('clicked me yummy yum');
-    });
-  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -123,7 +131,7 @@ app.your_tags = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onTaggedVideoClick();
+    $.easyAccordion('#app-your-tags-list');
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
     return true;
   };

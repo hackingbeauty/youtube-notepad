@@ -313,26 +313,32 @@
             <div class="heading">
                 <h2><a id="app-get-your-tags-link">Your Tags</a></h2>
             </div>
-            <div id="app-your-tags-body"></div>
+            <ul id="app-your-tags-list" class="module accordion">
         </div>
     </script>
     <!-- End Your Tags template -->
 
     <!-- Your Tags Body template -->
     <script id="app-your-tags-body-template" type=“x-text/handlebars”>
-        <ul id="app-your-tags-list" class="module">
-            {{#if videoTags}}
-                {{#each videoTags}}
-                    <li data-video-tag="{{ this }}" class="tag-item">
+        {{#if videoTags}}
+            {{#each videoTags}}
+                <li data-video-tag="{{ this }}" class="tag-item">
+                    <div class="link">
+                        <i class="fa"></i>
                         <h3>{{ this }}</h3>
-                        <core-collapse class="tag-item-info"></core-collapse>
-                        <core-icon icon="delete"></core-icon>
-                    </li>
-                {{/each}}
-            {{ else }}
-                <li id="no-tags-msg">You have <strong>0</strong> tags</li>
-            {{/if}}
-        </ul>
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="#">Photoshop</a></li>
+                        <li><a href="#">HTML</a></li>
+                        <li><a href="#">CSS</a></li>
+                    </ul>
+                    <!-- <core-collapse class="tag-item-info"></core-collapse> -->
+                </li>
+            {{/each}}
+        {{ else }}
+            <li id="no-tags-msg">You have <strong>0</strong> tags</li>
+        {{/if}}
     </script>
     <!-- End Your Tags Body template -->
 
@@ -416,6 +422,7 @@
     <script src="scripts/vendor/bootstrap.js"                                        ></script>
     <script src="scripts/vendor/jquery.ui.js"                                        ></script>
     <script src="scripts/vendor/jquery.tag-it.js"                                    ></script>
+    <script src="scripts/vendor/jquery.easy-accordion.js"                            ></script>
     <!-- endbuild -->
 
     <!-- Firebase -->
