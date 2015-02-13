@@ -28,6 +28,7 @@ app.your_tags = (function () {
     onGetAllUserTags,
     onTagItemClick,
     onNoteItemClick,
+    onSignOut,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -50,7 +51,8 @@ app.your_tags = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  onGetAllUserTags = function( ){
+  onGetAllUserTags = function(  ){
+    jqueryMap.$list.empty();
     app.model.tag.get_all( function( tags ){
       jqueryMap.$list.append(
         configMap.body_html({
@@ -90,6 +92,10 @@ app.your_tags = (function () {
     });
   };
 
+  onSignOut = function(){
+    jqueryMap.$list.empty();
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -127,6 +133,7 @@ app.your_tags = (function () {
     onTagItemClick();
     onNoteItemClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
+    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',       onSignOut );
     return true;
   };
   // End public method /initModule/

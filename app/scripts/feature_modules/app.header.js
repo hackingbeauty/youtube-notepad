@@ -61,6 +61,7 @@ app.header = (function () {
   signOutBtnClick = function(){
     jqueryMap.$container.on('click', '#sign-out', function(){
       app.model.user.sign_out();
+      $.gevent.publish( 'app-user-signed-out', [ ] );
     });
   };
 
