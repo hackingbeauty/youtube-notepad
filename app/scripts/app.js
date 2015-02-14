@@ -9,7 +9,7 @@
   regexp : true,    sloppy : true,       vars : false,
   white  : true
 */
-/*global $, app */
+/*global app */
 
 var app = (function () {
   'use strict';

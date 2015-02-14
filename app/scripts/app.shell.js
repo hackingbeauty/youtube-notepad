@@ -162,15 +162,13 @@ app.shell = (function () {
     app.notepad.initModule            ( jqueryMap.$shellBody );
     app.alert_modal.initModule        ( jqueryMap.$shellBody );
     app.your_notes.initModule         ( jqueryMap.$yourNotes );
-    app.your_tags.initModule          ( jqueryMap.$yourTags );
+    app.your_tags.initModule          ( jqueryMap.$yourTags  );
     app.note_input.initModule         ( jqueryMap.$shellBody );
     app.speed_controls.initModule     ( jqueryMap.$shellBody );
     app.tag_notes.initModule          ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   
-    // $.gevent.subscribe( jqueryMap.$shellBody, 'app-successfully-found-video', updateURL);
-
     $(window)
       .bind( 'hashchange', parseRoute );
     
