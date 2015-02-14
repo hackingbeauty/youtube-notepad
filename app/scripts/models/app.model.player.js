@@ -108,7 +108,7 @@ app.model.player = (function () {
       seconds = parseInt( time.split(':')[1], 10 ),
       totalSeconds = minutesInSeconds + seconds;
     
-    if(window.player){
+    if(window.player && window.player.seekTo){
       window.player.seekTo( totalSeconds, true ); // Not sure if second param should be true or false - check docs
     }
   };
