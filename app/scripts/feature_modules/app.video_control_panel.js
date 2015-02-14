@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase: false
 */
 
 /*global $, app, Handlebars */
@@ -25,8 +25,6 @@ app.video_control_panel = (function () {
 
     loadVideo,
     insertVideoIframe,
-    onFullScreenModeClick,
-    speedControlBtnClicks,
 
     seekInVideo,
     setJqueryMap,
@@ -55,18 +53,6 @@ app.video_control_panel = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
 
-  onFullScreenModeClick = function(){
-    jqueryMap.$fullScreenModeBtn.on('click', function(){
-      app.model.player.full_screen();
-
-      if (screenfull.enabled) {
-        screenfull.request();
-      } else {
-          // Ignore or do something else
-      }
-    });
-  };
-
   loadVideo = function( event, videoID ){
     if(window.player && window.player.loadVideoById){
       window.player.loadVideoById( videoID );
@@ -82,7 +68,7 @@ app.video_control_panel = (function () {
     dimensions.width = jqueryMap.$container.width();
     dimensions.height = jqueryMap.$container.height();
 
-    videoScriptTag = app.model.player.create_video_script( dimensions, "app-video-iframe");
+    videoScriptTag = app.model.player.create_video_script( dimensions, 'app-video-iframe');
 
     jqueryMap.$videoContainer.append( videoScriptTag );
     setJqueryMap();
@@ -107,7 +93,7 @@ app.video_control_panel = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -127,10 +113,9 @@ app.video_control_panel = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onFullScreenModeClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-youtube-authorized', insertVideoIframe);
-    $.gevent.subscribe( jqueryMap.$container, 'app-load-video',         loadVideo);
-    $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video',      seekInVideo );
+    $.gevent.subscribe( jqueryMap.$container, 'app-load-video',         loadVideo        );
+    $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video',      seekInVideo      );
     return true;
   };
   // End public method /initModule/
