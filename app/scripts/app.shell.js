@@ -10,7 +10,7 @@
   devel  : true, indent     : 2,    maxerr   : 50,
   newcap : true, nomen      : true, plusplus : true,
   regexp : true, sloppy     : true, vars     : false,
-  white  : true, camelCase  : false
+  white  : true, camelcase  : false
 */
 
 /*global $, app, Handlebars, unescape */
@@ -68,7 +68,7 @@ app.shell = (function () {
   };
 
   closeModalsOnClick = function(){
-    $(document).on('click',function(){
+    $('html').on('click',function( ){
       $.gevent.publish( 'app-close-modals', [ ] );
     });
   };
