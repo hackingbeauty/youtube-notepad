@@ -88,10 +88,10 @@ app.model.note = (function () {
         notes.push( dataObjects[key] );
       }
 
-      // Sort descending
-      notes.sort(function(a,b){
-        return parseInt(b.startTime, 10) - parseInt(a.startTime, 10);
-      });
+      // // Sort ascending
+      // notes.sort(function(a,b){
+      //   return parseInt(a.startTime, 10) - parseInt(b.startTime, 10);
+      // });
 
       callback( notes );
     });
