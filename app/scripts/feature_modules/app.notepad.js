@@ -102,7 +102,7 @@ app.notepad = (function () {
       if(currentVideoID){
 
         if (notes){
-          lastNote = notes[0]; // Last note is first array item because it's been sorted descending
+          lastNote = notes[notes.length-1];
           jqueryMap.$notesList.append(
             configMap.notes_list_html({
               notes: notes
