@@ -85,6 +85,7 @@
 					border: 1px solid #0078e7;
 					display: table-cell;
 					vertical-align:middle;
+					width: 60px;
 				}
 
 				.text {
@@ -95,7 +96,7 @@
 					// word-break: break-all;
 					// white-space: nowrap;
 					cursor: pointer;
-					width: 420px;
+					width: 345px;
 				}
 
 				.text[contenteditable="true"]:focus{
