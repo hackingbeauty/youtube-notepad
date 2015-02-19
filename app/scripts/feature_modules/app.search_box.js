@@ -7,7 +7,7 @@
   devel  : true, indent  : 2,    maxerr   : 50,
   newcap : true, nomen   : true, plusplus : true,
   regexp : true, sloppy  : true, vars     : false,
-  white  : true
+  white  : true, camelcase: false
 */
 
 /*global $, app, Handlebars */
@@ -110,12 +110,9 @@ app.search_box = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onSearchBoxKeyPress = function(){
-    var
-      inputValue,
-      videoID,
-      query;
+    var query;
 
-    jqueryMap.$searchInput.keyup( function(e){
+    jqueryMap.$searchInput.keyup( function( ){
       query = $.trim($(this).val());
 
       if(query.length > 0){
@@ -143,11 +140,8 @@ app.search_box = (function () {
 
   onSearchBoxEnter = function(){
     var
-      liSelected,
-      next,
       searchItems,
       currSelectedItem,
-      firstClick  = true,
       searchItemsRemaining = 0;
 
     jqueryMap.$searchInput.keydown( function(evt){
