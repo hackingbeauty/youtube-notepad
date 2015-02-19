@@ -26,6 +26,7 @@ app.notes_list_modal = (function () {
     showSearchResults,
     closeModal,
     onLoadNoteClick,
+    onCloseModal,
 
     setJqueryMap,
     configModule,
@@ -68,18 +69,30 @@ app.notes_list_modal = (function () {
   closeModal = function(){
     jqueryMap.$body.empty();
     jqueryMap.$container.modal('hide');
-
   };
 
+  onCloseModal = function(){
+    jqueryMap.$container.on('hidden.bs.modal', function(){
+      var 
+        anchorMap,
+        routeHash = window.location.hash.substr(2);
+
+      if(routeHash.indexOf('search') > -1){ // If route has word "search", then clear it
+        anchorMap = $.uriAnchor.makeAnchorMap();
+        delete anchorMap['notes'];
+        delete anchorMap['search'];
+        $.uriAnchor.setAnchor( $.extend( anchorMap, { notepad: 'opened' } ) );
+        jqueryMap.$body.empty();
+      }
+    });
+  }
+
   onLoadNoteClick = function(){
-    var videoID, anchorMap;
+    var videoID;
     jqueryMap.$container.on('click','.load-note-btn', function(){
       videoID = $(this).data('video-id');
-      anchorMap = $.uriAnchor.makeAnchorMap();
-      closeModal();
-      delete anchorMap['notes'];
-      delete anchorMap['search'];
       $.uriAnchor.setAnchor( { video_id : videoID } );
+      closeModal();
     });
   };
 
@@ -118,6 +131,7 @@ app.notes_list_modal = (function () {
     $append_target.append( configMap.main_html );
     setJqueryMap();
     $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
+    onCloseModal();
     onLoadNoteClick();
     return true;
   };

@@ -100,9 +100,9 @@ app.shell = (function () {
       );
     }
 
-    if( /notes/.test( routeHash )){
-      $.gevent.publish( 'app-show-notes', [  ] );
-    }
+    // if( /notes/.test( routeHash )){
+    //   $.gevent.publish( 'app-show-notes', [  ] );
+    // }
 
     if( /search/.test( routeHash )){
       searchTerm = unescape(routeHash.split('=')[1]);
