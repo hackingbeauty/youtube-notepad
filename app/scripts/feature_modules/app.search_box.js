@@ -24,14 +24,8 @@ app.search_box = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    _populateDropDown,
-    _isURL,
-    _checkAndInsertVideo,
     _transform,
 
-    onSearchBoxKeyPress,
-    onSearchBoxEnter,
-    onSearchItemSelect,
     onSearch,
     closeSearchBox,
 
@@ -39,61 +33,6 @@ app.search_box = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  _populateDropDown = function( searchResults ){
-    var
-      pluckedArray = [],
-      i;
-
-    jqueryMap.$searchResultsBox.empty();
-    jqueryMap.$searchResultsBox.show();
-
-    for(i=0; i<searchResults.length; i++){
-      pluckedArray.push(searchResults[i][0]);
-    }
-
-    jqueryMap.$searchResultsBox.append(
-      configMap.search_results_html({
-        searchResults : pluckedArray
-      })
-    );
-
-  };
-
-  _isURL = function( inputValue ){
-    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
-    if ( urlPattern.test( inputValue ) ){    // This should really test for youtube video urls
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  /*
-   *  Purpose: Check if video exists.
-   *           If it does, insert it.
-  */
-  _checkAndInsertVideo = function( inputValue ){
-    var videoID;
-    if( _isURL(inputValue) ){
-      videoID = app.model.video.get_video_id_from_url( inputValue );
-      app.model.video.check_video(
-        videoID,
-        function(){ // Success
-          jqueryMap.$urlErrorMsg.hide();
-          jqueryMap.$videoNotFoundMsg.hide();
-          jqueryMap.$videoFoundMsg.show();
-          $.gevent.publish( 'app-successfully-found-video', [ videoID ] );
-          app.model.video.set_video_data( videoID );
-        },
-        function(){ // Error
-          jqueryMap.$videoNotFoundMsg.show();
-        }
-      );
-    } else {
-      jqueryMap.$urlErrorMsg.show();
-    }
-  };
-
   /*
    *  Purpose: Transform Youtube search results
    *           into palatable format for jquery.ui.autocomplete
@@ -149,74 +88,6 @@ app.search_box = (function () {
     });
   };
 
-  onSearchBoxKeyPress = function(){
-    var query;
-
-    jqueryMap.$searchInput.keyup( function( ){
-      query = $.trim($(this).val());
-
-      if(query.length > 0){
-        $.ajax({
-          type      : 'GET',
-          url       : '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=' + query,
-          dataType  : 'jsonp',
-          crossDomain : true,
-          success: function(resp){
-            var searchResults = resp[1];
-            if(searchResults.length > 0){
-              _populateDropDown( searchResults );
-            }
-          },
-          error: function(){
-            console.log('ERRRROORR');
-          }
-        });
-      } else {
-        closeSearchBox();
-      }
- 
-    });
-  };
-
-  onSearchBoxEnter = function(){
-    var
-      searchItems,
-      currSelectedItem,
-      searchItemsRemaining = 0;
-
-    jqueryMap.$searchInput.keydown( function(evt){
-      setJqueryMap();
-
-      searchItems = jqueryMap.$searchResultsList.children();
-
-      if (evt.which === 13){
-        evt.preventDefault();
-      } else if (evt.which === 40){ // If down arrow key clicked
-        
-        // if(firstClick){
-        //   // jqueryMap.$searchResultsList.children().get(searchItemsRemaining).focus();
-        //   firstClick = false;
-        // }
-
-        if(searchItemsRemaining < searchItems.length){
-          currSelectedItem = jqueryMap.$searchResultsList.children().get(searchItemsRemaining);
-          $(currSelectedItem).addClass('selected');
-          searchItemsRemaining++;
-        }
-      }
-    });
-  };
-
-  onSearchItemSelect = function(){
-    var searchTerm;
-    jqueryMap.$searchResultsBox.on('click','li', function(){
-      searchTerm = $(this).html();
-      $.uriAnchor.setAnchor({
-        search : searchTerm,
-      });
-    });
-  };
-
   closeSearchBox = function(){
     jqueryMap.$searchResultsBox.hide();
   };
@@ -256,9 +127,6 @@ app.search_box = (function () {
     $videoControlPanel.prepend( configMap.main_html );
     setJqueryMap();
     onSearch();
-    // onSearchBoxKeyPress();
-    // onSearchBoxEnter();
-    // onSearchItemSelect();
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals', closeSearchBox );
     return true;
   };
