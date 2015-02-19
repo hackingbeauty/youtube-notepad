@@ -27,10 +27,12 @@ app.search_box = (function () {
     _populateDropDown,
     _isURL,
     _checkAndInsertVideo,
+    _transform,
 
     onSearchBoxKeyPress,
     onSearchBoxEnter,
     onSearchItemSelect,
+    onSearch,
     closeSearchBox,
 
     setJqueryMap, configModule, initModule;
@@ -91,6 +93,19 @@ app.search_box = (function () {
       jqueryMap.$urlErrorMsg.show();
     }
   };
+
+  /*
+   *  Purpose: Transform Youtube search results
+   *           into palatable format for jquery.ui.autocomplete
+  */
+  _transform = function( arr ){
+    var searchResults = [], i;
+    for(i = 0; i< arr.length; i++){  
+      searchResults.push( arr[i][0] );  
+    }
+    return searchResults;
+  };
+
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -109,6 +124,31 @@ app.search_box = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
+
+  onSearch = function(){
+    jqueryMap.$searchInput.autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=' + request.term,
+          dataType: 'jsonp',
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            var searchResults = _transform( data[1] );
+            response( searchResults );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+        $.uriAnchor.setAnchor({
+          search : ui.item.value,
+        });
+      }
+    });
+  };
+
   onSearchBoxKeyPress = function(){
     var query;
 
@@ -215,9 +255,10 @@ app.search_box = (function () {
     var $videoControlPanel = stateMap.$append_target.find('#app-video-control-panel');
     $videoControlPanel.prepend( configMap.main_html );
     setJqueryMap();
-    onSearchBoxKeyPress();
-    onSearchBoxEnter();
-    onSearchItemSelect();
+    onSearch();
+    // onSearchBoxKeyPress();
+    // onSearchBoxEnter();
+    // onSearchItemSelect();
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals', closeSearchBox );
     return true;
   };
