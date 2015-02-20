@@ -14,12 +14,31 @@
   devel  : true,  indent  : 2,     maxerr   : 50,
   newcap : true,  nomen   : true,  plusplus : true,
   regexp : true,  sloppy  : true,  vars     : false,
-  white  : true
+  white  : true,  camelcase : false
 */
-/*global $, app */
+/*global app */
 
 app.util = (function () {
-  var makeError, setConfigMap, parseVideoID;
+  var makeError, setConfigMap, parseVideoID, isValidDomain;
+
+  // Begin Public constructor /isValidDomain/
+  // Purpose: Determine if given URL is valid
+  // Valid URLs include the domains youtube.com and coursera.com
+  // Arguments:
+  //   * url - the url
+  // Returns  : boolean
+  // Throws   : none
+  //
+  isValidDomain = function( url ){
+    var validDomains = ['youtube.com', 'coursera.org'], i;
+
+    for(i = 0; i < validDomains.length; i++ ){
+      if( url.indexOf( validDomains[i]) > -1){ //If the URL contains a valid domain
+        return true;                            //then we're good
+      }
+    }
+    return false;
+  };
 
   // Begin Public constructor /parseVideoID/
   // Purpose: parse the video id from a given route
@@ -89,8 +108,9 @@ app.util = (function () {
   // End Public method /setConfigMap/
 
   return {
-    makeError    : makeError,
-    setConfigMap : setConfigMap,
-    parseVideoID : parseVideoID
+    makeError     : makeError,
+    setConfigMap  : setConfigMap,
+    parseVideoID  : parseVideoID,
+    isValidDomain : isValidDomain
   };
 }());

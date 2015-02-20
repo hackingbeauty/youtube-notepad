@@ -27,6 +27,7 @@ app.search_box = (function () {
     _transform,
 
     onSearch,
+    onURLPaste,
     closeSearchBox,
 
     setJqueryMap, configModule, initModule;
@@ -88,6 +89,21 @@ app.search_box = (function () {
     });
   };
 
+  onURLPaste = function(){
+    var inputValue;
+    jqueryMap.$searchInput.on('paste', function( evt ){
+      setTimeout(function(){
+        inputValue = $(evt.currentTarget).val();
+        if( app.util.isValidDomain( inputValue )){
+          $(evt.currentTarget).removeClass('error');
+        } else {
+          $(evt.currentTarget).val('Enter a link from youtube.com or coursera.org');
+          $(evt.currentTarget).addClass('error');
+        }
+      }, 0);
+    });
+  };
+
   closeSearchBox = function(){
     jqueryMap.$searchResultsBox.hide();
   };
@@ -127,6 +143,7 @@ app.search_box = (function () {
     $videoControlPanel.prepend( configMap.main_html );
     setJqueryMap();
     onSearch();
+    onURLPaste();
     $.gevent.subscribe( jqueryMap.$container, 'app-close-modals', closeSearchBox );
     return true;
   };

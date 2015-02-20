@@ -140,6 +140,11 @@ video {
   color: white;
 }
 
+.error {
+  border: 2px solid red !important;
+  background: pink;
+}
+
 .ui-autocomplete-loading {
   background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
