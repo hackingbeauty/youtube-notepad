@@ -90,15 +90,17 @@ app.search_box = (function () {
   };
 
   onURLPaste = function(){
-    var inputValue;
+    var $inputBox, inputValue;
     jqueryMap.$searchInput.on('paste', function( evt ){
       setTimeout(function(){
-        inputValue = $(evt.currentTarget).val();
+        $inputBox = $(evt.currentTarget);
+        inputValue = $inputBox.val();
         if( app.util.isValidDomain( inputValue )){
-          $(evt.currentTarget).removeClass('error');
+          $inputBox.removeClass('error');
         } else {
-          $(evt.currentTarget).val('Enter a link from youtube.com or coursera.org');
-          $(evt.currentTarget).addClass('error');
+          $inputBox.val('');
+          $inputBox.attr('placeholder','Enter a link from youtube.com');
+          $inputBox.addClass('error');
         }
       }, 0);
     });

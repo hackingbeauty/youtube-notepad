@@ -30,7 +30,7 @@ app.util = (function () {
   // Throws   : none
   //
   isValidDomain = function( url ){
-    var validDomains = ['youtube.com', 'coursera.org'], i;
+    var validDomains = ['youtube.com'], i;
 
     for(i = 0; i < validDomains.length; i++ ){
       if( url.indexOf( validDomains[i]) > -1){ //If the URL contains a valid domain
