@@ -84,10 +84,14 @@ app.your_tags = (function () {
   };
 
   onNoteItemClick = function(){
-    var videoID;
+    var 
+      videoID,
+      coreDrawerPanel = document.getElementById('core-drawer-panel');
+
     jqueryMap.$list.on('click','.note-item', function( evt ){
       videoID = $(this).data('video-id');
       $.uriAnchor.setAnchor( { video_id : videoID } );
+      coreDrawerPanel.closeDrawer();
       evt.preventDefault();
     });
   };
