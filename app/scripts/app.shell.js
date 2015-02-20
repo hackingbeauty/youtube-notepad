@@ -81,7 +81,7 @@ app.shell = (function () {
       searchTerm;
 
     if(/video_id/.test( routeHash )){
-      videoID  = app.util.parseVideoID( routeHash );
+      videoID  = app.util.parseVideoID( window.location.href );
       url      = 'http://www.youtube.com/watch?v=' + videoID;
 
       app.model.video.check_video(

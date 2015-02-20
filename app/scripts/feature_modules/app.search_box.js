@@ -90,13 +90,18 @@ app.search_box = (function () {
   };
 
   onURLPaste = function(){
-    var $inputBox, inputValue;
+    var $inputBox, inputValue, videoID;
     jqueryMap.$searchInput.on('paste', function( evt ){
       setTimeout(function(){
         $inputBox = $(evt.currentTarget);
         inputValue = $inputBox.val();
         if( app.util.isValidDomain( inputValue )){
+          $inputBox.attr('placeholder','Search Youtube or paste video link');
           $inputBox.removeClass('error');
+          videoID = app.util.parseVideoID( inputValue );
+          $.uriAnchor.setAnchor({
+            video_id : videoID
+          });
         } else {
           $inputBox.val('');
           $inputBox.attr('placeholder','Enter a link from youtube.com');

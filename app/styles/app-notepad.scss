@@ -51,7 +51,7 @@
 				z-index: 99;
 				pointer-events: none;
 				position: absolute;
-				left: 70px;
+				left: 50px;
 				top: 0;
 				border-left: 4px double #FAD1D7;
 			}
@@ -60,9 +60,10 @@
 				width:100%;
 				clear: both;
 				position: relative;
-				// border-bottom: 1px solid #eee;
+				border-bottom: 1px solid #eee;
 				padding: 4px 0 ;
 				min-height: 35px;
+				float:left;
 
 				.remove {
 					position: absolute;
@@ -79,24 +80,21 @@
 					height: 100%;
 					float:left;
 					text-align: center;
-					color: white;
-					padding-top:5px;
+					color: #0078e7;
+					padding-left:5px;
 					margin: 0px 12px 0 5px;
-					border: 1px solid #0078e7;
 					display: table-cell;
 					vertical-align:middle;
-					width: 60px;
+					width: 30px;
 				}
 
 				.text {
 					display: block;
 					position: relative;
-					left:5px;
+					left:10px;
 					float:left;
-					// word-break: break-all;
-					// white-space: nowrap;
 					cursor: pointer;
-					width: 345px;
+					width: 373px;
 				}
 
 				.text[contenteditable="true"]:focus{

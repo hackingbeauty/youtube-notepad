@@ -47,12 +47,17 @@ app.util = (function () {
   // Returns  : video id
   // Throws   : none
   //
-  parseVideoID = function(route){
-    if( !route.match(/video_id=(.*)&/) ) {    // If url with video_id DOES NOT have &,
-      return route.match(/video_id=(.*)/)[1]; // use this regex
-    } else {
-      return route.match(/video_id=(.*)&/)[1]; // Else, route has &, so use this regex
+  parseVideoID = function( url ){
+    
+    if( url.match(/video_id=(.*)/) ) {    // If url with video_id DOES NOT have &,
+      return url.match(/video_id=(.*)/)[1]; // use this regex
     }
+
+    if( url.match(/v=(.*)/) ){
+      return url.match(/v=(.*)/)[1];
+    }
+
+    return false;
   };
 
   // Begin Public constructor /makeError/

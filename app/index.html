@@ -102,7 +102,7 @@
     <!-- Search Box template-->
     <script id="app-search-box-template" type=“x-text/handlebars”>
         <div id="app-search-box" class="ui-widget">
-            <input id="app-search-input" class="search-box form-control" placeholder="Search Youtube" autofocus="autofocus" autocomplete="off" required>
+            <input id="app-search-input" class="search-box form-control" placeholder="Search Youtube or paste video link" autofocus="autofocus" autocomplete="off" required>
             <div id="app-search-results-box"></div>
         </div> 
     </script>
@@ -144,7 +144,7 @@
     <!-- Note Item Template -->
     <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
         <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
-            <span class="time recorded-video-time pure-button pure-button-primary">{{ startTime }}</span>
+            <span class="time recorded-video-time">{{ startTime }}</span>
             <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
             <!--<input class="remove checkbox" type="checkbox" />-->
         </li>
