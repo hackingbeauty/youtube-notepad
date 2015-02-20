@@ -5,12 +5,13 @@
 
 core-toolbar {
   background-color: #01c461;
-  height: 40px;
   
   h1 {
     color : white;
+    font-weight: bold;
     margin:0;
-  	font-size:19px;
+  	font-size:20px;
+  	width: 245px;
   }
 
   h1,
@@ -18,11 +19,7 @@ core-toolbar {
 
 	  core-icon-button  {
 	    position:relative;
-	    top: -13px;
 	    color: white;
-	  }
-	  h1 {
-	    top: -12px;
 	  }
 
 	  #app-header-container{ 
@@ -36,9 +33,9 @@ core-toolbar {
 			}
 
 			#user-image {
-				width: 30px;
-				height: 30px;
-				border-radius: 490px;
+				width: 50px;
+				height: 50px;
+				border-radius: 100px;
 			}
 		}
 	}
