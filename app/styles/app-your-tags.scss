@@ -1,10 +1,10 @@
 #app-your-tags {
 
-	core-icon {
+	core-icon-button.delete-icon {
 		color: white;
 		position: absolute;
-		right: 5px;
-		top: 11px;
+		right: 0px;
+		top: 0px;
 	}
 
 	ul#app-your-tags-list {
@@ -55,12 +55,6 @@
 		position: absolute;
 		right: 10px;
 		top: 15px;
-	}
-
-	.delete-icon {
-		position: absolute;
-		right: 10px;
-		top: 10px;
 	}
 
 }
