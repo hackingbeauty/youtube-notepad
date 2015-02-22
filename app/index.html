@@ -102,7 +102,7 @@
     <!-- Search Box template-->
     <script id="app-search-box-template" type=“x-text/handlebars”>
         <div id="app-search-box" class="ui-widget">
-            <input id="app-search-input" class="search-box form-control" placeholder="Search Youtube or paste video link" autofocus="autofocus" autocomplete="off" required>
+            <input id="app-search-input" class="search-box form-control" placeholder="Search Youtube or paste a Youtube link" autofocus="autofocus" autocomplete="off" required>
             <div id="app-search-results-box"></div>
         </div> 
     </script>
@@ -305,7 +305,10 @@
     <script id="app-your-tags-template" type=“x-text/handlebars”>
         <div id="app-your-tags">
             <div class="heading">
-                <h2><a id="app-get-your-tags-link">Your Tags</a></h2>
+                <h2>
+                    <a id="app-get-your-tags-link">Your Tags</a>
+                    <core-icon icon="delete" class="delete-icon"></core-icon>
+                </h2>
             </div>
             <ul id="app-your-tags-list" class="module accordion">
         </div>
@@ -318,12 +321,10 @@
             {{#each videoTags}}
                 <li data-video-tag="{{ this }}" class="tag-item">
                     <div class="link">
-                        <i class="fa"></i>
                         <h3>{{ this }}</h3>
-                        <i class="fa fa-chevron-down"></i>
+                        <paper-checkbox class="select-item"></paper-checkbox>
                     </div>
                     <ul class="submenu"></ul>
-                    <!-- <core-collapse class="tag-item-info"></core-collapse> -->
                 </li>
             {{/each}}
         {{ else }}

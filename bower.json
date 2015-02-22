@@ -8,7 +8,8 @@
     "firebase": "~2.1.2",
     "firebase-simple-login": "~1.6.4",
     "core-item": "Polymer/core-item#~0.5.4",
-    "core-icon-button": "Polymer/core-icon-button#~0.5.4"
+    "core-icon-button": "Polymer/core-icon-button#~0.5.4",
+    "paper-checkbox": "Polymer/paper-checkbox#~0.5.5"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.0"

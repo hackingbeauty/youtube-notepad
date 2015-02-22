@@ -96,7 +96,7 @@ app.search_box = (function () {
         $inputBox = $(evt.currentTarget);
         inputValue = $inputBox.val();
         if( app.util.isValidDomain( inputValue )){
-          $inputBox.attr('placeholder','Search Youtube or paste video link');
+          $inputBox.attr('placeholder','Search Youtube or paste a Youtube link');
           $inputBox.removeClass('error');
           videoID = app.util.parseVideoID( inputValue );
           $.uriAnchor.setAnchor({
