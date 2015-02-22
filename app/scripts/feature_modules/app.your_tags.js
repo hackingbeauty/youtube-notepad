@@ -28,6 +28,7 @@ app.your_tags = (function () {
     onGetAllUserTags,
     onTagItemClick,
     onNoteItemClick,
+    onDeleteClick,
     onSignOut,
 
     setJqueryMap, configModule, initModule;
@@ -44,7 +45,8 @@ app.your_tags = (function () {
 
     jqueryMap = {
       $container : $container,
-      $list      : $container.find('#app-your-tags-list')
+      $list      : $container.find('#app-your-tags-list'),
+      $deleteIcon : $container.find('.delete-icon')
     };
   };
   // End DOM method /setJqueryMap/
@@ -96,6 +98,12 @@ app.your_tags = (function () {
     });
   };
 
+  onDeleteClick = function(){
+    jqueryMap.$deleteIcon.on('click', function(){
+      alert('ya clicked the trash icon');
+    });
+  };
+
   onSignOut = function(){
     jqueryMap.$list.empty();
   };
@@ -133,6 +141,7 @@ app.your_tags = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+    onDeleteClick()
     $('#app-your-tags-list').easyAccordion();
     onTagItemClick();
     onNoteItemClick();
