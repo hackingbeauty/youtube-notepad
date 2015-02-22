@@ -320,11 +320,9 @@
         {{#if videoTags}}
             {{#each videoTags}}
                 <li data-video-tag="{{ this }}" class="tag-item">
-                    <div class="link">
-                        <h3>{{ this }}</h3>
-                        <paper-checkbox class="select-item"></paper-checkbox>
-                    </div>
+                    <h3 class="link">{{ this }}</h3>
                     <ul class="submenu"></ul>
+                    <paper-checkbox class="select-item"></paper-checkbox>
                 </li>
             {{/each}}
         {{ else }}

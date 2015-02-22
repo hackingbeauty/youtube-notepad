@@ -156,3 +156,10 @@ core-header-panel {
 core-header-panel#main-section {
   background: #1d262c;
 }
+
+paper-checkbox::shadow {
+  #checkbox.checked {
+    background-color: #01c461;
+    border-color: #01c461;
+  }
+}

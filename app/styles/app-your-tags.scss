@@ -30,11 +30,13 @@
 		cursor: pointer;
 		text-transform: capitalize;
 		position: relative;
+
 		h3 {
 			display: table-cell;
 			vertical-align: middle;
 			height: inherit;
 			font-size:15px;
+			color: white;
 		}
 
 		.content {
