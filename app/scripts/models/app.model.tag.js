@@ -146,10 +146,28 @@ app.model.tag = (function () {
   // Different from remove_tag which removes a tag from an input.
   // delete_tag actually deletes the tag on the backend
   delete_tags = function( tagOrTags ){
+    var 
+      i, 
+      tagRef,
+      tag,
+      videoTagRef,
+      currentVideoID = app.model.video.get_video_id(),
+      userUID = app.model.user.get_user().uid;
+
     if( tagOrTags.constructor === Array ){
-      alert('it is an array');
+      for(i = 0 ; i < tagOrTags.length; i++){
+        tag = tagOrTags[i];
+        tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tag);
+        tagRef.remove();
+        videoTagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
+        videoTagRef.remove();
+      }
     } else {
-      alert('it is NOT an array');
+      tag = tagOrTags;
+      tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tag);
+      tagRef.remove();
+      videoTagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
+      videoTagRef.remove();
     }
   };
 

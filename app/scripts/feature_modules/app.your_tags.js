@@ -118,9 +118,9 @@ app.your_tags = (function () {
       });
       deleteTagCallback = function(){
         app.model.tag.delete_tags( $checkedTags );
+        $checkedTags = [];
       };
       $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ tags: $checkedTags }), deleteTagCallback ] );
-      $checkedTags = [];
     });
   };
 
