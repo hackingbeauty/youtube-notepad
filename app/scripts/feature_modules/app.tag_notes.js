@@ -66,12 +66,15 @@ app.tag_notes = (function () {
           removeConfirmation: true,
           afterTagAdded: function(event, ui){
             tag = ui.tagLabel;
-            app.model.tag.add_tag( tag );
+            if(ui.duringInitialization === undefined){
+              app.model.tag.add_tag( tag );
+            }
           },
           afterTagRemoved: function(event, ui){
             tag = ui.tagLabel;
-            app.model.tag.remove_tag( tag );
-            
+            if(ui.duringInitialization === undefined){
+              app.model.tag.remove_tag( tag );
+            }
           },
           allowSpaces: true,
           tagLimit: 5,
@@ -84,6 +87,7 @@ app.tag_notes = (function () {
       });
     });
   };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -118,7 +122,8 @@ app.tag_notes = (function () {
     stateMap.$append_target = $append_target;
     $('#app-speed-controls').after( configMap.main_html );    
     setJqueryMap();
-    $.gevent.subscribe( $('body'), 'app-get-video-tags', onGetVideoTags );
+    $.gevent.subscribe( $('body'), 'app-get-video-tags',          onGetVideoTags );
+
     return true;
   };
   // End public method /initModule/

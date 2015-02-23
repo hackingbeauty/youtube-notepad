@@ -116,8 +116,10 @@ app.your_tags = (function () {
           $checkedTags.push( $(this).parent().find('h3').html() );
         }
       });
-      deleteTagCallback = function(){
-        app.model.tag.delete_tags( $checkedTags );
+      deleteTagCallback = function( confirmed ){
+        if(confirmed){
+          app.model.tag.delete_tags( $checkedTags );
+        }
         $checkedTags = [];
       };
       $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ tags: $checkedTags }), deleteTagCallback ] );

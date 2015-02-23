@@ -49,11 +49,12 @@ app.alert_modal = (function () {
     jqueryMap.$container.find('.modal-dialog').html( content );
     jqueryMap.$container.modal();
     jqueryMap.$container.on('click','.confirm-btn', function(){
-      callback();
+      callback(true);
       jqueryMap.$container.modal('hide');
       jqueryMap.$container.off('click','.confirm-btn');
     });
     jqueryMap.$container.on('click','.cancel-btn', function(){
+      callback(false);
       jqueryMap.$container.modal('hide');
       jqueryMap.$container.off('click','.confirm-btn');
       jqueryMap.$container.off('click','.cancel-btn');
