@@ -48,11 +48,15 @@ app.alert_modal = (function () {
   showAlertModal = function( evt, content, callback ){
     jqueryMap.$container.find('.modal-dialog').html( content );
     jqueryMap.$container.modal();
-    jqueryMap.$container.on('click','.btn-main-action', function(){
+    jqueryMap.$container.on('click','.confirm-btn', function(){
       callback();
-      jqueryMap.$container.off('click','.btn-main-action', this);
       jqueryMap.$container.modal('hide');
-      jqueryMap.$container.off('click','.btn-main-action');
+      jqueryMap.$container.off('click','.confirm-btn');
+    });
+    jqueryMap.$container.on('click','.cancel-btn', function(){
+      jqueryMap.$container.modal('hide');
+      jqueryMap.$container.off('click','.confirm-btn');
+      jqueryMap.$container.off('click','.cancel-btn');
     });
   };
 
@@ -70,7 +74,7 @@ app.alert_modal = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    app.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap

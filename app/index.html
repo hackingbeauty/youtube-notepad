@@ -247,12 +247,26 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>Delete these tags?</p>
+                {{#if tags}}
+                    <p>Are you sure you want to delete these tags?</p>
+                    <ul>
+                    {{#each tags}}
+                      <li>{{ this }}</li>
+                    {{/each}}
+                    </ul>
+                {{ else }}
+                    <p>Select the tags you want to delete</p>
+                {{/if}}
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <button type="button" class="cancel-btn pure-button pure-button-primary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="confirm-btn btn-main-action pure-button pure-button-primary button-error">Delete Tags</button>
+    
+                    {{#if tags}}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">Cancel</button>
+                        <button type="button" class="confirm-btn pure-button pure-button-primary button-error">Delete Tags</button>
+                    {{ else }}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">OK</button>
+                    {{/if}}
                 </div><!-- .row -->
             </div>
         </div>

@@ -113,13 +113,14 @@ app.your_tags = (function () {
       $paperCheckboxTags.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
-          $checkedTags.push( $(this) );
+          $checkedTags.push( $(this).parent().find('h3').html() );
         }
       });
       deleteTagCallback = function(){
-        app.model.tag.delete_tag( $checkedTags );
+        app.model.tag.delete_tags( $checkedTags );
       };
-      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html, deleteTagCallback ] );
+      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ tags: $checkedTags }), deleteTagCallback ] );
+      $checkedTags = [];
     });
   };
 
