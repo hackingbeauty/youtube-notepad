@@ -20,6 +20,7 @@ app.model.tag = (function () {
     get_all,
     get_all_by_video_id,
     get_all_by_tag,
+    delete_tag,
 
     initModule;
 
@@ -142,6 +143,12 @@ app.model.tag = (function () {
 
   };
 
+  // Different from remove_tag which removes a tag from an input.
+  // delete_tag actually deletes the tag on the backend
+  delete_tag = function( tags ){
+    alert('about to delete them tags!');
+  };
+
   initModule = function(){
 
   };
@@ -151,8 +158,9 @@ app.model.tag = (function () {
     remove_tag          : remove_tag,
     get_all             : get_all,
     get_all_by_video_id : get_all_by_video_id,
-    get_all_by_tag    : get_all_by_tag,
-    initModule        : initModule
+    get_all_by_tag      : get_all_by_tag,
+    delete_tag          : delete_tag,
+    initModule          : initModule
   };
 
 }());

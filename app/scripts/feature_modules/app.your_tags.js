@@ -18,9 +18,10 @@ app.your_tags = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html : Handlebars.compile($('#app-your-tags-template').html()),
-      body_html : Handlebars.compile($('#app-your-tags-body-template').html()),
-      item_html : Handlebars.compile($('#app-your-tags-body-item-template').html())
+      main_html  : Handlebars.compile($('#app-your-tags-template').html()),
+      body_html  : Handlebars.compile($('#app-your-tags-body-template').html()),
+      item_html  : Handlebars.compile($('#app-your-tags-body-item-template').html()),
+      alert_html : Handlebars.compile($('#app-delete-tags-alert-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -53,6 +54,7 @@ app.your_tags = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
+
   onGetAllUserTags = function(  ){
     jqueryMap.$list.empty();
     app.model.tag.get_all( function( tags ){
@@ -64,6 +66,12 @@ app.your_tags = (function () {
     });
   };
 
+  // Begin public method /onTagItemClick/
+  // Purpose    : On each tag click, expand to show associated videos
+  // Arguments  : none
+  // Returns    : true
+  // Throws     : none
+  //
   onTagItemClick = function( ){
     var $submenu, tag, $self;
 
@@ -99,8 +107,19 @@ app.your_tags = (function () {
   };
 
   onDeleteClick = function(){
+    var $checkedTags=[], $paperCheckboxTags, deleteTagCallback, $paperCheckbox;
     jqueryMap.$deleteIcon.on('click', function(){
-      alert('ya clicked the trash icon');
+      $paperCheckboxTags = $('paper-checkbox');
+      $paperCheckboxTags.each(function(){
+        $paperCheckbox = $(this);
+        if ( $paperCheckbox.attr('aria-checked') === 'true' ){
+          $checkedTags.push( $(this) );
+        }
+      });
+      deleteTagCallback = function(){
+        app.model.tag.delete_tag( $checkedTags );
+      };
+      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html, deleteTagCallback ] );
     });
   };
 

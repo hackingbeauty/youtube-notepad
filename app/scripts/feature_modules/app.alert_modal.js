@@ -3,14 +3,14 @@
  * <Module name> feature module
 */
 
-/*jslint         browser : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
+/*jslint         browser    : true, continue : true,
+  devel  : true, indent     : 2,    maxerr   : 50,
+  newcap : true, nomen      : true, plusplus : true,
+  regexp : true, sloppy     : true, vars     : false,
+  white  : true, camelcase  : false
 */
 
-/*global $, app */
+/*global $, app, Handlebars */
 
 app.alert_modal = (function () {
   'use strict';
@@ -18,7 +18,7 @@ app.alert_modal = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-        main_html: Handlebars.compile($('#app-alert-modal-template').html())
+      main_html: Handlebars.compile($('#app-alert-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -45,12 +45,14 @@ app.alert_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
 
-  showAlertModal = function( evt, callback ){
+  showAlertModal = function( evt, content, callback ){
+    jqueryMap.$container.find('.modal-dialog').html( content );
     jqueryMap.$container.modal();
     jqueryMap.$container.on('click','.btn-main-action', function(){
       callback();
       jqueryMap.$container.off('click','.btn-main-action', this);
       jqueryMap.$container.modal('hide');
+      jqueryMap.$container.off('click','.btn-main-action');
     });
   };
 

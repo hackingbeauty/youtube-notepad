@@ -3,11 +3,11 @@
  * Your Notes feature module
 */
 
-/*jslint         browser : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
+/*jslint         browser    : true, continue : true,
+  devel  : true, indent     : 2,    maxerr   : 50,
+  newcap : true, nomen      : true, plusplus : true,
+  regexp : true, sloppy     : true, vars     : false,
+  white  : true, camelcase  : false
 */
 
 /*global $, app, Handlebars */
@@ -53,9 +53,9 @@ app.your_notes = (function () {
     var $container = stateMap.$append_target.find('#app-your-notes');
 
     jqueryMap = {
-      $container 		  : $container, 
-      $yourNotesLink 	: $container.find('#app-get-your-notes-link'),
-      $body           : $container.find('#app-your-notes-body')
+      $container        : $container, 
+      $yourNotesLink    : $container.find('#app-get-your-notes-link'),
+      $body             : $container.find('#app-your-notes-body')
     };
   };
   // End DOM method /setJqueryMap/
@@ -63,9 +63,9 @@ app.your_notes = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onButtonClick = function(){
-  	jqueryMap.$yourNotesLink.on('click', function( evt ){
+    jqueryMap.$yourNotesLink.on('click', function( ){
       _showNotes();
-  	});
+    });
   };
 
   onLoadNoteClick = function(){
