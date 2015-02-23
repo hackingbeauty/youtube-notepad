@@ -56,7 +56,6 @@ app.notes_list_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   
   showSearchResults = function( evt, searchResults ){
-
     jqueryMap.$container.modal();
     jqueryMap.$body.append(
       configMap.content_html({
@@ -85,11 +84,11 @@ app.notes_list_modal = (function () {
         jqueryMap.$body.empty();
       }
     });
-  }
+  };
 
   onLoadNoteClick = function(){
     var videoID;
-    jqueryMap.$container.on('click','.load-note-btn', function(){
+    jqueryMap.$container.on('click','.load-note', function(){
       videoID = $(this).data('video-id');
       $.uriAnchor.setAnchor( { video_id : videoID } );
       closeModal();

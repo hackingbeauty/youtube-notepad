@@ -15,9 +15,10 @@
 		clear: both;
 		.note-item {
 			text-align:center;
-			height: 180px;
+			height: 140px;
 			position: relative;
 			margin-bottom: 10px;
+			cursor: pointer;
 			i.delete-note {
 				position: absolute;
 				top: 0px;
@@ -33,6 +34,10 @@
 			}
 			button {
 				margin-top: 10px;
+			}
+			img.load-note{
+				width: 125px;
+				height: 90px;
 			}
 		}
 	}

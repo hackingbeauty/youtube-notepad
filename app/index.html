@@ -365,17 +365,14 @@
             <div class="row">
                 {{#if searchQueryResults}}
                     {{#each results}}
-                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-                            <li class="note-item">
-                                <h3>{{ snippet.title }}</h3>
-                                <img src="http://img.youtube.com/vi/{{id.videoId}}/1.jpg" class="load-note" alt="Video id {{id.videoId}}" />
-                                <br />
-                                <button data-video-id= "{{id.videoId}}" class="load-note-btn pure-button pure-button-primary">
-                                    <strong>Watch Video</strong>
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                            </li>
-                        </div>
+                        {{#if id.videoId}}
+                            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                                <li class="note-item">
+                                    <h3>{{ snippet.title }}</h3>
+                                    <img data-video-id= "{{id.videoId}}" src="{{ snippet.thumbnails.default.url }}" class="load-note" alt="Video id {{id.videoId}}" />
+                                </li>
+                            </div>
+                        {{/if}}
                     {{/each}}
                 {{/if}}
             </div>

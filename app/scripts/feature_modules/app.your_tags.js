@@ -161,7 +161,7 @@ app.your_tags = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    onDeleteClick()
+    onDeleteClick();
     $('#app-your-tags-list').easyAccordion();
     onTagItemClick();
     onNoteItemClick();
