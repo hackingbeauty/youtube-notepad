@@ -45,9 +45,13 @@ app.notepad = (function () {
   //-------------------- END UTILITY METHODS -------------------
 
   appendNote = function( evt, note ){
+    jqueryMap.$headerMsg.show();
     jqueryMap.$notesList.prepend(
       configMap.note_item_html(note)
     );
+    setTimeout(function(){
+      jqueryMap.$headerMsg.hide();
+    },1100);
   };
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -57,6 +61,8 @@ app.notepad = (function () {
 
     jqueryMap = {
       $container              : $container,
+      $header                 : $container.find('#app-notepad-header'),
+      $headerMsg              : $container.find('#app-notepad-header-msg'),
       $notesList              : $container.find('ul#notes-list'),
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),

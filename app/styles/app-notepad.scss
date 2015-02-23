@@ -6,6 +6,17 @@
 #app-notepad {	
 	height: 678px;
 
+	#app-notepad-header {
+		position: relative;
+		#app-notepad-header-msg {
+			position:absolute;
+			top: 9px;
+			right: 12px;
+			color:white;
+		}
+	}
+
+
 	#app-notepad-controls {
 		padding:0 20px;
 		height: 100%;
