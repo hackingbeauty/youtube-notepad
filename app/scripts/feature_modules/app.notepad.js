@@ -51,7 +51,7 @@ app.notepad = (function () {
     );
     setTimeout(function(){
       jqueryMap.$headerMsg.hide();
-    },1100);
+    },1000);
   };
 
   //--------------------- BEGIN DOM METHODS --------------------
