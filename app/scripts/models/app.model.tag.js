@@ -36,6 +36,10 @@ app.model.tag = (function () {
       tagsRef.update({ videoID: currentVideoID });
       videoTagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
       videoTagsRef.update({ videoID: currentVideoID });
+
+      tagsRef.once('value', function( ) {
+        $.gevent.publish( 'app-refresh-tags', []);
+      });
       
     } else {
       $.gevent.publish( 'app-login-modal', [ ] );
@@ -54,6 +58,11 @@ app.model.tag = (function () {
       tagsRef.remove();
       videoTagsRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
       videoTagsRef.remove();
+
+      tagsRef.once('value', function( ) {
+        $.gevent.publish( 'app-refresh-tags', []);
+      });
+
     } else {
       $.gevent.publish( 'app-login-modal', [ ] );
     }
@@ -161,6 +170,10 @@ app.model.tag = (function () {
         tagRef.remove();
         videoTagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videoTags/' + currentVideoID + '/' + tag  );
         videoTagRef.remove();
+
+        tagRef.once('value', function( ) {
+          $.gevent.publish( 'app-refresh-tags', []);
+        });
       }
     } else {
       tag = tagOrTags;

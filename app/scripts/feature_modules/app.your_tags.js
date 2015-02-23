@@ -165,8 +165,9 @@ app.your_tags = (function () {
     $('#app-your-tags-list').easyAccordion();
     onTagItemClick();
     onNoteItemClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status', onGetAllUserTags );
-    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',       onSignOut );
+    $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
+    $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
+    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );
     return true;
   };
   // End public method /initModule/

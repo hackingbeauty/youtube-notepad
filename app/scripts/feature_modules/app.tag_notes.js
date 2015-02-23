@@ -71,6 +71,7 @@ app.tag_notes = (function () {
           afterTagRemoved: function(event, ui){
             tag = ui.tagLabel;
             app.model.tag.remove_tag( tag );
+            
           },
           allowSpaces: true,
           tagLimit: 5,
