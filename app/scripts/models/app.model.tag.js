@@ -38,7 +38,7 @@ app.model.tag = (function () {
       videoTagsRef.update({ videoID: currentVideoID });
 
       tagsRef.once('value', function( ) {
-        $.gevent.publish( 'app-refresh-tags', []);
+        // $.gevent.publish( 'app-refresh-tags', []);
       });
       
     } else {
