@@ -56,11 +56,12 @@ accordion {
 
 .submenu {
   display: none;
-  background: #444359;
+  // background: #444359;
+  background: #c0c0c0 ;
   font-size: 14px;
 }
 
-.submenu li { border-bottom: 1px solid #4b4a5e; }
+// .submenu li { border-bottom: 1px solid #4b4a5e; }
 
 .submenu a {
   display: block;
@@ -74,6 +75,6 @@ accordion {
 }
 
 .submenu a:hover {
-  background: #b63b4d;
+  background: #0078e7;
   color: #FFF;
 }
