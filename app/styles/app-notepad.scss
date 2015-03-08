@@ -146,9 +146,11 @@
 	
 }
 
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 1199px){
 
-	* {border: 1px solid red !important;}
+	#app-notepad-header {
+		display: none;
+	}
 	
 }
 
