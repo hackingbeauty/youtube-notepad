@@ -3,7 +3,7 @@
 	core-icon-button.delete-icon {
 		color: white;
 		position: absolute;
-		right: 0px;
+		left: 0px;
 		top: 0px;
 	}
 
@@ -38,8 +38,9 @@
 			font-size:15px;
 			color: white;
 			float:left;
-			width: 195px;
+			width: 152px;
 			padding: 15px 0px;
+			margin-left: 48px;
 		}
 
 		.content {
@@ -57,12 +58,13 @@
 
 	.review-notes {
 		float: left;
+		margin: 0;
 	}
 
-	.select-item{
+	.checkbox{
 		position: absolute;
-		right: 10px;
-		top: 15px;
+		left: -9px;
+		top: 5px;
 	}
 
 }

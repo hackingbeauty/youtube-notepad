@@ -325,8 +325,8 @@
         <div id="app-your-tags">
             <div class="heading">
                 <h2>
-                    <a id="app-get-your-tags-link">Your Tags</a>
                     <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
+                    <a id="app-get-your-tags-link">Your Tags</a>
                 </h2>
             </div>
             <ul id="app-your-tags-list" class="module accordion">
@@ -339,10 +339,10 @@
         {{#if videoTags}}
             {{#each videoTags}}
                 <li data-video-tag="{{ this }}" class="tag-item">
-                    <core-icon-button icon="description" class="review-notes"></core-icon-button>
+                    <paper-checkbox class="checkbox"></paper-checkbox>
                     <h3 class="link">{{ this }}</h3>
                     <ul class="submenu"></ul>
-                    <paper-checkbox class="select-item"></paper-checkbox>
+                    <core-icon-button icon="description" class="review-notes"></core-icon-button>
                 </li>
             {{/each}}
         {{ else }}
