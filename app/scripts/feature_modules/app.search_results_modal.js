@@ -74,8 +74,6 @@ app.search_results_modal = (function () {
       $videoThumbnailParent,
       findStr = '[data-video-id="' + videoID + '"]';
 
-    console.log('searchResult is: ', searchResult);
-
     if(searchResult.metaData.watched){
       $videoThumbnail = jqueryMap.$body.find(findStr);
       $videoThumbnailParent = $videoThumbnail.parent();
