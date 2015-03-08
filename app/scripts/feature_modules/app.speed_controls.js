@@ -95,10 +95,10 @@ app.speed_controls = (function () {
   determineIfWatched = function( evt, videoID){
     app.model.video.is_watched( videoID, function( isWatched ){
       if(isWatched){
-        jqueryMap.$watchedVideoBtn.html('Watched');
+        jqueryMap.$watchedVideoBtn.html( jqueryMap.$watchedVideoBtn.data('watched-text') );
         jqueryMap.$watchedVideoBtn.addClass('selected');
       } else {
-        jqueryMap.$watchedVideoBtn.html('Flag as Watched');
+        jqueryMap.$watchedVideoBtn.html( jqueryMap.$watchedVideoBtn.data('not-watched-text') );
         jqueryMap.$watchedVideoBtn.removeClass('selected');
       }
     });
