@@ -1,5 +1,9 @@
 #app-speed-controls {
 	width: 100%;
+
+	button {
+		height: 40px;
+	}
 	
 	.label {
 		color: white;
@@ -11,11 +15,16 @@
 @media only screen and (max-width: 764px){
 
 	#app-speed-controls {
-		button {
+		
+		button,
+		#watched-btn {
 			display: block;
 			width: 100%;
 			margin-top: 10px;
+			float: none;
 		}
+
 	}
+
 	
 }

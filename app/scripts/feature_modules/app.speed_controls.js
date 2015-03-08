@@ -3,11 +3,11 @@
  * App Speed Controls feature module
 */
 
-/*jslint         browser : true, continue : true,
-  devel  : true, indent  : 2,    maxerr   : 50,
-  newcap : true, nomen   : true, plusplus : true,
-  regexp : true, sloppy  : true, vars     : false,
-  white  : true
+/*jslint         browser    : true, continue : true,
+  devel  : true, indent     : 2,    maxerr   : 50,
+  newcap : true, nomen      : true, plusplus : true,
+  regexp : true, sloppy     : true, vars     : false,
+  white  : true, camelcase  : false
 */
 
 /*global $, app, Handlebars */
@@ -25,6 +25,7 @@ app.speed_controls = (function () {
 
     speedControlBtnClicks,
     resetControlBtns,
+    onWatchedVideoBtnClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -43,7 +44,8 @@ app.speed_controls = (function () {
       $speedControlBtns       : $container.find('button'),
       $fasterSpeedBtn         : $container.find('#faster-speed-btn'),
       $normalSpeedBtn         : $container.find('#normal-speed-btn'),
-      $slowerSpeedBtn         : $container.find('#slower-speed-btn')
+      $slowerSpeedBtn         : $container.find('#slower-speed-btn'),
+      $watchedVideoBtn        : $container.find('#watched-btn')
     };
   };
   // End DOM method /setJqueryMap/
@@ -67,15 +69,27 @@ app.speed_controls = (function () {
   };
 
   resetControlBtns = function(){
-    var $button;
-    for(var i = 0; i < jqueryMap.$speedControlBtns.length; i++){
+    var $button, i;
+    for(i = 0; i < jqueryMap.$speedControlBtns.length; i++){
       $button = $(jqueryMap.$speedControlBtns[i]);
       if($button.hasClass('selected')){
         $button.removeClass('selected');
       }
     }
     jqueryMap.$speedControlBtns.filter('[data-speed="1"]').addClass('selected');
-  }
+  };
+
+  onWatchedVideoBtnClick = function(){
+    var currentVideoID;
+    jqueryMap.$watchedVideoBtn.on('click', function( ){
+      currentVideoID = app.model.video.get_video_id();
+      if(currentVideoID !== ''){
+        app.model.video.flag_as_watched( currentVideoID );
+      }
+      $(this).html('Watched');
+      $(this).addClass('selected');
+    });
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -112,6 +126,7 @@ app.speed_controls = (function () {
     setJqueryMap();
     speedControlBtnClicks();
     resetControlBtns();
+    onWatchedVideoBtnClick();
     return true;
   };
   // End public method /initModule/
