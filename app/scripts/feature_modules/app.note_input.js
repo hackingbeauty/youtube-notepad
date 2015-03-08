@@ -54,7 +54,7 @@ app.note_input = (function () {
         jqueryMap.$newNoteInput.val('');
         inputKeypressCount = 0;
       } else {
-        $.gevent.publish( 'app-login-modal', [ ] );
+        // $.gevent.publish( 'app-login-modal', [ ] );
       }
     }
   };

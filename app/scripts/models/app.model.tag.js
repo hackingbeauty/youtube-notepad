@@ -41,9 +41,10 @@ app.model.tag = (function () {
         // $.gevent.publish( 'app-refresh-tags', []);
       });
       
-    } else {
-      $.gevent.publish( 'app-login-modal', [ ] );
-    }
+    } 
+    // else {
+    //   $.gevent.publish( 'app-login-modal', [ ] );
+    // }
   };
 
   remove_tag = function( tag ){
@@ -63,9 +64,10 @@ app.model.tag = (function () {
         // $.gevent.publish( 'app-refresh-tags', []);
       });
 
-    } else {
-      $.gevent.publish( 'app-login-modal', [ ] );
-    }
+    } 
+    // else {
+    //   $.gevent.publish( 'app-login-modal', [ ] );
+    // }
   };
 
   get_all = function( callback ){
