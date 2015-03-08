@@ -156,7 +156,7 @@ app.shell = (function () {
 
     app.header.initModule( jqueryMap.$headerContainer );
     app.login_modal.initModule        ( jqueryMap.$shellBody );
-    app.notes_list_modal.initModule   ( jqueryMap.$shellBody );
+    app.search_results_modal.initModule   ( jqueryMap.$shellBody );
     app.video_control_panel.initModule( jqueryMap.$shellBody );
     app.search_box.initModule         ( jqueryMap.$shellBody );
     app.notepad.initModule            ( jqueryMap.$shellBody );

@@ -1,5 +1,5 @@
 /*
- * app.notes_list_modal.js
+ * app.search_results_modal.js
  * Notes list Modal feature module
 */
 
@@ -11,7 +11,7 @@
 */
 /*global $, app, Handlebars */
 
-app.notes_list_modal = (function () {
+app.search_results_modal = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
@@ -57,6 +57,7 @@ app.notes_list_modal = (function () {
   
   showSearchResults = function( evt, searchResults ){
     jqueryMap.$container.modal();
+    
     jqueryMap.$body.append(
       configMap.content_html({
         searchQueryResults  : true,

@@ -31,6 +31,7 @@ app.model.video = (function () {
 		flag_as_watched,
 		is_watched,
 
+		_determine_which_videos_watched,
 		initModule,
 		_authorize;
 	//----------------- END MODULE SCOPE VARIABLES ---------------
@@ -101,10 +102,12 @@ app.model.video = (function () {
 	};
 
 	get_results = function( searchTerm ){
-		var request;
+		var request, results;
 		request = gapi.client.youtube.search.list({ part : 'snippet, id', q : searchTerm, maxResults: 25 });
 		request.execute(function(response) {
-			$.gevent.publish( 'app-video-search-results', [ response.result.items ] );
+			results = response.result.items;
+			$.gevent.publish( 'app-video-search-results', [ results ] );
+			_determine_which_videos_watched( results );
 		}); 
 	};
 
@@ -121,7 +124,7 @@ app.model.video = (function () {
 		videoRef.once('value', function( data ) {
 			var result = data.val(),
 				isWatched = false;
-			// debugger;
+
 			if(result.watched && result.watched === true){
 				isWatched = true;
 			}
@@ -140,6 +143,10 @@ app.model.video = (function () {
 			gapi.client.load('youtube', 'v3', initAppCallback); //Load Youtube client library
 			$.gevent.publish( 'app-youtube-authorized', [ ] );
 		});
+	};
+
+	_determine_which_videos_watched = function( list ){
+		// debugger;
 	};
 
 	//------------------- END PRIVATE FUNCTIONS ------------------
