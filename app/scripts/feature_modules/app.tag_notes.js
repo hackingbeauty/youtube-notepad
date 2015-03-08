@@ -127,8 +127,8 @@ app.tag_notes = (function () {
     stateMap.$append_target = $append_target;
     $('#app-speed-controls').after( configMap.main_html );    
     setJqueryMap();
-    $.gevent.subscribe( $('body'),             'app-get-video-tags',    onGetVideoTags );
-    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',    onSignOut      );
+    $.gevent.subscribe( $('body'),              'app-get-video-tags',    onGetVideoTags );
+    $.gevent.subscribe( jqueryMap.$container,   'app-user-signed-out',   onSignOut      );
     return true;
   };
   // End public method /initModule/

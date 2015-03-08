@@ -26,6 +26,7 @@ app.speed_controls = (function () {
     speedControlBtnClicks,
     resetControlBtns,
     onWatchedVideoBtnClick,
+    determineIfWatched,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -90,6 +91,19 @@ app.speed_controls = (function () {
       $(this).addClass('selected');
     });
   };
+
+  determineIfWatched = function( evt, videoID){
+    app.model.video.is_watched( videoID, function( isWatched ){
+      if(isWatched){
+        jqueryMap.$watchedVideoBtn.html('Watched');
+        jqueryMap.$watchedVideoBtn.addClass('selected');
+      } else {
+        jqueryMap.$watchedVideoBtn.html('Flag as Watched');
+        jqueryMap.$watchedVideoBtn.removeClass('selected');
+      }
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -127,6 +141,7 @@ app.speed_controls = (function () {
     speedControlBtnClicks();
     resetControlBtns();
     onWatchedVideoBtnClick();
+    $.gevent.subscribe( jqueryMap.$container, 'app-load-video', determineIfWatched );
     return true;
   };
   // End public method /initModule/

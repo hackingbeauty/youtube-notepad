@@ -29,6 +29,7 @@ app.model.video = (function () {
 		set_video_data,
 		get_results,
 		flag_as_watched,
+		is_watched,
 
 		initModule,
 		_authorize;
@@ -65,7 +66,12 @@ app.model.video = (function () {
 		$.getJSON( url, function( data ){
 			videoData = data.items[0].snippet;
 			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/metaData/' );
-			videoRef.set( videoData );
+			videoRef.once('value', function( data ){
+				var result = data.val();
+				if( $.isEmptyObject( result )){
+					videoRef.set( videoData );
+				}
+			});
 		});
 	};
 
@@ -108,6 +114,21 @@ app.model.video = (function () {
 		videoRef.update({ watched : true});
 	};
 
+	is_watched = function( videoID, callback ){
+		var userUID = app.model.user.get_user().uid,
+			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/metaData' );
+				
+		videoRef.once('value', function( data ) {
+			var result = data.val(),
+				isWatched = false;
+			// debugger;
+			if(result.watched && result.watched === true){
+				isWatched = true;
+			}
+			callback( isWatched );
+		});
+	};
+
 	//------------------- PRIVATE FUNCTIONS ----------------------
 
 	_authorize = function( initAppCallback ) {
@@ -133,7 +154,8 @@ app.model.video = (function () {
 		get_video_id			: get_video_id,
 		get_video_id_from_url	: get_video_id_from_url,
 		get_results				: get_results,
-		flag_as_watched 		: flag_as_watched
+		flag_as_watched 		: flag_as_watched,
+		is_watched 				: is_watched
 	};
 
 }());
