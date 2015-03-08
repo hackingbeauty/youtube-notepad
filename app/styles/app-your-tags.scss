@@ -30,13 +30,16 @@
 		cursor: pointer;
 		text-transform: capitalize;
 		position: relative;
+		float: left;
+		width: 100%;
 
 		h3 {
-			display: table-cell;
-			vertical-align: middle;
 			height: inherit;
 			font-size:15px;
 			color: white;
+			float:left;
+			width: 195px;
+			padding: 15px 0px;
 		}
 
 		.content {
@@ -53,9 +56,7 @@
 	}
 
 	.review-notes {
-		position: absolute;
-		top: 0px;
-		left: 0px;
+		float: left;
 	}
 
 	.select-item{
