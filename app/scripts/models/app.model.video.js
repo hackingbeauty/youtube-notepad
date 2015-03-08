@@ -106,8 +106,8 @@ app.model.video = (function () {
 		request = gapi.client.youtube.search.list({ part : 'snippet, id', q : searchTerm, maxResults: 25 });
 		request.execute(function(response) {
 			results = response.result.items;
-			$.gevent.publish( 'app-video-search-results', [ results ] );
 			_determine_which_videos_watched( results );
+			$.gevent.publish( 'app-video-search-results', [ results ] );
 		}); 
 	};
 
@@ -146,7 +146,37 @@ app.model.video = (function () {
 	};
 
 	_determine_which_videos_watched = function( list ){
-		// debugger;
+		var i,	
+			userUID = app.model.user.get_user().uid,
+			videoRef,
+			videoID,
+			searchResultItem,
+			returnObj;
+		
+		for(i = 0; i< list.length; i++){
+			videoID = list[i].id.videoId;
+			searchResultItem = list[i];
+
+			// console.log('videoID is: ', videoID);
+
+			(function( theVideoID, theSearchResultItem ){
+				// console.log('theVideoID is: ', theVideoID);
+				// console.log('theSearchResultItem is: ', theSearchResultItem);
+				if( theVideoID !== undefined ){
+					videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + theVideoID);
+
+					videoRef.once('value', function(data) {
+						var result = data.val();
+						if( result !== null ){
+							returnObj = $.extend( theSearchResultItem, { metaData: result.metaData });
+							$.gevent.publish( 'app-video-search-result-found',  [ returnObj ] );
+						}
+
+					});
+				} 
+			}( videoID, searchResultItem ));
+		
+		}
 	};
 
 	//------------------- END PRIVATE FUNCTIONS ------------------
@@ -161,8 +191,8 @@ app.model.video = (function () {
 		get_video_id			: get_video_id,
 		get_video_id_from_url	: get_video_id_from_url,
 		get_results				: get_results,
-		flag_as_watched 		: flag_as_watched,
-		is_watched 				: is_watched
+		flag_as_watched			: flag_as_watched,
+		is_watched				: is_watched
 	};
 
 }());

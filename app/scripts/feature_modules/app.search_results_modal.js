@@ -17,8 +17,8 @@ app.search_results_modal = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html    : Handlebars.compile($('#app-notes-list-modal-template').html()),
-      content_html : Handlebars.compile($('#app-notes-list-content-template').html())
+      main_html    : Handlebars.compile($('#app-search-results-modal-template').html()),
+      content_html : Handlebars.compile($('#app-search-results-content-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -27,6 +27,7 @@ app.search_results_modal = (function () {
     closeModal,
     onLoadNoteClick,
     onCloseModal,
+    addSearchResult,
 
     setJqueryMap,
     configModule,
@@ -40,12 +41,12 @@ app.search_results_modal = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('#app-notes-list');
+    var $container = stateMap.$append_target.find('#app-search-results-list');
 
     jqueryMap = {
       $container        : $container,
       $closeNotesBtn    : $container.find('#close-notes-modal-btn'),
-      $body             : $container.find('#app-notes-list-body'),
+      $body             : $container.find('#app-search-results-list-body'),
       $searchNotesInput : $container.find('#app-search-notes-input'),
       $deleteNoteIcon   : $container.find('.delete-note')
     };
@@ -64,6 +65,21 @@ app.search_results_modal = (function () {
         results             : searchResults
       })
     );
+  };
+
+  addSearchResult = function( evt, searchResult ){
+    var 
+      videoID = searchResult.id.videoId,
+      $videoThumbnail,
+      findStr = '[data-video-id="' + videoID + '"]';
+
+      // console.log(findStr);
+      // console.log('searchResult is: ', searchResult);
+
+    $videoThumbnail = jqueryMap.$body.find(findStr);
+    $videoThumbnail.addClass('watched')
+
+    // console.log(' $videoThumbnail ', $videoThumbnail);
   };
 
   closeModal = function(){
@@ -130,7 +146,8 @@ app.search_results_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
-    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results', showSearchResults );
+    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-results',       showSearchResults );
+    $.gevent.subscribe( jqueryMap.$container, 'app-video-search-result-found',  addSearchResult   );
     onCloseModal();
     onLoadNoteClick();
     return true;

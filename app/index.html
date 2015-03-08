@@ -277,15 +277,15 @@
     </script>
 
     <!-- Notes List template-->
-    <script id="app-notes-list-modal-template" type=“x-text/handlebars”>
-        <div class="modal fade" id="app-notes-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <script id="app-search-results-modal-template" type=“x-text/handlebars”>
+        <div class="modal fade" id="app-search-results-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     </div>
                     <div class="modal-body">
-                        <div id="app-notes-list-body">
+                        <div id="app-search-results-list-body">
                             <!--  notes content template here -->
                         </div>
                     </div><!-- .modal-body -->
@@ -364,7 +364,7 @@
     <!-- Your Tags Body Item template -->
 
     <!-- Notes List content template-->
-    <script id="app-notes-list-content-template" type=“x-text/handlebars”>
+    <script id="app-search-results-content-template" type=“x-text/handlebars”>
         <ul id="notes-list">
             <div class="row">
                 {{#if searchQueryResults}}

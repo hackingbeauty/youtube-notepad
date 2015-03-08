@@ -3,12 +3,16 @@
  * Notes List Modal feature module styles
 */
 
-#app-notes-list {
+#app-search-results-list {
 
 	.modal-header {
 		.close{
 			margin-top: -10px;
 		}
+	}
+
+	.watched {
+		border: 1px solid red !important;
 	}
 
 	ul#notes-list{
