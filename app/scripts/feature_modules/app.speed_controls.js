@@ -81,14 +81,15 @@ app.speed_controls = (function () {
   };
 
   onWatchedVideoBtnClick = function(){
-    var currentVideoID;
+    var currentVideoID, $watchBtn;
     jqueryMap.$watchedVideoBtn.on('click', function( ){
       currentVideoID = app.model.video.get_video_id();
+      $watchBtn = $(this);
       if(currentVideoID !== ''){
         app.model.video.flag_as_watched( currentVideoID );
       }
-      $(this).html('Watched');
-      $(this).addClass('selected');
+      $watchBtn.html('Watched');
+      $watchBtn.addClass('selected');
     });
   };
 
