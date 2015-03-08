@@ -310,7 +310,7 @@
             <div class="row">
                 {{#each results}}
                     <li  data-video-id="{{ @key }}" class="note-item col-lg-12">
-                        <i class="delete-icon delete-note fa fa-remove"></i>
+                        <i class="delete-icon"></i>
                         <h3>{{ title }}</h3>
                         <img data-video-id= "{{@key}}" src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" class="load-note rounded" />
                     </li>
@@ -326,7 +326,7 @@
             <div class="heading">
                 <h2>
                     <a id="app-get-your-tags-link">Your Tags</a>
-                    <core-icon-button icon="delete" class="delete-icon"></core-icon-button>
+                    <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
                 </h2>
             </div>
             <ul id="app-your-tags-list" class="module accordion">
@@ -345,7 +345,7 @@
                 </li>
             {{/each}}
         {{ else }}
-            <li id="no-tags-msg">You have <strong>0</strong> tags</li>
+            <li id="no-tags-msg">Sign in to tag videos</li>
         {{/if}}
     </script>
     <!-- End Your Tags Body template -->

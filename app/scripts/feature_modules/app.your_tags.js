@@ -45,9 +45,10 @@ app.your_tags = (function () {
     var $container = stateMap.$append_target.find('#app-your-tags');
 
     jqueryMap = {
-      $container : $container,
-      $list      : $container.find('#app-your-tags-list'),
-      $deleteIcon : $container.find('.delete-icon')
+      $container            : $container,
+      $list                 : $container.find('#app-your-tags-list'),
+      $deleteIcon           : $container.find('.delete-icon'),
+      $deleteTagsTrashIcon  : $container.find('#delete-tags-icon')
     };
   };
   // End DOM method /setJqueryMap/
@@ -63,6 +64,9 @@ app.your_tags = (function () {
           videoTags: tags
         })
       );
+      if(tags.length > 0){ 
+        jqueryMap.$deleteTagsTrashIcon.show();
+      }
     });
   };
 
@@ -128,6 +132,7 @@ app.your_tags = (function () {
 
   onSignOut = function(){
     jqueryMap.$list.empty();
+    jqueryMap.$deleteTagsTrashIcon.hide();
   };
 
   //-------------------- END EVENT HANDLERS --------------------
