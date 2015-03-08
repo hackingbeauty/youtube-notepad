@@ -34,6 +34,7 @@ app.notepad = (function () {
     onRecordedTimeClick,
     onRemoveClick,
     onDeleteNotesBtnClick,
+    onSignOut,
 
     setJqueryMap,
     configModule,
@@ -172,6 +173,10 @@ app.notepad = (function () {
     });
   };
 
+  onSignOut = function(){
+    jqueryMap.$notesList.empty();
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -212,7 +217,8 @@ app.notepad = (function () {
     onRecordedTimeClick();
     onRemoveClick();
     onDeleteNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-new-note', appendNote );
+    $.gevent.subscribe( jqueryMap.$container, 'app-new-note',          appendNote );
+    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',   onSignOut );
     return true;
   };
   // End public method /initModule/

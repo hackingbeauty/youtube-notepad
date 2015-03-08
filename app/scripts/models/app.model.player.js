@@ -23,6 +23,7 @@ app.model.player = (function () {
     on_player_state_change,
     play_video,
     pause_video,
+    stop_video,
     change_speed,
     get_current_time,
     seek_time,
@@ -50,18 +51,16 @@ app.model.player = (function () {
   };
 
   on_player_state_change = function( state ){
-    var videoURL,
-        videoIDMatch,
-        videoID;
+    var currentVideoID;
 
     if( state.data === -1){
-      videoURL = window.player.getVideoUrl();
-      videoIDMatch = videoURL.match(/v=[\D\d\W\w]*/g);
+      // videoURL = window.player.getVideoUrl();
+      // videoIDMatch = videoURL.match(/v=[\D\d\W\w]*/g);
+      currentVideoID = app.model.video.get_video_id();
       
-      if(videoIDMatch !== null){
-        videoID = videoIDMatch[0].slice(2, videoIDMatch[0].length);
+      if(currentVideoID !== ''){
         $.uriAnchor.setAnchor({
-          video_id : videoID
+          video_id : currentVideoID
         });
       }
 
@@ -75,6 +74,10 @@ app.model.player = (function () {
 
   pause_video = function(){
     window.player.pauseVideo();
+  };
+
+  stop_video = function(){
+    window.player.stopVideo();
   };
 
   change_speed = function( speed ){
@@ -124,6 +127,7 @@ app.model.player = (function () {
     on_player_state_change  : on_player_state_change,
     play_video              : play_video,
     pause_video             : pause_video,
+    stop_video              : stop_video,
     get_current_time        : get_current_time,
     seek_time               : seek_time,
     change_speed            : change_speed,

@@ -25,6 +25,7 @@ app.video_control_panel = (function () {
 
     loadVideo,
     insertVideoIframe,
+    onSignOut,
 
     seekInVideo,
     setJqueryMap,
@@ -60,7 +61,7 @@ app.video_control_panel = (function () {
     }
   };
 
-  insertVideoIframe = function ( event, videoID ) {
+  insertVideoIframe = function ( ) {
     var 
       videoScriptTag,
       dimensions = {};
@@ -77,6 +78,11 @@ app.video_control_panel = (function () {
 
   seekInVideo = function( event, time ){
     app.model.player.seek_time ( time );
+  };
+
+  onSignOut = function(){
+    app.model.video.set_video_id('');
+    app.model.player.stop_video();
   };
 
   //-------------------- END EVENT HANDLERS --------------------
@@ -116,6 +122,7 @@ app.video_control_panel = (function () {
     $.gevent.subscribe( jqueryMap.$container, 'app-youtube-authorized', insertVideoIframe);
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video',         loadVideo        );
     $.gevent.subscribe( jqueryMap.$container, 'app-seek-in-video',      seekInVideo      );
+    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',    onSignOut        );
     return true;
   };
   // End public method /initModule/
