@@ -87,12 +87,12 @@ app.shell = (function () {
       app.model.video.check_video(
         videoID,
         function(){
-          $.gevent.publish( 'app-load-video',               [ videoID ] );
-          $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
-          $.gevent.publish( 'app-get-video-tags',           [ videoID ] );
           app.model.video.set_video_id( videoID );
           app.notepad.refreshNotePad( videoID );
           app.model.video.set_video_data( videoID );
+          $.gevent.publish( 'app-load-video',               [ videoID ] );
+          $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );
+          $.gevent.publish( 'app-get-video-tags',           [ videoID ] );
         },
         function(){
           alert('video not found!');

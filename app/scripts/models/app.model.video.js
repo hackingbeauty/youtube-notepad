@@ -69,6 +69,7 @@ app.model.video = (function () {
 			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID + '/metaData/' );
 			videoRef.once('value', function( data ){
 				var result = data.val();
+
 				if( $.isEmptyObject( result )){
 					videoRef.set( videoData );
 				}
@@ -164,6 +165,7 @@ app.model.video = (function () {
 
 					videoRef.once('value', function(data) {
 						var result = data.val();
+						
 						if( result !== null ){
 							returnObj = $.extend( theSearchResultItem, { metaData: result.metaData } );
 							$.gevent.publish( 'app-video-search-result-found',  [ returnObj ] );
