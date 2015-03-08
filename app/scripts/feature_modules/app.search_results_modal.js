@@ -71,15 +71,13 @@ app.search_results_modal = (function () {
     var 
       videoID = searchResult.id.videoId,
       $videoThumbnail,
+      $videoThumbnailParent,
       findStr = '[data-video-id="' + videoID + '"]';
 
-      // console.log(findStr);
-      // console.log('searchResult is: ', searchResult);
-
     $videoThumbnail = jqueryMap.$body.find(findStr);
-    $videoThumbnail.addClass('watched')
-
-    // console.log(' $videoThumbnail ', $videoThumbnail);
+    $videoThumbnailParent = $videoThumbnail.parent();
+    $videoThumbnailParent.append('<core-icon-button icon="done" class="msg">Watched</core-icon-button>');
+    $videoThumbnailParent.addClass('watched');
   };
 
   closeModal = function(){

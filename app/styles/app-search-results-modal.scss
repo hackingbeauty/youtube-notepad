@@ -12,7 +12,14 @@
 	}
 
 	.watched {
-		border: 1px solid red !important;
+		.msg {
+			position: absolute;
+			top: 54px;
+			left: 42px;
+			font-size: 18px;
+			color: white;
+			background: #01c461;
+		}
 	}
 
 	ul#notes-list{

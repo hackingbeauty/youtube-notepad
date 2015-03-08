@@ -153,22 +153,19 @@ app.model.video = (function () {
 			searchResultItem,
 			returnObj;
 		
-		for(i = 0; i< list.length; i++){
+		for(i = 0; i < list.length; i++){
 			videoID = list[i].id.videoId;
 			searchResultItem = list[i];
 
-			// console.log('videoID is: ', videoID);
-
 			(function( theVideoID, theSearchResultItem ){
-				// console.log('theVideoID is: ', theVideoID);
-				// console.log('theSearchResultItem is: ', theSearchResultItem);
+
 				if( theVideoID !== undefined ){
 					videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + theVideoID);
 
 					videoRef.once('value', function(data) {
 						var result = data.val();
 						if( result !== null ){
-							returnObj = $.extend( theSearchResultItem, { metaData: result.metaData });
+							returnObj = $.extend( theSearchResultItem, { metaData: result.metaData } );
 							$.gevent.publish( 'app-video-search-result-found',  [ returnObj ] );
 						}
 
