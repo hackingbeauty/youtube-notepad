@@ -1,5 +1,5 @@
 /*
- * module_template.js
+ * review_notes_modal.js
  * <Module name> feature module
 */
 
@@ -12,13 +12,13 @@
 
 /*global $, app, Handlebars */
 
-app.module_template = (function () {
+app.review_notes_modal = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html: Handlebars.compile($('#template-id').html())
+      main_html: Handlebars.compile($('#app-review-notes-modal-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -33,7 +33,7 @@ app.module_template = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('');
+    var $container = stateMap.$append_target.find('#app-review-notes-modal');
 
     jqueryMap = { $container : $container };
   };

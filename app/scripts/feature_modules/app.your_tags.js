@@ -135,6 +135,9 @@ app.your_tags = (function () {
   onReviewClick = function(){
     jqueryMap.$list.on('click','.review-notes', function(){
       alert('clicked');
+
+      
+      
     });
   };
 

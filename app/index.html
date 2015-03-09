@@ -295,30 +295,24 @@
     </script>
     <!-- End Notes List template-->
 
-    <!-- Your Notes template -->
-    <script id="app-your-notes-template" type=“x-text/handlebars”>
-        <div id="app-your-notes">
-            <h2 class="heading"><a id="app-get-your-notes-link">Your Notes</a></h2>
-            <div id="app-your-notes-body"></div>
-        </div>
+    <!-- Revivew Notes modal template -->
+    <script id="app-review-notes-modal-template" type=“x-text/handlebars”>
+        <div class="modal fade" id="app-search-results-list" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="app-search-results-list-body">
+                            <!--  notes content template here -->
+                        </div>
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
     </script>
-    <!-- End Your Notes template -->
-
-    <!-- Your Notes Body template -->
-    <script id="app-your-notes-body-template" type=“x-text/handlebars”>
-        <ul id="app-your-notes-list">
-            <div class="row">
-                {{#each results}}
-                    <li  data-video-id="{{ @key }}" class="note-item col-lg-12">
-                        <i class="delete-icon"></i>
-                        <h3>yum{{ title }}</h3>
-                        <img data-video-id= "{{@key}}" src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" class="load-note rounded" />
-                    </li>
-                {{/each}}
-            </div>
-        </ul>
-    </script>
-    <!-- End Your Notes Body template -->
+    <!-- End Revivew Notes modal template -->
 
     <!-- Your Tags template -->
     <script id="app-your-tags-template" type=“x-text/handlebars”>
@@ -461,10 +455,10 @@
     <script src="scripts/feature_modules/app.login_modal.js"                ></script>
     <script src="scripts/feature_modules/app.search_results_modal.js"       ></script>
     <script src="scripts/feature_modules/app.alert_modal.js"                ></script>
-    <script src="scripts/feature_modules/app.your_notes.js"                 ></script>
     <script src="scripts/feature_modules/app.your_tags.js"                  ></script>
     <script src="scripts/feature_modules/app.tag_notes.js"                  ></script>
     <script src="scripts/feature_modules/app.speed_controls.js"             ></script>
+    <script src="scripts/feature_modules/app.review_notes_modal.js"         ></script>
     <script src="scripts/app.shell.js"                                      ></script>
     <!-- endbuild -->
 
