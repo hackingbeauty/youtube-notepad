@@ -154,17 +154,18 @@ app.shell = (function () {
       parseRoute(); // must do first time
     });
 
-    app.header.initModule( jqueryMap.$headerContainer );
-    app.login_modal.initModule        ( jqueryMap.$shellBody );
+    app.header.initModule                 ( jqueryMap.$headerContainer );
+    app.login_modal.initModule            ( jqueryMap.$shellBody );
     app.search_results_modal.initModule   ( jqueryMap.$shellBody );
-    app.video_control_panel.initModule( jqueryMap.$shellBody );
-    app.search_box.initModule         ( jqueryMap.$shellBody );
-    app.notepad.initModule            ( jqueryMap.$shellBody );
-    app.alert_modal.initModule        ( jqueryMap.$shellBody );
-    app.your_tags.initModule          ( jqueryMap.$yourTags  );
-    app.note_input.initModule         ( jqueryMap.$shellBody );
-    app.speed_controls.initModule     ( jqueryMap.$shellBody );
-    app.tag_notes.initModule          ( jqueryMap.$shellBody );
+    app.video_control_panel.initModule    ( jqueryMap.$shellBody );
+    app.search_box.initModule             ( jqueryMap.$shellBody );
+    app.notepad.initModule                ( jqueryMap.$shellBody );
+    app.alert_modal.initModule            ( jqueryMap.$shellBody );
+    app.your_tags.initModule              ( jqueryMap.$yourTags  );
+    app.note_input.initModule             ( jqueryMap.$shellBody );
+    app.speed_controls.initModule         ( jqueryMap.$shellBody );
+    app.tag_notes.initModule              ( jqueryMap.$shellBody );
+    app.review_notes_modal.initModule     ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   

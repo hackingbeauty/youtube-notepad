@@ -23,6 +23,8 @@ app.review_notes_modal = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
+    getNotes,
+
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -41,7 +43,11 @@ app.review_notes_modal = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
+  getNotes = function( evt, tag ){
+    app.model.note.get_all_by_tag( tag, function( notes ){
+      console.log('retrieved notes are: ', notes);
+    });
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -77,6 +83,7 @@ app.review_notes_modal = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+    $.gevent.subscribe( jqueryMap.$container, 'app-review-notes',  getNotes );
     return true;
   };
   // End public method /initModule/

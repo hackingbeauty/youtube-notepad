@@ -133,11 +133,10 @@ app.your_tags = (function () {
   };
 
   onReviewClick = function(){
+    var tag;
     jqueryMap.$list.on('click','.review-notes', function(){
-      alert('clicked');
-
-      
-      
+      tag = $(this).parent().find('h3').html();
+      $.gevent.publish( 'app-review-notes', [ tag ]);      
     });
   };
 
