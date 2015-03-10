@@ -297,7 +297,7 @@
 
     <!-- Revivew Notes modal template -->
     <script id="app-review-notes-modal-template" type=“x-text/handlebars”>
-        <div class="modal fade" id="app-review-notes-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal" id="app-review-notes-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -384,11 +384,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <h4>{{ metaData.title }}</h4>
-                <ul>
+                <ol>
                     {{#each notes}}
                         <li>{{ this.note }}</li>
                     {{/each}}
-                </ul>
+                </ol>
             </div>
         </div>
     </script>

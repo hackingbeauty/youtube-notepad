@@ -48,10 +48,11 @@ app.review_notes_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   getNotes = function( evt, tag ){
-    jqueryMap.$container.modal();
     jqueryMap.$body.empty();
 
     app.model.note.get_all_by_tag( tag, function( notesData ){
+      jqueryMap.$container.modal();
+
       jqueryMap.$body.append(
         configMap.content_html({
           metaData  : notesData.metaData,
