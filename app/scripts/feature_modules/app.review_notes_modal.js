@@ -18,7 +18,8 @@ app.review_notes_modal = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html: Handlebars.compile($('#app-review-notes-modal-template').html())
+      main_html: Handlebars.compile($('#app-review-notes-modal-template').html()),
+      content_html : Handlebars.compile($('#app-review-notes-content-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -37,20 +38,30 @@ app.review_notes_modal = (function () {
   setJqueryMap = function () {
     var $container = stateMap.$append_target.find('#app-review-notes-modal');
 
-    jqueryMap = { $container : $container };
+    jqueryMap = { 
+      $container  : $container, 
+      $body       : $container.find('#app-review-notes-body')
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   getNotes = function( evt, tag ){
-    app.model.note.get_all_by_tag( tag, function( notes ){
-      console.log('retrieved notes are: ', notes);
+    jqueryMap.$container.modal();
+    jqueryMap.$body.empty();
+
+    app.model.note.get_all_by_tag( tag, function( notesData ){
+      jqueryMap.$body.append(
+        configMap.content_html({
+          metaData  : notesData.metaData,
+          notes     : notesData.notes
+        })
+      );
+
     });
   };
   //-------------------- END EVENT HANDLERS --------------------
-
-
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/

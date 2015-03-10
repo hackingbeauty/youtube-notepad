@@ -304,8 +304,8 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     </div>
                     <div class="modal-body">
-                        <div id="app-search-results-list-body">
-                            <!--  notes content template here -->
+                        <div id="app-review-notes-body">
+                            <!--  review notes content template here -->
                         </div>
                     </div><!-- .modal-body -->
                 </div><!-- .modal-content -->
@@ -378,6 +378,21 @@
         </ul>
     </script>
     <!-- End Notes List content template-->
+
+    <!-- Review notes content template -->
+    <script id="app-review-notes-content-template" type=“x-text/handlebars”>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>{{ metaData.title }}</h4>
+                <ul>
+                    {{#each notes}}
+                        <li>{{ this.note }}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!-- End Review notes content template -->
 
     <!-- App Tag Notes template-->
     <script id="app-tag-notes-template" type=“x-text/handlebars”>
