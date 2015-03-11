@@ -48,17 +48,17 @@ app.review_notes_modal = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   getNotes = function( evt, tag ){
-    jqueryMap.$body.empty();
+    var 
+      count = 0,
+      allNotes = [];
 
-    app.model.note.get_all_by_tag( tag, function( notesData ){
-      jqueryMap.$container.modal();
+    app.model.note.get_all_by_tag( tag, function( numOfVideos, notesData ){
+      count++;
+      allNotes.push(notesData.notes);
 
-      jqueryMap.$body.append(
-        configMap.content_html({
-          metaData  : notesData.metaData,
-          notes     : notesData.notes
-        })
-      );
+      if(count === numOfVideos){
+        app.util.generatePDF( allNotes );
+      }
 
     });
   };

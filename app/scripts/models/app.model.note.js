@@ -154,13 +154,15 @@ app.model.note = (function () {
 
     tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tag );
     tagRef.once('value', function( data ) {
-      var videoIDs = data.val(), videoID;
+      var videoIDs = data.val(), videoID, numOfVideos;
+
+      numOfVideos = Object.keys(videoIDs).length;
 
       for(videoID in videoIDs){
         videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
         videoRef.once('value', function( data ){
           var notes = data.val();
-          callback( notes );
+          callback( numOfVideos, notes );
         });
       }
 
