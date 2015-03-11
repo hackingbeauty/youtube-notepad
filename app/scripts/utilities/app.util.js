@@ -82,7 +82,7 @@ app.util = (function () {
 
   generatePDF = function( videos ){
     var 
-      doc = new jsPDF('portrait','mm','letter'), 
+      doc,
       video, 
       videoNotes, 
       note, 
@@ -97,8 +97,9 @@ app.util = (function () {
 
     }
 
+    doc = new jsPDF('portrait','mm','letter');
+    doc.setFontSize(14);
     doc.text(15, 20, doc.splitTextToSize(notesArr, 180));
-    doc.lineHeightProportion = 2;
     doc.output('dataurlnewwindow');
   };
 
