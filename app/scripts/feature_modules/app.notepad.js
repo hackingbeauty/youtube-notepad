@@ -164,24 +164,31 @@ app.notepad = (function () {
   };
 
   onDeleteNotesBtnClick = function(){
-    var $checkedNotes=[], $paperCheckboxNotes, deleteNotesCallback, $paperCheckbox;
+    var 
+      $checkedNotesIDs=[], 
+      $checkedNotesText=[],
+      $paperCheckboxNotes, 
+      deleteNotesCallback, 
+      $paperCheckbox;
 
     jqueryMap.$deleteNotesIcon.on('click', function(){
       $paperCheckboxNotes = $('paper-checkbox');
       $paperCheckboxNotes.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
-          $checkedNotes.push( $(this).parent().data('note-id') );
+          $checkedNotesIDs.push( $(this).parent().data('note-id') );
+          $checkedNotesText.push( $(this).parent().find('.text').html() );
         }
       });
       deleteNotesCallback = function( confirmed ){
         if(confirmed){
-          app.model.note.delete_notes( $checkedNotes );
+          app.model.note.delete_notes( $checkedNotesIDs );
           app.notepad.refreshNotePad( app.model.video.get_video_id() );
         }
-        $checkedNotes = [];
+        $checkedNotesIDs = [];
+        $checkedNotesText = [];
       };
-      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ notes: $checkedNotes }), deleteNotesCallback ] );
+      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ notes: $checkedNotesText }), deleteNotesCallback ] );
     });
   };
 
