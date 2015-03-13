@@ -21,7 +21,8 @@ app.notepad = (function () {
       main_html           : Handlebars.compile($('#app-notepad-template').html()),
       notes_list_html     : Handlebars.compile($('#app-notepad-notes-template').html()),
       note_item_html      : Handlebars.compile($('#app-notepad-note-item-template').html()),
-      new_note_item_html  : Handlebars.compile($('#app-notepad-new-note-item-template').html())
+      new_note_item_html  : Handlebars.compile($('#app-notepad-new-note-item-template').html()),
+      alert_html          : Handlebars.compile($('#app-delete-notes-alert-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -163,17 +164,23 @@ app.notepad = (function () {
   };
 
   onDeleteNotesBtnClick = function(){
-    var
-      notesList,
-      notesToDelete = [];
+    var $checkedNotes=[], $paperCheckboxNotes, deleteNotesCallback, $paperCheckbox;
 
-    jqueryMap.$deleteNotesBtn.on('click', function(){
-      notesList = jqueryMap.$notesList.find('input:checked').parent();
-      for(var i = 0; i < notesList.length; i++){
-        notesToDelete.push( $(notesList[i]).data('id') );
-        $(notesList[i]).remove();
-      }
-      app.model.note.delete_notes( notesToDelete );
+    jqueryMap.$deleteNotesIcon.on('click', function(){
+      $paperCheckboxNotes = $('paper-checkbox');
+      $paperCheckboxNotes.each(function(){
+        $paperCheckbox = $(this);
+        if ( $paperCheckbox.attr('aria-checked') === 'true' ){
+          $checkedNotes.push( $(this).parent().find('.text').html() );
+        }
+      });
+      deleteNotesCallback = function( confirmed ){
+        if(confirmed){
+          app.model.note.delete_notes( $checkedNotes );
+        }
+        $checkedNotes = [];
+      };
+      $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ notes: $checkedNotes }), deleteNotesCallback ] );
     });
   };
 

@@ -114,6 +114,7 @@ app.your_tags = (function () {
 
   onDeleteClick = function(){
     var $checkedTags=[], $paperCheckboxTags, deleteTagCallback, $paperCheckbox;
+    
     jqueryMap.$deleteIcon.on('click', function(){ //no need for event delegation here
       $paperCheckboxTags = $('paper-checkbox');
       $paperCheckboxTags.each(function(){

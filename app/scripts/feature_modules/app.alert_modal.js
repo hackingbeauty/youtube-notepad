@@ -46,10 +46,12 @@ app.alert_modal = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
 
   showAlertModal = function( evt, content, callback ){
+    alert('dong')
     jqueryMap.$container.find('.modal-dialog').html( content );
     jqueryMap.$container.modal();
     jqueryMap.$container.on('click','.confirm-btn', function(){
       callback(true);
+      alert('ok');
       jqueryMap.$container.modal('hide');
       jqueryMap.$container.off('click','.confirm-btn');
     });

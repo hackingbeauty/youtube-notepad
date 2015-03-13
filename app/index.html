@@ -276,6 +276,39 @@
             </div>
         </div>
     </script>
+    <!-- End Delete tags template-->
+
+    <!-- Delete notes template-->
+    <script id="app-delete-notes-alert-template" type=“x-text/handlebars”>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                {{#if notes}}
+                    <p>Are you sure you want to delete these notes?</p>
+                    <ul>
+                    {{#each notes}}
+                      <li>{{ this }}</li>
+                    {{/each}}
+                    </ul>
+                {{ else }}
+                    <p>Select the notes you want to delete</p>
+                {{/if}}
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    {{#if tags}}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">Cancel</button>
+                        <button type="button" class="confirm-btn pure-button pure-button-primary button-error">Delete Tags</button>
+                    {{ else }}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">OK</button>
+                    {{/if}}
+                </div><!-- .row -->
+            </div>
+        </div>
+    </script>
+    <!-- End Delete notes template-->
 
     <!-- Notes List template-->
     <script id="app-search-results-modal-template" type=“x-text/handlebars”>
