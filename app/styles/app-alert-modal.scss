@@ -20,6 +20,11 @@
 		margin-right: 15px;
 		float: right;
 	}
+
+	li {
+		list-style-type: decimal;
+		list-style-position: inside;
+	}
 	
 	.modal-content{
 		position: relative;

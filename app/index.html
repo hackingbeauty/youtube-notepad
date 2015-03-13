@@ -287,11 +287,11 @@
             <div class="modal-body">
                 {{#if notes}}
                     <p>Are you sure you want to delete these notes?</p>
-                    <ul>
+                    <ol>
                     {{#each notes}}
                       <li>{{ this }}</li>
                     {{/each}}
-                    </ul>
+                    </ol>
                 {{ else }}
                     <p>Select the notes you want to delete</p>
                 {{/if}}
