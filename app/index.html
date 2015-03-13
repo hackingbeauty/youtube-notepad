@@ -131,6 +131,7 @@
             <div id="app-notepad">
                 <div id="app-notepad-header" class="heading">
                     <h2>Your Notes</h2>
+                    <core-icon-button icon="delete" id="delete-notes-icon" class="delete-icon hide"></core-icon-button>
                     <div id="app-notepad-header-msg" class="hide">
                         Saving...
                         <core-icon icon="save"></core-icon>
@@ -149,8 +150,8 @@
     <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
         <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
             <span class="time recorded-video-time">{{ startTime }}</span>
-            <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
-            <!--<input class="remove checkbox" type="checkbox" />-->
+            <span class="text" contenteditable="true">{{ note }}</span>
+            <paper-checkbox class="checkbox"></paper-checkbox>
         </li>
     </script>
     <!-- End Note Item Template -->
@@ -320,7 +321,7 @@
             <div class="heading">
                 <h2>
                     <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
-                    <a id="app-get-your-tags-link">Your Tags</a>
+                    <h2>Your Tags</h2>
                 </h2>
             </div>
             <ul id="app-your-tags-list" class="module accordion">

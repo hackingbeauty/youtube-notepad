@@ -68,6 +68,7 @@ app.notepad = (function () {
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
       $deleteNotesBtn         : $container.find('#delete-notes-btn'),
+      $deleteNotesIcon        : $container.find('#delete-notes-icon'),
       $saveNotesBtn           : $container.find('#save-notes-btn'),
       $toggleHandle           : $container.find('#app-notepad-toggle-handle')
     };
@@ -115,6 +116,9 @@ app.notepad = (function () {
               notes: notes
             })
           );
+          
+          jqueryMap.$deleteNotesIcon.show();
+
           if(lastNote){
             $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
           }
