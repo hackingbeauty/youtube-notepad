@@ -171,12 +171,13 @@ app.notepad = (function () {
       $paperCheckboxNotes.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
-          $checkedNotes.push( $(this).parent().find('.text').html() );
+          $checkedNotes.push( $(this).parent().data('note-id') );
         }
       });
       deleteNotesCallback = function( confirmed ){
         if(confirmed){
           app.model.note.delete_notes( $checkedNotes );
+          app.notepad.refreshNotePad( app.model.video.get_video_id() );
         }
         $checkedNotes = [];
       };
