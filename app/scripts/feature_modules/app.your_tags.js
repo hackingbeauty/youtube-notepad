@@ -50,7 +50,7 @@ app.your_tags = (function () {
       $list                 : $container.find('#app-your-tags-list'),
       $deleteIcon           : $container.find('.delete-icon'),
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
-      $reviewIcon           : $container.find('.review-notes'),
+      $reviewIcon           : $container.find('#review-notes'),
     };
   };
   // End DOM method /setJqueryMap/
@@ -135,7 +135,14 @@ app.your_tags = (function () {
 
   onReviewClick = function(){
     var tag;
-    jqueryMap.$list.on('click','.review-notes', function(){
+    jqueryMap.$reviewIcon.on('click', function(){
+        
+
+
+
+
+
+      alert('clicked');
       tag = $(this).parent().find('h3').html();
       $.gevent.publish( 'app-review-notes', [ tag ]);      
     });

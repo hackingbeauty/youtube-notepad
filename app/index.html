@@ -352,10 +352,9 @@
     <script id="app-your-tags-template" type=“x-text/handlebars”>
         <div id="app-your-tags">
             <div class="heading">
-                <h2>
-                    <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
-                    <h2>Your Tags</h2>
-                </h2>
+                <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
+                <h2>Your Tags</h2>
+                <core-icon-button icon="description" id="review-notes"></core-icon-button>
             </div>
             <ul id="app-your-tags-list" class="module accordion">
         </div>
@@ -370,7 +369,6 @@
                     <paper-checkbox class="checkbox"></paper-checkbox>
                     <h3 class="link">{{ this }}</h3>
                     <ul class="submenu"></ul>
-                    <core-icon-button icon="description" class="review-notes"></core-icon-button>
                 </li>
             {{/each}}
         {{ else }}
