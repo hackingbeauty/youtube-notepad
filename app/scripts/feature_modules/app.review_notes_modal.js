@@ -47,12 +47,12 @@ app.review_notes_modal = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  getNotes = function( evt, tag ){
+  getNotes = function( evt, tags ){
     var 
       count = 0,
       allNotes = [];
 
-    app.model.note.get_all_by_tag( tag, function( numOfVideos, notesData ){
+    app.model.note.get_all_by_tags( tags, function( numOfVideos, notesData ){
       count++;
       allNotes.push(notesData.notes);
 

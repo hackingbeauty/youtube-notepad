@@ -134,17 +134,17 @@ app.your_tags = (function () {
   };
 
   onReviewClick = function(){
-    var tag;
+    var $paperCheckboxTags, $paperCheckbox, $checkedTags = [];
+
     jqueryMap.$reviewIcon.on('click', function(){
-        
-
-
-
-
-
-      alert('clicked');
-      tag = $(this).parent().find('h3').html();
-      $.gevent.publish( 'app-review-notes', [ tag ]);      
+      $paperCheckboxTags = $('paper-checkbox');
+      $paperCheckboxTags.each(function(){
+        $paperCheckbox = $(this);
+        if ( $paperCheckbox.attr('aria-checked') === 'true' ){
+          $checkedTags.push( $(this).parent().find('h3').html() );
+        }
+      });
+      $.gevent.publish( 'app-review-notes', [ $checkedTags ]);      
     });
   };
 

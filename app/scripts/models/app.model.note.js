@@ -27,7 +27,7 @@ app.model.note = (function () {
   get_saved_notes,
   delete_notes,
   delete_video,
-  get_all_by_tag,
+  get_all_by_tags,
 
   initModule;
 
@@ -146,27 +146,34 @@ app.model.note = (function () {
     videoRef.remove();
   };
 
-  get_all_by_tag = function( tag, callback ){
+  get_all_by_tags = function( tags, callback ){
     var 
+      i,
       tagRef, 
       videoRef,
       userUID = app.model.user.get_user().uid;
 
-    tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tag );
-    tagRef.once('value', function( data ) {
-      var videoIDs = data.val(), videoID, numOfVideos;
 
-      numOfVideos = Object.keys(videoIDs).length;
+    for(i = 0; i < tags.length; i++){
 
-      for(videoID in videoIDs){
-        videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
-        videoRef.once('value', function( data ){
-          var notes = data.val();
-          callback( numOfVideos, notes );
-        });
-      }
+      tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tags[i] );
+      tagRef.once('value', function( data ) {
+        var videoIDs = data.val(), videoID, numOfVideos;
 
-    });
+        numOfVideos = Object.keys(videoIDs).length;
+
+        for(videoID in videoIDs){
+          videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
+          videoRef.once('value', function( data ){
+            var notes = data.val();
+            callback( numOfVideos, notes );
+          });
+        }
+
+      });
+    }
+
+   
   };
 
   initModule = function(){
@@ -186,7 +193,7 @@ app.model.note = (function () {
     delete_notes          : delete_notes,
     delete_video          : delete_video,
     get_by_id             : get_by_id,
-    get_all_by_tag        : get_all_by_tag,
+    get_all_by_tags       : get_all_by_tags,
     initModule            : initModule
   };
 
