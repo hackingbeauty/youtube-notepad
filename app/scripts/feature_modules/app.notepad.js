@@ -172,7 +172,7 @@ app.notepad = (function () {
       $paperCheckbox;
 
     jqueryMap.$deleteNotesIcon.on('click', function(){
-      $paperCheckboxNotes = $('paper-checkbox');
+      $paperCheckboxNotes = jqueryMap.$container.find('paper-checkbox');
       $paperCheckboxNotes.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){

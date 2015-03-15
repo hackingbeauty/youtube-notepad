@@ -116,7 +116,7 @@ app.your_tags = (function () {
     var $checkedTags=[], $paperCheckboxTags, deleteTagCallback, $paperCheckbox;
     
     jqueryMap.$deleteIcon.on('click', function(){ //no need for event delegation here
-      $paperCheckboxTags = $('paper-checkbox');
+      $paperCheckboxTags = jqueryMap.$container.find('paper-checkbox');
       $paperCheckboxTags.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
@@ -137,7 +137,7 @@ app.your_tags = (function () {
     var $paperCheckboxTags, $paperCheckbox, $checkedTags = [];
 
     jqueryMap.$reviewIcon.on('click', function(){
-      $paperCheckboxTags = $('paper-checkbox');
+      $paperCheckboxTags = jqueryMap.$container.find('paper-checkbox');
       $paperCheckboxTags.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
