@@ -16,10 +16,10 @@
   regexp : true,  sloppy  : true,  vars     : false,
   white  : true,  camelcase : false
 */
-/*global app */
+/*global app, jsPDF */
 
 app.util = (function () {
-  var makeError, setConfigMap, parseVideoID, isValidDomain;
+  var makeError, setConfigMap, parseVideoID, isValidDomain, generatePDF;
 
   // Begin Public constructor /isValidDomain/
   // Purpose: Determine if given URL is valid
@@ -80,6 +80,29 @@ app.util = (function () {
   };
   // End Public constructor /makeError/
 
+  generatePDF = function( videos ){
+    var 
+      doc,
+      video, 
+      videoNotes, 
+      note, 
+      notesArr = [];
+
+    for(video in videos){
+      videoNotes = videos[video];
+
+      for(note in videoNotes){
+        notesArr.push( videoNotes[note].note );
+      }
+
+    }
+
+    doc = new jsPDF('portrait','mm','letter');
+    doc.setFontSize(14);
+    doc.text(15, 20, doc.splitTextToSize(notesArr, 180));
+    doc.output('dataurlnewwindow');
+  };
+
   // Begin Public method /setConfigMap/
   // Purpose: Common code to set configs in feature modules
   // Arguments:
@@ -116,6 +139,7 @@ app.util = (function () {
     makeError     : makeError,
     setConfigMap  : setConfigMap,
     parseVideoID  : parseVideoID,
-    isValidDomain : isValidDomain
+    isValidDomain : isValidDomain,
+    generatePDF   : generatePDF
   };
 }());

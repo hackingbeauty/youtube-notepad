@@ -131,6 +131,7 @@
             <div id="app-notepad">
                 <div id="app-notepad-header" class="heading">
                     <h2>Your Notes</h2>
+                    <core-icon-button icon="delete" id="delete-notes-icon" class="delete-icon hide"></core-icon-button>
                     <div id="app-notepad-header-msg" class="hide">
                         Saving...
                         <core-icon icon="save"></core-icon>
@@ -149,8 +150,8 @@
     <script id="app-notepad-note-item-template" type=“x-text/handlebars”>
         <li class="note" data-video-id="{{ videoID }}" data-note-id="{{ ___id }}">
             <span class="time recorded-video-time">{{ startTime }}</span>
-            <span class="text" contenteditable="true" data-toggle="tooltip" data-placement="left" title="{{ note }}">{{ note }}</span>
-            <!--<input class="remove checkbox" type="checkbox" />-->
+            <span class="text" contenteditable="true">{{ note }}</span>
+            <paper-checkbox class="checkbox"></paper-checkbox>
         </li>
     </script>
     <!-- End Note Item Template -->
@@ -275,6 +276,39 @@
             </div>
         </div>
     </script>
+    <!-- End Delete tags template-->
+
+    <!-- Delete notes template-->
+    <script id="app-delete-notes-alert-template" type=“x-text/handlebars”>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                {{#if notes}}
+                    <p>Are you sure you want to delete these notes?</p>
+                    <ol>
+                    {{#each notes}}
+                      <li>{{ this }}</li>
+                    {{/each}}
+                    </ol>
+                {{ else }}
+                    <p>Select the notes you want to delete</p>
+                {{/if}}
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    {{#if notes}}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">Cancel</button>
+                        <button type="button" class="confirm-btn pure-button pure-button-primary button-error">Delete Notes</button>
+                    {{ else }}
+                        <button type="button" class="cancel-btn pure-button pure-button-primary">OK</button>
+                    {{/if}}
+                </div><!-- .row -->
+            </div>
+        </div>
+    </script>
+    <!-- End Delete notes template-->
 
     <!-- Notes List template-->
     <script id="app-search-results-modal-template" type=“x-text/handlebars”>
@@ -295,39 +329,32 @@
     </script>
     <!-- End Notes List template-->
 
-    <!-- Your Notes template -->
-    <script id="app-your-notes-template" type=“x-text/handlebars”>
-        <div id="app-your-notes">
-            <h2 class="heading"><a id="app-get-your-notes-link">Your Notes</a></h2>
-            <div id="app-your-notes-body"></div>
-        </div>
+    <!-- Revivew Notes modal template -->
+    <script id="app-review-notes-modal-template" type=“x-text/handlebars”>
+        <div class="modal" id="app-review-notes-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="app-review-notes-body">
+                            <!--  review notes content template here -->
+                        </div>
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
     </script>
-    <!-- End Your Notes template -->
-
-    <!-- Your Notes Body template -->
-    <script id="app-your-notes-body-template" type=“x-text/handlebars”>
-        <ul id="app-your-notes-list">
-            <div class="row">
-                {{#each results}}
-                    <li  data-video-id="{{ @key }}" class="note-item col-lg-12">
-                        <i class="delete-icon"></i>
-                        <h3>yum{{ title }}</h3>
-                        <img data-video-id= "{{@key}}" src="http://img.youtube.com/vi/{{@key}}/1.jpg" alt="Video id {{@key}}" class="load-note rounded" />
-                    </li>
-                {{/each}}
-            </div>
-        </ul>
-    </script>
-    <!-- End Your Notes Body template -->
+    <!-- End Revivew Notes modal template -->
 
     <!-- Your Tags template -->
     <script id="app-your-tags-template" type=“x-text/handlebars”>
         <div id="app-your-tags">
             <div class="heading">
-                <h2>
-                    <h2>Your Tags</h2>
-                    <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
-                </h2>
+                <core-icon-button icon="delete" id="delete-tags-icon" class="delete-icon hide"></core-icon-button>
+                <h2>Your Tags</h2>
+                <core-icon-button icon="description" id="review-notes"></core-icon-button>
             </div>
             <ul id="app-your-tags-list" class="module accordion">
         </div>
@@ -339,9 +366,9 @@
         {{#if videoTags}}
             {{#each videoTags}}
                 <li data-video-tag="{{ this }}" class="tag-item">
+                    <paper-checkbox class="checkbox"></paper-checkbox>
                     <h3 class="link">{{ this }}</h3>
                     <ul class="submenu"></ul>
-                    <paper-checkbox class="select-item"></paper-checkbox>
                 </li>
             {{/each}}
         {{ else }}
@@ -383,6 +410,21 @@
         </ul>
     </script>
     <!-- End Notes List content template-->
+
+    <!-- Review notes content template -->
+    <script id="app-review-notes-content-template" type=“x-text/handlebars”>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>{{ metaData.title }}</h4>
+                <ol>
+                    {{#each notes}}
+                        <li>{{ this.note }}</li>
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
+    </script>
+    <!-- End Review notes content template -->
 
     <!-- App Tag Notes template-->
     <script id="app-tag-notes-template" type=“x-text/handlebars”>
@@ -431,6 +473,7 @@
     <script src="scripts/vendor/jquery.ui.js"                                        ></script>
     <script src="scripts/vendor/jquery.tag-it.js"                                    ></script>
     <script src="scripts/vendor/jquery.easy-accordion.js"                            ></script>
+    <script src="scripts/vendor/jsPDF.js"                                            ></script>
     <!-- endbuild -->
 
     <!-- Firebase -->
@@ -460,10 +503,10 @@
     <script src="scripts/feature_modules/app.login_modal.js"                ></script>
     <script src="scripts/feature_modules/app.search_results_modal.js"       ></script>
     <script src="scripts/feature_modules/app.alert_modal.js"                ></script>
-    <script src="scripts/feature_modules/app.your_notes.js"                 ></script>
     <script src="scripts/feature_modules/app.your_tags.js"                  ></script>
     <script src="scripts/feature_modules/app.tag_notes.js"                  ></script>
     <script src="scripts/feature_modules/app.speed_controls.js"             ></script>
+    <script src="scripts/feature_modules/app.review_notes_modal.js"         ></script>
     <script src="scripts/app.shell.js"                                      ></script>
     <!-- endbuild -->
 

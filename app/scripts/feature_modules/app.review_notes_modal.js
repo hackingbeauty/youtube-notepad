@@ -1,5 +1,5 @@
 /*
- * module_template.js
+ * review_notes_modal.js
  * <Module name> feature module
 */
 
@@ -12,16 +12,19 @@
 
 /*global $, app, Handlebars */
 
-app.module_template = (function () {
+app.review_notes_modal = (function () {
   'use strict';
   
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      main_html: Handlebars.compile($('#template-id').html())
+      main_html: Handlebars.compile($('#app-review-notes-modal-template').html()),
+      content_html : Handlebars.compile($('#app-review-notes-content-template').html())
     },
     stateMap  = { $container : null },
     jqueryMap = {},
+
+    getNotes,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -33,18 +36,33 @@ app.module_template = (function () {
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
-    var $container = stateMap.$append_target.find('');
+    var $container = stateMap.$append_target.find('#app-review-notes-modal');
 
-    jqueryMap = { $container : $container };
+    jqueryMap = { 
+      $container  : $container, 
+      $body       : $container.find('#app-review-notes-body')
+    };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
+  getNotes = function( evt, tags ){
+    var 
+      count = 0,
+      allNotes = [];
+
+    app.model.note.get_all_by_tags( tags, function( numOfVideos, notesData ){
+      count++;
+      allNotes.push(notesData.notes);
+
+      if(count === numOfVideos){
+        app.util.generatePDF( allNotes );
+      }
+
+    });
+  };
   //-------------------- END EVENT HANDLERS --------------------
-
-
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/
@@ -77,6 +95,7 @@ app.module_template = (function () {
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
     setJqueryMap();
+    $.gevent.subscribe( jqueryMap.$container, 'app-review-notes',  getNotes );
     return true;
   };
   // End public method /initModule/

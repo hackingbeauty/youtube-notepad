@@ -3,7 +3,7 @@
 	core-icon-button.delete-icon {
 		color: white;
 		position: absolute;
-		right: 0px;
+		left: 0px;
 		top: 0px;
 	}
 
@@ -30,17 +30,21 @@
 		cursor: pointer;
 		text-transform: capitalize;
 		position: relative;
+		float: left;
+		width: 100%;
 
 		h3 {
-			display: table-cell;
-			vertical-align: middle;
 			height: inherit;
 			font-size:15px;
 			color: white;
+			float:left;
+			width: 152px;
+			padding: 15px 0px;
+			margin-left: 13px;
+			line-height: 24px;
 		}
 
 		.content {
-			margin-top: 15px;
 			h4 {
 				color: white;
 				font-size: 12px;
@@ -52,10 +56,16 @@
 
 	}
 
-	.select-item{
+	#review-notes {
 		position: absolute;
-		right: 10px;
-		top: 15px;
+		top: 0px;
+		right: 5px;
+	}
+
+	.checkbox{
+		position: absolute;
+		right: 16px;
+		top: 5px;
 	}
 
 }

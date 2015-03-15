@@ -6,8 +6,25 @@
 #app-notepad {	
 	height: 678px;
 
+	#delete-notes-icon {
+		position: absolute;
+		right: 30px;
+		top: 0px;
+		color: white;
+	}
+
+	.checkbox {
+		position: absolute;
+		right: 10px;
+		top: 0px;
+		margin: 5px 5px 0 0;
+	}
+
 	#app-notepad-header {
 		position: relative;
+		display: inline-block;
+		width: 100%;
+
 		#app-notepad-header-msg {
 			position:absolute;
 			top: 9px;
@@ -105,7 +122,7 @@
 					left:10px;
 					float:left;
 					cursor: pointer;
-					width: 360px;
+					width: 78%;
 				}
 
 				.text[contenteditable="true"]:focus{
@@ -148,11 +165,8 @@
 
 @media only screen and (max-width: 1199px){
 
-	#app-notepad-header {
-		display: none;
-	}
+	// #app-notepad-header {
+	// 	display: none;
+	// }
 	
 }
-
-
-// #app-notepad-header

@@ -27,6 +27,8 @@ app.model.note = (function () {
   get_saved_notes,
   delete_notes,
   delete_video,
+  get_all_by_tags,
+
   initModule;
 
   create = function( note, startTime, videoTitle ){
@@ -88,11 +90,6 @@ app.model.note = (function () {
         notes.push( dataObjects[key] );
       }
 
-      // // Sort ascending
-      // notes.sort(function(a,b){
-      //   return parseInt(a.startTime, 10) - parseInt(b.startTime, 10);
-      // });
-
       callback( notes );
     });
   };
@@ -122,7 +119,7 @@ app.model.note = (function () {
       userUID = app.model.user.get_user().uid;
 
     userNotesRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/' + userUID + '/videos/');
-    userNotesRef.once('value', function(data) {
+    userNotesRef.once('value', function( data ) {
       callback( data.val() );
     });
   };
@@ -149,6 +146,36 @@ app.model.note = (function () {
     videoRef.remove();
   };
 
+  get_all_by_tags = function( tags, callback ){
+    var 
+      i,
+      tagRef, 
+      videoRef,
+      userUID = app.model.user.get_user().uid;
+
+
+    for(i = 0; i < tags.length; i++){
+
+      tagRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tags[i] );
+      tagRef.once('value', function( data ) {
+        var videoIDs = data.val(), videoID, numOfVideos;
+
+        numOfVideos = Object.keys(videoIDs).length;
+
+        for(videoID in videoIDs){
+          videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
+          videoRef.once('value', function( data ){
+            var notes = data.val();
+            callback( numOfVideos, notes );
+          });
+        }
+
+      });
+    }
+
+   
+  };
+
   initModule = function(){
     db = TAFFY();
     db.store('videos');
@@ -166,6 +193,7 @@ app.model.note = (function () {
     delete_notes          : delete_notes,
     delete_video          : delete_video,
     get_by_id             : get_by_id,
+    get_all_by_tags       : get_all_by_tags,
     initModule            : initModule
   };
 

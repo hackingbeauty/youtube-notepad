@@ -31,6 +31,7 @@ app.your_tags = (function () {
     onNoteItemClick,
     onDeleteClick,
     onSignOut,
+    onReviewClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -48,7 +49,8 @@ app.your_tags = (function () {
       $container            : $container,
       $list                 : $container.find('#app-your-tags-list'),
       $deleteIcon           : $container.find('.delete-icon'),
-      $deleteTagsTrashIcon  : $container.find('#delete-tags-icon')
+      $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
+      $reviewIcon           : $container.find('#review-notes'),
     };
   };
   // End DOM method /setJqueryMap/
@@ -79,10 +81,10 @@ app.your_tags = (function () {
   onTagItemClick = function( ){
     var $submenu, tag, $self;
 
-    jqueryMap.$list.on('click', '.tag-item', function(){
+    jqueryMap.$list.on('click', '.tag-item h3', function(){
       $self = $(this);
-      tag = $self.find('h3').html();
-      $submenu = $self.find('.submenu');
+      tag = $self.html();
+      $submenu = $self.parent().find('.submenu');
       
       if($submenu.is(':empty')){
         app.model.tag.get_all_by_tag( tag , function( videos ){
@@ -112,7 +114,8 @@ app.your_tags = (function () {
 
   onDeleteClick = function(){
     var $checkedTags=[], $paperCheckboxTags, deleteTagCallback, $paperCheckbox;
-    jqueryMap.$deleteIcon.on('click', function(){
+    
+    jqueryMap.$deleteIcon.on('click', function(){ //no need for event delegation here
       $paperCheckboxTags = $('paper-checkbox');
       $paperCheckboxTags.each(function(){
         $paperCheckbox = $(this);
@@ -127,6 +130,21 @@ app.your_tags = (function () {
         $checkedTags = [];
       };
       $.gevent.publish( 'app-alert-modal-show', [ configMap.alert_html({ tags: $checkedTags }), deleteTagCallback ] );
+    });
+  };
+
+  onReviewClick = function(){
+    var $paperCheckboxTags, $paperCheckbox, $checkedTags = [];
+
+    jqueryMap.$reviewIcon.on('click', function(){
+      $paperCheckboxTags = $('paper-checkbox');
+      $paperCheckboxTags.each(function(){
+        $paperCheckbox = $(this);
+        if ( $paperCheckbox.attr('aria-checked') === 'true' ){
+          $checkedTags.push( $(this).parent().find('h3').html() );
+        }
+      });
+      $.gevent.publish( 'app-review-notes', [ $checkedTags ]);      
     });
   };
 
@@ -172,6 +190,7 @@ app.your_tags = (function () {
     $('#app-your-tags-list').easyAccordion();
     onTagItemClick();
     onNoteItemClick();
+    onReviewClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );
