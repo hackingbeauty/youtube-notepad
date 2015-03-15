@@ -97,9 +97,9 @@ app.util = (function () {
 
     }
 
-    doc = new jsPDF('portrait','mm','letter');
+    doc = new jsPDF({ orientation: 'portrait', unit: 'mm', lineHeight: 2 });
     doc.setFontSize(14);
-    doc.text(15, 20, doc.splitTextToSize(notesArr, 180));
+    doc.text(15, 20, doc.splitTextToSize(notesArr, 380));
     doc.output('dataurlnewwindow');
   };
 
