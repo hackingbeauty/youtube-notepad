@@ -50,6 +50,14 @@
 				font-weight: bold;
 				margin-bottom: 10px;
 				width: 80%;
+				&:hover{
+					text-decoration: underline;
+				}
+			}
+			img {
+				&:hover {
+					border: 1px solid white;
+				}
 			}
 		}
 
