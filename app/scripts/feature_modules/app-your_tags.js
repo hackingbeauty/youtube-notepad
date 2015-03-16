@@ -141,7 +141,7 @@ app.your_tags = (function () {
       $paperCheckboxTags.each(function(){
         $paperCheckbox = $(this);
         if ( $paperCheckbox.attr('aria-checked') === 'true' ){
-          $checkedTags.push( $(this).parent().find('h3').html() );
+          $checkedTags.push( $(this).parent().find('h3 .text').html() );
         }
       });
       $.gevent.publish( 'app-review-notes', [ $checkedTags ]);      
