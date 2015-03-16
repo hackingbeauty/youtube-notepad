@@ -150,6 +150,36 @@ core-header-panel#main-section {
   background: #1d262c;
 }
 
+core-header-panel {
+
+  &::shadow {
+    #mainContainer {
+      /* Let's get this party started */
+      &::-webkit-scrollbar {
+          width: 12px;
+      }
+       
+      /* Track */
+      &::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+          -webkit-border-radius: 0px;
+          border-radius: 0px;
+      }
+       
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 10px;
+          border-radius: 0px;
+          background: #2a343b; 
+          -webkit-box-shadow: inset 0 0 6px #2a3740; 
+      }
+      &::-webkit-scrollbar-thumb:window-inactive {
+        background: #2a343b; 
+      }
+    }
+  }
+}
+
 paper-checkbox::shadow {
   #checkbox.checked {
     background-color: #01c461;
