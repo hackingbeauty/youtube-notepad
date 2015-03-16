@@ -26,14 +26,11 @@ app.notepad = (function () {
     },
     stateMap  = { $container : null },
     jqueryMap = {},
-    deleteNoteCount = 0,
     
     appendNote,
-
     onNoteEdit,
     refreshNotePad,
     onRecordedTimeClick,
-    onRemoveClick,
     onDeleteNotesBtnClick,
     onSignOut,
 
@@ -141,28 +138,6 @@ app.notepad = (function () {
     });
   };
 
-  /*
-   *  Purpose: Remove note when clicked
-  */
-  onRemoveClick = function( ){
-    var $inputCheckBox;
-    jqueryMap.$notesList.on('click', '.remove', function(){
-      $inputCheckBox = $(this);
-      if($inputCheckBox.is(':checked')){
-        deleteNoteCount++;
-      } else {
-        deleteNoteCount--;
-      }
-      if(deleteNoteCount > 1){
-        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Notes');
-      } else if(deleteNoteCount === 1){
-        jqueryMap.$deleteNotesBtn.val('Delete ' + deleteNoteCount + ' Note');
-      } else {
-        jqueryMap.$deleteNotesBtn.val('Delete Notes');
-      }                     
-    });
-  };
-
   onDeleteNotesBtnClick = function(){
     var 
       $checkedNotesIDs=[], 
@@ -234,7 +209,6 @@ app.notepad = (function () {
     setJqueryMap();
     onNoteEdit();
     onRecordedTimeClick();
-    onRemoveClick();
     onDeleteNotesBtnClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video',        refreshNotePad );
     $.gevent.subscribe( jqueryMap.$container, 'app-new-note',          appendNote     );
