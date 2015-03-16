@@ -37,7 +37,6 @@
 			height: inherit;
 			font-size:15px;
 			color: white;
-			width: 152px;
 			padding: 15px 0px;
 			margin-left: 13px;
 			line-height: 24px;
@@ -53,11 +52,6 @@
 					text-decoration: underline;
 				}
 			}
-			// img {
-			// 	&:hover {
-			// 		border: 1px solid white;
-			// 	}
-			// }
 		}
 
 	}
@@ -65,13 +59,13 @@
 	#review-notes {
 		position: absolute;
 		top: 0px;
-		right: 5px;
+		right: -5px;
 		color: white;
 	}
 
 	.checkbox{
 		position: absolute;
-		right: 16px;
+		right: 7px;
 		top: 5px;
 	}
 

@@ -88,7 +88,6 @@ app.shell = (function () {
         videoID,
         function(){
           app.model.video.set_video_id( videoID );
-          app.notepad.refreshNotePad( videoID );
           app.model.video.set_video_data( videoID );
           $.gevent.publish( 'app-load-video',               [ videoID ] );
           $.gevent.publish( 'app-start-load-of-video',      [ videoID ] );

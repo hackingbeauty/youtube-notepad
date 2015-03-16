@@ -99,7 +99,7 @@ app.notepad = (function () {
   /*
    *  Purpose: Refreshes notepad with list of notes if they exist.
   */
-  refreshNotePad = function( id ){
+  refreshNotePad = function( evt, id ){
     var
       lastNote,
       currentVideoID  = app.model.video.get_video_id();
@@ -236,8 +236,9 @@ app.notepad = (function () {
     onRecordedTimeClick();
     onRemoveClick();
     onDeleteNotesBtnClick();
-    $.gevent.subscribe( jqueryMap.$container, 'app-new-note',          appendNote );
-    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',   onSignOut );
+    $.gevent.subscribe( jqueryMap.$container, 'app-load-video',        refreshNotePad );
+    $.gevent.subscribe( jqueryMap.$container, 'app-new-note',          appendNote     );
+    $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',   onSignOut      );
     return true;
   };
   // End public method /initModule/

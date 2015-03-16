@@ -367,7 +367,10 @@
             {{#each videoTags}}
                 <li data-video-tag="{{ this }}" class="tag-item">
                     <paper-checkbox class="checkbox"></paper-checkbox>
-                    <h3 class="link">{{ this }}</h3>
+                    <h3 class="link">
+                        <core-icon icon="arrow-drop-down" aria-label="arrow-drop-down" role="img"></core-icon>
+                        <span class="text">{{ this }}</span>
+                    </h3>
                     <ul class="submenu"></ul>
                 </li>
             {{/each}}

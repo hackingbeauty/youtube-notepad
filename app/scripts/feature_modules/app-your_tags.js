@@ -83,7 +83,7 @@ app.your_tags = (function () {
 
     jqueryMap.$list.on('click', '.tag-item h3', function(){
       $self = $(this);
-      tag = $self.html();
+      tag = $self.find('.text').html();
       $submenu = $self.parent().find('.submenu');
       
       if($submenu.is(':empty')){
