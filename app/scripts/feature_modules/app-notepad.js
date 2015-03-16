@@ -183,7 +183,7 @@ app.notepad = (function () {
       deleteNotesCallback = function( confirmed ){
         if(confirmed){
           app.model.note.delete_notes( $checkedNotesIDs );
-          app.notepad.refreshNotePad( app.model.video.get_video_id() );
+          app.notepad.refreshNotePad( undefined, app.model.video.get_video_id() );
         }
         $checkedNotesIDs = [];
         $checkedNotesText = [];

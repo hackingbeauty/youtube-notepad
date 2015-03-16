@@ -99,10 +99,6 @@ app.shell = (function () {
       );
     }
 
-    // if( /notes/.test( routeHash )){
-    //   $.gevent.publish( 'app-show-notes', [  ] );
-    // }
-
     if( /search/.test( routeHash )){
       searchTerm = unescape(routeHash.split('=')[1]);
       app.model.video.get_results( searchTerm );
