@@ -93,6 +93,7 @@ app.util = (function () {
 
       for(note in videoNotes){
         notesArr.push( videoNotes[note].note );
+        notesArr.push('-------------------------------');
       }
 
     }

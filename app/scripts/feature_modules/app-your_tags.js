@@ -87,8 +87,6 @@ app.your_tags = (function () {
       tag = $self.find('.text').html();
       $submenu = $self.parent().find('.submenu');
       
-      
-      
       if($submenu.is(':empty')){
         app.model.tag.get_all_by_tag( tag , function( videos ){
           $submenu.append(
