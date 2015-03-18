@@ -68,6 +68,7 @@ app.your_tags = (function () {
       );
       if(tags.length > 0){ 
         jqueryMap.$deleteTagsTrashIcon.show();
+        jqueryMap.$reviewIcon.show();
       }
     });
   };
@@ -153,6 +154,7 @@ app.your_tags = (function () {
   onSignOut = function(){
     jqueryMap.$list.empty();
     jqueryMap.$deleteTagsTrashIcon.hide();
+    jqueryMap.$reviewIcon.hide();
   };
 
   //-------------------- END EVENT HANDLERS --------------------
