@@ -157,8 +157,14 @@ app.your_tags = (function () {
 
   onVideoDeleteClick = function(){
     jqueryMap.$container.on('click', '.delete-video', function(){
-      var videoID = $(this).parent().parent().data('video-id');
-      app.model.video.delete_video( videoID );
+      var 
+        self = $(this),
+        videoID = self.parent().parent().data('video-id'),
+        tag = self.closest('.tag-item').data('video-tag');
+
+      app.model.video.delete_video( videoID, tag, function(){
+        self.closest('.note-item').remove();
+      });
     });
   };
 

@@ -134,15 +134,17 @@ app.model.video = (function () {
 		});
 	};
 
-	delete_video = function( videoID ){
+	delete_video = function( videoID, tag, callback ){
 		var 
 			userUID = app.model.user.get_user().uid,
-			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
-		
+			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID ),
+			tagVideoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/tags/' + tag + '/' + videoID );
+
 		videoRef.remove();
+		tagVideoRef.remove();
 
 		videoRef.once('value', function(){
-			alert('deleted video');
+			callback();
 		});
 	};
 
