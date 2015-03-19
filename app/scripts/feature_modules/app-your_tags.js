@@ -32,6 +32,7 @@ app.your_tags = (function () {
     onDeleteClick,
     onSignOut,
     onReviewClick,
+    getNotes,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -155,6 +156,22 @@ app.your_tags = (function () {
     jqueryMap.$reviewIcon.hide();
   };
 
+  getNotes = function( evt, tags ){
+    var 
+      count = 0,
+      allNotes = [];
+
+    app.model.note.get_all_by_tags( tags, function( numOfVideos, notesData ){
+      count++;
+      allNotes.push(notesData.notes);
+
+      if(count === numOfVideos){
+        app.util.generatePDF( allNotes );
+      }
+
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -196,6 +213,7 @@ app.your_tags = (function () {
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );
+    $.gevent.subscribe( jqueryMap.$container, 'app-review-notes',           getNotes );
     return true;
   };
   // End public method /initModule/
