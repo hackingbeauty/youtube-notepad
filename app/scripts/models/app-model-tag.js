@@ -42,9 +42,6 @@ app.model.tag = (function () {
       });
       
     } 
-    // else {
-    //   $.gevent.publish( 'app-login-modal', [ ] );
-    // }
   };
 
   remove_tag = function( tag ){
@@ -65,9 +62,6 @@ app.model.tag = (function () {
       });
 
     } 
-    // else {
-    //   $.gevent.publish( 'app-login-modal', [ ] );
-    // }
   };
 
   get_all = function( callback ){
