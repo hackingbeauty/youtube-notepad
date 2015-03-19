@@ -28,6 +28,7 @@ app.model.video = (function () {
 		get_video_data,
 		set_video_data,
 		get_results,
+		delete_video,
 		flag_as_watched,
 		is_watched,
 
@@ -133,6 +134,18 @@ app.model.video = (function () {
 		});
 	};
 
+	delete_video = function( videoID ){
+		var 
+			userUID = app.model.user.get_user().uid,
+			videoRef = new Firebase('https://intense-fire-7738.firebaseio.com/users/'+userUID+'/videos/' + videoID );
+		
+		videoRef.remove();
+
+		videoRef.once('value', function(){
+			alert('deleted video');
+		});
+	};
+
 	//------------------- PRIVATE FUNCTIONS ----------------------
 
 	_authorize = function( initAppCallback ) {
@@ -190,6 +203,7 @@ app.model.video = (function () {
 		get_video_id			: get_video_id,
 		get_video_id_from_url	: get_video_id_from_url,
 		get_results				: get_results,
+		delete_video 			: delete_video,
 		flag_as_watched			: flag_as_watched,
 		is_watched				: is_watched
 	};

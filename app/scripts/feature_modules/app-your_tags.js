@@ -54,6 +54,7 @@ app.your_tags = (function () {
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
       $reviewIcon           : $container.find('#review-notes')
     };
+  
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
@@ -156,7 +157,8 @@ app.your_tags = (function () {
 
   onVideoDeleteClick = function(){
     jqueryMap.$container.on('click', '.delete-video', function(){
-      alert('clicked');
+      var videoID = $(this).parent().parent().data('video-id');
+      app.model.video.delete_video( videoID );
     });
   };
 
