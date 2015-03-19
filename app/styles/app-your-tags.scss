@@ -40,6 +40,9 @@
 			padding: 15px 0px;
 			margin-left: 13px;
 			line-height: 24px;
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 
 		.content {
