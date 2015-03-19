@@ -32,6 +32,7 @@ app.your_tags = (function () {
     onDeleteClick,
     onSignOut,
     onReviewClick,
+    onVideoDeleteClick,
     getNotes,
 
     setJqueryMap, configModule, initModule;
@@ -51,7 +52,7 @@ app.your_tags = (function () {
       $list                 : $container.find('#app-your-tags-list'),
       $deleteIcon           : $container.find('.delete-icon'),
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
-      $reviewIcon           : $container.find('#review-notes'),
+      $reviewIcon           : $container.find('#review-notes')
     };
   };
   // End DOM method /setJqueryMap/
@@ -136,7 +137,10 @@ app.your_tags = (function () {
   };
 
   onReviewClick = function(){
-    var $paperCheckboxTags, $paperCheckbox, $checkedTags = [];
+    var 
+      $paperCheckboxTags, 
+      $paperCheckbox, 
+      $checkedTags = [];
 
     jqueryMap.$reviewIcon.on('click', function(){
       $paperCheckboxTags = jqueryMap.$container.find('paper-checkbox');
@@ -147,6 +151,12 @@ app.your_tags = (function () {
         }
       });
       $.gevent.publish( 'app-review-notes', [ $checkedTags ]);      
+    });
+  };
+
+  onVideoDeleteClick = function(){
+    jqueryMap.$container.on('click', '.delete-video', function(){
+      alert('clicked');
     });
   };
 
@@ -210,6 +220,7 @@ app.your_tags = (function () {
     onTagItemClick();
     onNoteItemClick();
     onReviewClick();
+    onVideoDeleteClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );
