@@ -160,7 +160,6 @@ app.shell = (function () {
     app.note_input.initModule             ( jqueryMap.$shellBody );
     app.speed_controls.initModule         ( jqueryMap.$shellBody );
     app.tag_notes.initModule              ( jqueryMap.$shellBody );
-    app.review_notes_modal.initModule     ( jqueryMap.$shellBody );
 
     closeModalsOnClick();
   

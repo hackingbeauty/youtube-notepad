@@ -126,7 +126,7 @@ app.model.video = (function () {
 			var result = data.val(),
 				isWatched = false;
 
-			if(result.watched && result.watched === true){
+			if(result && result.watched && result.watched === true){
 				isWatched = true;
 			}
 			callback( isWatched );
