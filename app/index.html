@@ -386,7 +386,10 @@
             <li class="content">
                 <a class="note-item" href="#" data-video-id={{ this.videoID }}>
                     <h4>{{ metaData.title }}</h4>
-                    <img class="tagged-video-item" src="{{ metaData.thumbnails.default.url }}" alt="{{ metaData.title }}" />
+                    <div class="note-item-data">
+                        <core-icon icon="clear" class="delete-video"></core-icon>
+                        <img class="tagged-video-item rounded" src="{{ metaData.thumbnails.default.url }}" alt="{{ metaData.title }}" />
+                    </div>
                 </a>
             </li>
         {{/each}}
