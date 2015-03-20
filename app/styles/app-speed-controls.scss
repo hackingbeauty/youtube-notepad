@@ -1,5 +1,6 @@
 #app-speed-controls {
 	width: 100%;
+	float: left;
 
 	button {
 		height: 40px;
@@ -15,6 +16,7 @@
 @media only screen and (max-width: 764px){
 
 	#app-speed-controls {
+
 		
 		button,
 		#watched-btn {
@@ -27,4 +29,14 @@
 	}
 
 	
+}
+
+@media only screen and (max-width: 1380px){
+
+	#watched-btn {
+		float: left;
+		width: 100%;
+		margin-top: 20px;
+	}
+
 }
