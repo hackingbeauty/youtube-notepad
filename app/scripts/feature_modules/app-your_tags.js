@@ -34,6 +34,7 @@ app.your_tags = (function () {
     onReviewClick,
     onVideoDeleteClick,
     getNotes,
+    onNoTagsLinkClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -52,7 +53,8 @@ app.your_tags = (function () {
       $list                 : $container.find('#app-your-tags-list'),
       $deleteIcon           : $container.find('.delete-icon'),
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
-      $reviewIcon           : $container.find('#review-notes')
+      $reviewIcon           : $container.find('#review-notes'),
+      $noTagsLink           : $container.find('#no-tags-msg')
     };
   
   };
@@ -190,6 +192,12 @@ app.your_tags = (function () {
     });
   };
 
+  onNoTagsLinkClick = function(){
+    jqueryMap.$container.on('click',jqueryMap.$noTagsLink, function(){
+      $.gevent.publish( 'app-login-modal', [ ] );
+    });
+  };
+
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -229,6 +237,7 @@ app.your_tags = (function () {
     onNoteItemClick();
     onReviewClick();
     onVideoDeleteClick();
+    onNoTagsLinkClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );
