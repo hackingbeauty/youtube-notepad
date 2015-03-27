@@ -84,10 +84,19 @@ app.model.user = (function () {
         stateMap.user.first_name = user.thirdPartyUserData.first_name;
         stateMap.user.last_name = user.thirdPartyUserData.last_name;
 
-        if( user.provider === 'facebook'){
-          photo = user.thirdPartyUserData.picture.data.url;
-        } else if (user.provider === 'twitter'){
-          photo = user.thirdPartyUserData.profile_image_url;
+        switch( user.provider ){
+          case 'facebook':
+            photo = user.thirdPartyUserData.picture.data.url;
+            break;
+          case 'twitter':
+            photo = user.thirdPartyUserData.profile_image_url;
+            break;
+          case 'google':
+            photo = user.thirdPartyUserData.picture;
+            break;
+          default:
+            photo = user.thirdPartyUserData.picture;
+            break;
         }
 
         stateMap.user = _make_user({
