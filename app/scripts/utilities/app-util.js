@@ -30,8 +30,7 @@ app.util = (function () {
   // Throws   : none
   //
   isValidDomain = function( url ){
-    var validDomains = ['youtube.com'], i;
-
+    var validDomains = ['youtube.com','youtu.be'], i;
     for(i = 0; i < validDomains.length; i++ ){
       if( url.indexOf( validDomains[i]) > -1){ //If the URL contains a valid domain
         return true;                            //then we're good
@@ -48,15 +47,15 @@ app.util = (function () {
   // Throws   : none
   //
   parseVideoID = function( url ){
-    
     if( url.match(/video_id=(.*)/) ) {    // If url with video_id DOES NOT have &,
       return url.match(/video_id=(.*)/)[1]; // use this regex
     }
-
     if( url.match(/v=(.*)/) ){
       return url.match(/v=(.*)/)[1];
     }
-
+    if( url.match(/youtu.be/) ){
+      return url.split('/')[3]
+    }
     return false;
   };
 
