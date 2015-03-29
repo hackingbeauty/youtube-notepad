@@ -34,7 +34,7 @@ app.your_tags = (function () {
     onReviewClick,
     onVideoDeleteClick,
     getNotes,
-    onNoTagsLinkClick,
+    onSignInToTagClick,
 
     setJqueryMap, configModule, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -54,7 +54,8 @@ app.your_tags = (function () {
       $deleteIcon           : $container.find('.delete-icon'),
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
       $reviewIcon           : $container.find('#review-notes'),
-      $noTagsLink           : $container.find('#no-tags-msg')
+      $noTagsLink           : $container.find('#no-tags-msg'),
+      $signInToTagLink      : $container.find('#sign-in-to-tag')
     };
   
   };
@@ -64,11 +65,13 @@ app.your_tags = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
 
   onGetAllUserTags = function(  ){
+    var signedInStatus = app.model.user.get_user().is_signed_in();
     jqueryMap.$list.empty();
     app.model.tag.get_all( function( tags ){
       jqueryMap.$list.append(
         configMap.body_html({
-          videoTags: tags
+          videoTags  : tags,
+          isSignedIn : signedInStatus
         })
       );
       if(tags.length > 0){ 
@@ -192,8 +195,8 @@ app.your_tags = (function () {
     });
   };
 
-  onNoTagsLinkClick = function(){
-    jqueryMap.$container.on('click',jqueryMap.$noTagsLink, function(){
+  onSignInToTagClick = function(){
+    jqueryMap.$container.on('click',jqueryMap.$signInToTagLink, function(){
       $.gevent.publish( 'app-login-modal', [ ] );
     });
   };
@@ -237,7 +240,7 @@ app.your_tags = (function () {
     onNoteItemClick();
     onReviewClick();
     onVideoDeleteClick();
-    onNoTagsLinkClick();
+    onSignInToTagClick();
     $.gevent.subscribe( jqueryMap.$container, 'app-authentication-status',  onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-refresh-tags',           onGetAllUserTags );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',        onSignOut );

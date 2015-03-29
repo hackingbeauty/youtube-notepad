@@ -345,21 +345,25 @@
 
     <!-- Your Tags Body template -->
     <script id="app-your-tags-body-template" type=“x-text/handlebars”>
-        {{#if videoTags}}
-            {{#each videoTags}}
-                <li data-video-tag="{{ this }}" class="tag-item">
-                    <paper-checkbox class="checkbox"></paper-checkbox>
-                    <h3 class="link">
-                        <!-- <core-icon class="arrow-drop-down" icon="arrow-drop-down" aria-label="arrow-drop-down" role="img"></core-icon>-->
-                        <span class="text">{{ this }}</span>
-                    </h3>
-                    <ul class="submenu"></ul>
+        {{#if isSignedIn}}
+            {{#if videoTags}}
+                {{#each videoTags}}
+                    <li data-video-tag="{{ this }}" class="tag-item">
+                        <paper-checkbox class="checkbox"></paper-checkbox>
+                        <h3 class="link">
+                            <!-- <core-icon class="arrow-drop-down" icon="arrow-drop-down" aria-label="arrow-drop-down" role="img"></core-icon>-->
+                            <span class="text">{{ this }}</span>
+                        </h3>
+                        <ul class="submenu"></ul>
+                    </li>
+                {{/each}}
+            {{ else }}
+                <li>
+                    <a id="no-tags-msg">You have 0 tags</a>
                 </li>
-            {{/each}}
-        {{ else }}
-            <li>
-                <a id="no-tags-msg">Sign in to tag videos</a>
-            </li>
+            {{/if}}
+        {{else}}
+            <a id="sign-in-to-tag">Sign in to tag videos</a>
         {{/if}}
     </script>
     <!-- End Your Tags Body template -->
