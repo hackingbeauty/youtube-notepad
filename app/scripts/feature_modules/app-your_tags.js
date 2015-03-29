@@ -54,8 +54,7 @@ app.your_tags = (function () {
       $deleteIcon           : $container.find('.delete-icon'),
       $deleteTagsTrashIcon  : $container.find('#delete-tags-icon'),
       $reviewIcon           : $container.find('#review-notes'),
-      $noTagsLink           : $container.find('#no-tags-msg'),
-      $signInToTagLink      : $container.find('#sign-in-to-tag')
+      $noTagsLink           : $container.find('#no-tags-msg')
     };
   
   };
@@ -68,6 +67,7 @@ app.your_tags = (function () {
     var signedInStatus = app.model.user.get_user().is_signed_in();
     jqueryMap.$list.empty();
     app.model.tag.get_all( function( tags ){
+
       jqueryMap.$list.append(
         configMap.body_html({
           videoTags  : tags,
@@ -196,7 +196,7 @@ app.your_tags = (function () {
   };
 
   onSignInToTagClick = function(){
-    jqueryMap.$container.on('click',jqueryMap.$signInToTagLink, function(){
+    jqueryMap.$container.on('click', '#sign-in-to-tag',function(){
       $.gevent.publish( 'app-login-modal', [ ] );
     });
   };
