@@ -44,6 +44,7 @@ app.notepad = (function () {
   //-------------------- END UTILITY METHODS -------------------
 
   appendNote = function( evt, note ){
+    jqueryMap.$container.find('#zero-notes').hide(); //this sucks...you're hiding every time you add a note
     jqueryMap.$notesList.prepend(
       configMap.note_item_html(note)
     );
@@ -102,7 +103,7 @@ app.notepad = (function () {
       
       if(currentVideoID){
 
-        if (notes){
+        if (notes.length){
           jqueryMap.$notesList.empty();
           jqueryMap.$notesListContainer.show();
           jqueryMap.$container.find('#zero-notes').hide();
@@ -110,7 +111,8 @@ app.notepad = (function () {
           lastNote = notes[notes.length-1];
           jqueryMap.$notesList.append(
             configMap.notes_list_html({
-              notes: notes
+              notes: notes,
+              zeroNotes: false
             })
           );
           
@@ -119,14 +121,8 @@ app.notepad = (function () {
           if(lastNote){
             $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
           }
-        } else {
-          jqueryMap.$container.find('#zero-notes').show();
-          jqueryMap.$container.append(
-          configMap.notes_list_html({
-            zeroNotes: true
-          })
-        );
         }
+        
 
       } else {
         jqueryMap.$container.find('#zero-notes').show();
