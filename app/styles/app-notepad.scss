@@ -4,7 +4,14 @@
 */
 
 #app-notepad {	
-	height: 678px;
+	position: relative;
+	min-height: 678px;
+
+	#zero-notes {
+		width: 100%;
+		color: white;
+		font-size: 18px;
+	}
 
 	#delete-notes-icon {
 		position: absolute;

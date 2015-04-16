@@ -44,13 +44,9 @@ app.notepad = (function () {
   //-------------------- END UTILITY METHODS -------------------
 
   appendNote = function( evt, note ){
-    jqueryMap.$headerMsg.show();
     jqueryMap.$notesList.prepend(
       configMap.note_item_html(note)
     );
-    setTimeout(function(){
-      jqueryMap.$headerMsg.hide();
-    },800);
   };
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -62,6 +58,7 @@ app.notepad = (function () {
       $container              : $container,
       $header                 : $container.find('#app-notepad-header'),
       $headerMsg              : $container.find('#app-notepad-header-msg'),
+      $notesListContainer     : $container.find('#app-notes-container'),
       $notesList              : $container.find('ul#notes-list'),
       $videoTime              : $container.find('.video-time'),
       $note                   : $container.find('.note input:last'),
@@ -102,12 +99,14 @@ app.notepad = (function () {
       currentVideoID  = app.model.video.get_video_id();
 
     app.model.note.get_all_by_video_id( id, function( notes ){
-
-      jqueryMap.$notesList.empty();
-
+      
       if(currentVideoID){
 
         if (notes){
+          jqueryMap.$notesList.empty();
+          jqueryMap.$notesListContainer.show();
+          jqueryMap.$container.find('#zero-notes').hide();
+
           lastNote = notes[notes.length-1];
           jqueryMap.$notesList.append(
             configMap.notes_list_html({
@@ -120,8 +119,22 @@ app.notepad = (function () {
           if(lastNote){
             $.gevent.publish( 'app-seek-in-video', [ lastNote.startTime ] );
           }
+        } else {
+          jqueryMap.$container.find('#zero-notes').show();
+          jqueryMap.$container.append(
+          configMap.notes_list_html({
+            zeroNotes: true
+          })
+        );
         }
 
+      } else {
+        jqueryMap.$container.find('#zero-notes').show();
+        jqueryMap.$container.append(
+          configMap.notes_list_html({
+            zeroNotes: true
+          })
+        );
       }
     });
   };
@@ -210,6 +223,7 @@ app.notepad = (function () {
     onNoteEdit();
     onRecordedTimeClick();
     onDeleteNotesBtnClick();
+    refreshNotePad();
     $.gevent.subscribe( jqueryMap.$container, 'app-load-video',        refreshNotePad );
     $.gevent.subscribe( jqueryMap.$container, 'app-new-note',          appendNote     );
     $.gevent.subscribe( jqueryMap.$container, 'app-user-signed-out',   onSignOut      );
